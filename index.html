@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Gestão da Líder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Newsreader:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2430; --ink-soft:#414B59; --paper:#FBFAF7; --surface:#fff;
+    --line:#E6E1D6; --line-strong:#D6CFC0;
+    --ng:#B0463A; --ng-bg:#F6E7E3;
+    --am:#1F7A6B; --am-bg:#E9F2EF;
+    --rj:#C0791A; --rj-bg:#F7EFDF;
+    --you:#3A4A78; --you-bg:#E8EBF4;
+    --metr:#5A6675; --gold:#B98B12;
+    --radius:14px; --shadow:0 1px 2px rgba(27,36,48,.04),0 8px 24px rgba(27,36,48,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  header.top{background:var(--ink);color:#fff;padding:30px 0 26px;border-bottom:3px solid var(--you)}
+  .eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#9FB0AC;margin-bottom:10px}
+  header.top h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(24px,4vw,36px);letter-spacing:-.02em}
+  header.top p{color:#C3CCD6;max-width:64ch;margin-top:10px;font-size:14.5px}
+  .daysctl{display:flex;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+  .daysctl label{font-size:13px;color:#C3CCD6}
+  .daysctl input{width:60px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;text-align:center;padding:7px;border:none;border-radius:8px;background:#fff;color:var(--you)}
+  .daysctl .u{font-family:'Space Mono',monospace;font-size:11px;color:#9FB0AC;letter-spacing:.1em;text-transform:uppercase}
+
+  nav.tabs{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .tabs-inner{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .tabs-inner::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;background:none;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:14px;color:var(--ink-soft);padding:15px 16px;border-bottom:2px solid transparent;white-space:nowrap}
+  .tab:hover{color:var(--ink)}
+  .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--you)}
+
+  .panel{display:none;padding:34px 0 80px}
+  .panel.active{display:block;animation:fade .3s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .lead{font-size:16px;color:var(--ink-soft);max-width:66ch;margin-bottom:26px}
+  h2.sec{font-family:'Space Grotesk',sans-serif;font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);margin:30px 0 14px}
+  h2.sec:first-child{margin-top:0}
+
+  /* op cards */
+  .ops{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .op{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .op::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
+  .op.ng::before{background:var(--ng)} .op.am::before{background:var(--am)} .op.rj::before{background:var(--rj)}
+  .op .name{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700}
+  .op .meta-line{font-family:'Space Mono',monospace;font-size:12px;color:var(--ink-soft);margin-top:2px}
+  .op .big{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:30px;margin-top:14px;letter-spacing:-.01em}
+  .op .real-edit{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:13px;color:var(--ink-soft)}
+  .op .real-edit input{font-family:'Space Mono',monospace;font-size:13px;width:140px;padding:6px 8px;border:1px solid var(--line-strong);border-radius:7px}
+  .bar{height:9px;background:var(--line);border-radius:9px;overflow:hidden;margin-top:16px}
+  .bar>i{display:block;height:100%;width:0;transition:width .4s}
+  .op.ng .bar>i{background:var(--ng)} .op.am .bar>i{background:var(--am)} .op.rj .bar>i{background:var(--rj)}
+  .op .stats{display:flex;gap:20px;margin-top:14px;flex-wrap:wrap}
+  .op .stat .k{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .op .stat .v{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px}
+  .op .runrate{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line-strong);font-size:13.5px}
+  .op.ng .runrate b{color:var(--ng)} .op.am .runrate b{color:var(--am)}
+
+  .op.rj .build{margin-top:14px;font-size:14px;color:var(--ink-soft)}
+  .op.rj .build ul{list-style:none;margin-top:8px}
+  .op.rj .build li{padding:7px 0;border-top:1px solid var(--line);font-size:13.5px}
+  .op.rj .build li:first-child{border-top:none}
+  .chip{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--rj-bg);color:#9A5E10;font-family:'Space Mono',monospace}
+
+  /* closers */
+  .roster{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:8px 22px;box-shadow:var(--shadow)}
+  .closer{display:grid;grid-template-columns:120px 150px 1fr 64px;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+  .closer:first-child{border-top:none}
+  .closer .nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px}
+  .closer .inp{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft)}
+  .closer .inp input{font-family:'Space Mono',monospace;font-size:12.5px;width:108px;padding:6px 7px;border:1px solid var(--line-strong);border-radius:7px}
+  .closer .pbar{height:8px;background:var(--line);border-radius:8px;overflow:hidden}
+  .closer .pbar>i{display:block;height:100%;width:0;transition:width .35s}
+  .roster.ng .pbar>i{background:var(--ng)} .roster.am .pbar>i{background:var(--am)}
+  .closer .pct{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;text-align:right}
+  .attn{margin-top:16px;background:var(--rj-bg);border:1px solid var(--rj);border-radius:11px;padding:14px 16px;font-size:13.5px}
+  .attn b{font-family:'Space Grotesk',sans-serif;color:#9A5E10}
+
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .tcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);border-top:4px solid var(--rj)}
+  .tcard h4{font-family:'Space Grotesk',sans-serif;font-size:16px}
+  .tcard .role{font-family:'Space Mono',monospace;font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+  .tcard .foco{font-size:13px;margin:8px 0}
+  .tcard .foco b{font-family:'Space Grotesk',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--rj)}
+
+  /* agenda */
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px;font-size:12.5px;color:var(--ink-soft)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+  .week{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  .day{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;box-shadow:var(--shadow)}
+  .day h3{font-family:'Space Grotesk',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);padding-bottom:8px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  .ev{border-left:3px solid var(--metr);padding:6px 0 6px 9px;margin-bottom:7px}
+  .ev .t{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--ink-soft)}
+  .ev .l{font-size:12.5px;font-weight:500;line-height:1.35}
+  .ev.metr{border-color:var(--metr)} .ev.you{border-color:var(--you)}
+  .ev.ng{border-color:var(--ng)} .ev.am{border-color:var(--am)} .ev.rj{border-color:var(--rj)}
+  .ev.rec{border-color:var(--gold)}
+  .ev .sp{font-size:9.5px;font-family:'Space Mono',monospace;color:var(--ng);letter-spacing:.05em}
+  .daily-strip{background:var(--you-bg);border:1px solid var(--you);border-radius:12px;padding:14px 18px;margin-bottom:16px;font-size:13.5px}
+  .daily-strip b{font-family:'Space Grotesk',sans-serif;color:var(--you)}
+  .dist{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);margin-top:20px}
+  .dist dl{display:grid;grid-template-columns:170px 1fr;gap:2px 16px;font-size:14px}
+  .dist dt{font-family:'Space Grotesk',sans-serif;font-weight:600;padding:8px 0;border-bottom:1px solid var(--line)}
+  .dist dd{padding:8px 0;color:var(--ink-soft);border-bottom:1px solid var(--line)}
+
+  /* sprint */
+  .sprintgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .spcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);border-top:4px solid var(--metr)}
+  .spcard.ng{border-top-color:var(--ng)} .spcard.am{border-top-color:var(--am)}
+  .spcard h3{font-family:'Space Grotesk',sans-serif;font-size:18px}
+  .spcard .target{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;margin-top:10px}
+  .spcard.ng .target{color:var(--ng)} .spcard.am .target{color:var(--am)}
+  .spcard .tlbl{font-size:13px;color:var(--ink-soft)}
+  .spcard .det{font-size:13px;color:var(--ink-soft);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-strong)}
+  .block{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-top:18px}
+  .block h3{font-family:'Space Grotesk',sans-serif;font-size:18px;margin-bottom:6px}
+  .checks{list-style:none;margin-top:10px}
+  .checks li{display:flex;gap:11px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .checks li:last-child{border-bottom:none}
+  .checks input{appearance:none;-webkit-appearance:none;flex:0 0 21px;height:21px;border:2px solid var(--line-strong);border-radius:6px;cursor:pointer;position:relative}
+  .checks input:checked{background:var(--you);border-color:var(--you)}
+  .checks input:checked::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700}
+  .checks input:checked + label{color:var(--ink-soft);text-decoration:line-through}
+  .caution{background:var(--ng-bg);border:1px solid var(--ng);border-radius:11px;padding:16px 18px;margin-top:18px;font-size:14px}
+  .caution b{font-family:'Space Grotesk',sans-serif;color:var(--ng)}
+
+  @media(max-width:820px){.ops,.sprintgrid{grid-template-columns:1fr}.week{grid-template-columns:1fr 1fr}.trio{grid-template-columns:1fr}.closer{grid-template-columns:1fr 1fr;gap:8px}.closer .pbar{grid-column:1/-1}.dist dl{grid-template-columns:1fr}.dist dt{border-bottom:none;padding-bottom:0}}
+  @media(max-width:520px){.week{grid-template-columns:1fr}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Sistema de gestão · 3 operações · 12 pessoas</div>
+    <h1>Painel de Controle da Líder</h1>
+    <p>Os números na palma da mão, sua semana já desenhada e o sprint da reta final num só lugar. Controle constante sem microgestão: você olha o que importa, no momento certo, e protege seu tempo de pensar.</p>
+    <div class="daysctl">
+      <label>Dias úteis até o fechamento:</label>
+      <input type="number" id="dias" value="8" min="1" max="31">
+      <span class="u">ajuste conforme seu calendário</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="wrap"><div class="tabs-inner" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-tab="macro">Visão macro</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="fechadores">Performance individual</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="semana">Minha semana</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="sprint">Reta final</button>
+  </div></div>
+</nav>
+
+<!-- ===== MACRO ===== -->
+<section class="panel active" id="macro">
+  <div class="wrap">
+    <p class="lead">As três operações de relance. Atualize o realizado e o painel recalcula o gap, o % e o ritmo diário necessário para fechar. O LA RJ não corre pela meta de 150M — está em construção, então é medido por processo, não por volume.</p>
+    <div class="ops">
+      <div class="op ng">
+        <div class="name">NG</div>
+        <div class="meta-line">Meta global · R$ 150.000.000</div>
+        <div class="big" id="ngGap">—</div>
+        <div class="real-edit">Realizado: R$ <input type="text" id="ngReal" value="139.630.803"></div>
+        <div class="bar"><i id="ngBar"></i></div>
+        <div class="stats">
+          <div class="stat"><div class="k">Atingido</div><div class="v" id="ngPct">—</div></div>
+          <div class="stat"><div class="k">Fechadoras</div><div class="v">5</div></div>
+          <div class="stat"><div class="k">Falta / pessoa</div><div class="v" id="ngPer">—</div></div>
+        </div>
+        <div class="runrate">Ritmo necessário: <b id="ngRate">—</b>/dia no time · <b id="ngRatePer">—</b>/dia por fechadora</div>
+      </div>
+
+      <div class="op am">
+        <div class="name">LA AM</div>
+        <div class="meta-line">Meta global · R$ 150.000.000</div>
+        <div class="big" id="amGap">—</div>
+        <div class="real-edit">Realizado: R$ <input type="text" id="amReal" value="139.138.254"></div>
+        <div class="bar"><i id="amBar"></i></div>
+        <div class="stats">
+          <div class="stat"><div class="k">Atingido</div><div class="v" id="amPct">—</div></div>
+          <div class="stat"><div class="k">Fechadores</div><div class="v">4</div></div>
+          <div class="stat"><div class="k">Falta / pessoa</div><div class="v" id="amPer">—</div></div>
+        </div>
+        <div class="runrate">Ritmo necessário: <b id="amRate">—</b>/dia no time · <b id="amRatePer">—</b>/dia por fechador</div>
+      </div>
+    </div>
+
+    <h2 class="sec">Operação em construção</h2>
+    <div class="ops">
+      <div class="op rj" style="grid-column:1/-1">
+        <div class="name">LA RJ <span class="chip">fase de estruturação</span></div>
+        <div class="meta-line">Time novo · 3 pessoas · foco em processo e tráfego</div>
+        <div class="build">
+          Aqui você não acompanha R$ contra 150M — acompanha <b>indicadores de construção</b>, porque o resultado vem depois que o sistema funciona:
+          <ul>
+            <li>Tráfego: campanhas ativas e estáveis, CPL na meta, criativos testados/semana</li>
+            <li>Pré-protocolo (Amanda): contatos feitos/dia e foco mantido no essencial (não dispersar)</li>
+            <li>Onboarding (Ruan): marcos de 30/60/90 e clareza de "o que é bom"</li>
+            <li>Diagnóstico (Brenno): tráfego vs conversão, rastreamento, verba, habilidade</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FECHADORES ===== -->
+<section class="panel" id="fechadores">
+  <div class="wrap">
+    <p class="lead">Digite o realizado de cada um e veja a progressão contra a meta individual. O painel destaca quem está mais atrás — é por aí que seu 1:1 da semana começa.</p>
+
+    <h2 class="sec">NG · meta individual R$ 15.000.000</h2>
+    <div class="roster ng" id="rosterNG"></div>
+    <div class="attn" id="attnNG"></div>
+
+    <h2 class="sec">LA AM · meta individual R$ 18.750.000</h2>
+    <div class="roster am" id="rosterAM"></div>
+    <div class="attn" id="attnAM"></div>
+
+    <h2 class="sec">LA RJ · acompanhamento de desenvolvimento (não R$)</h2>
+    <div class="trio">
+      <div class="tcard"><h4>Amanda</h4><div class="role">Pré-protocolo</div>
+        <div class="foco"><b>Foco da líder</b><br>Resiliência à negativa + manter o foco no essencial.</div>
+        <div class="foco"><b>1:1 desta semana</b><br>"Qual é a UMA coisa do mês? O resto, me traz antes de assumir."</div>
+      </div>
+      <div class="tcard"><h4>Ruan</h4><div class="role">Estagiário · Org Doc</div>
+        <div class="foco"><b>Foco da líder</b><br>Onboarding: clareza e observação, ainda não avaliação.</div>
+        <div class="foco"><b>1:1 desta semana</b><br>Definir o que é "bom", combinar marcos de 30/60/90.</div>
+      </div>
+      <div class="tcard"><h4>Brenno</h4><div class="role">Tráfego pago</div>
+        <div class="foco"><b>Foco da líder</b><br>Diagnosticar a causa: técnico, ferramentas ou processo.</div>
+        <div class="foco"><b>1:1 desta semana</b><br>Auditar juntos: rastreamento, verba, meta, e onde ele trava.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEMANA ===== -->
+<section class="panel" id="semana">
+  <div class="wrap">
+    <p class="lead">Sua semana desenhada para você não decidir "quando fazer o quê". Atenção desigual de propósito: NG (crise) e LA RJ (construção) pesam mais; LA AM (consolidado) recebe toque leve e ritualizado — gerenciar demais um time que vai bem é o que o estraga.</p>
+
+    <div class="daily-strip"><b>Todo dia, 08h00–08h35:</b> leitura de números (15 min, sozinha) + pulse rápido em pé com NG e LA AM (10 min cada) — só durante a reta final.</div>
+
+    <div class="legend">
+      <span><i style="background:var(--metr)"></i>Métricas</span>
+      <span><i style="background:var(--you)"></i>1:1 / estratégico</span>
+      <span><i style="background:var(--ng)"></i>NG</span>
+      <span><i style="background:var(--am)"></i>LA AM</span>
+      <span><i style="background:var(--rj)"></i>LA RJ</span>
+      <span><i style="background:var(--gold)"></i>Reconhecimento</span>
+    </div>
+
+    <div class="week">
+      <div class="day"><h3>Segunda</h3>
+        <div class="ev you"><div class="t">09:00 · 60'</div><div class="l">Planejar a semana (solo)</div></div>
+        <div class="ev ng"><div class="t">10:00 · 60'</div><div class="l">Alinhamento NG — números, travas, foco</div></div>
+        <div class="ev am"><div class="t">14:00 · 45'</div><div class="l">Alinhamento LA AM</div></div>
+        <div class="ev ng"><div class="t">15:00 · 60'</div><div class="l">Gargalo NG: API / recuperação de leads <span class="sp">SPRINT</span></div></div>
+      </div>
+      <div class="day"><h3>Terça</h3>
+        <div class="ev rj"><div class="t">09:00 · 40'</div><div class="l">1:1 Amanda</div></div>
+        <div class="ev rj"><div class="t">09:45 · 30'</div><div class="l">1:1 Ruan</div></div>
+        <div class="ev rj"><div class="t">10:30 · 40'</div><div class="l">1:1 Brenno</div></div>
+        <div class="ev rj"><div class="t">14:00 · 60'</div><div class="l">Treino de tráfego com Brenno</div></div>
+        <div class="ev you"><div class="t">15:30 · 60'</div><div class="l">Bloco estratégico protegido 🔒</div></div>
+      </div>
+      <div class="day"><h3>Quarta</h3>
+        <div class="ev ng"><div class="t">09:00 · 90'</div><div class="l">1:1 NG — Yara, Nayla, Patricia (30' cada)</div></div>
+        <div class="ev ng"><div class="t">14:00 · 60'</div><div class="l">1:1 NG — Gabriela, Thais (30' cada)</div></div>
+        <div class="ev rec"><div class="t">16:00 · 30'</div><div class="l">Rito de reconhecimento do meio da semana</div></div>
+      </div>
+      <div class="day"><h3>Quinta</h3>
+        <div class="ev am"><div class="t">09:00 · 60'</div><div class="l">1:1 LA AM — 2 fechadores (rotativo)</div></div>
+        <div class="ev rj"><div class="t">10:30 · 45'</div><div class="l">Alinhamento LA RJ (trio)</div></div>
+        <div class="ev metr"><div class="t">14:00 · 120'</div><div class="l">Reserva para gargalos / imprevistos</div></div>
+      </div>
+      <div class="day"><h3>Sexta</h3>
+        <div class="ev metr"><div class="t">09:00 · 60'</div><div class="l">Fechamento da semana: números + ranking</div></div>
+        <div class="ev rec"><div class="t">10:00 · 30'</div><div class="l">Rito de motivação: celebrar e preparar o empurrão final</div></div>
+        <div class="ev you"><div class="t">11:00 · 60'</div><div class="l">Preparar feedbacks + planejar próxima semana</div></div>
+        <div class="ev you"><div class="t">14:00 · 60'</div><div class="l">Bloco estratégico protegido 🔒</div></div>
+      </div>
+    </div>
+
+    <div class="dist">
+      <dl>
+        <dt>Métricas</dt><dd>Diário (15') + fechamento de sexta. É o seu radar, não o seu emprego — olha e segue.</dd>
+        <dt>1:1</dt><dd>RJ trio toda semana (desenvolvimento); NG todas as 5 na reta final; LA AM 2 por semana, rotativo (cada um a cada ~2 semanas).</dd>
+        <dt>Alinhamento de time</dt><dd>Um por operação por semana. Números, travas e foco — não atualização individual.</dd>
+        <dt>Gargalos</dt><dd>Blocos dedicados (API do NG, treino do Brenno) + reserva de quinta para o que pegar fogo.</dd>
+        <dt>Estratégico 🔒</dt><dd>Dois blocos blindados para pensar, não para reagir. Não negocie esse tempo.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPRINT ===== -->
+<section class="panel" id="sprint">
+  <div class="wrap">
+    <p class="lead">A reta final amarra sua agenda de feedback a uma campanha de motivação. A meta vira um número diário pequeno por pessoa — porque "faltam 10 milhões" paralisa, "faltam X por dia" mobiliza.</p>
+
+    <div class="sprintgrid">
+      <div class="spcard ng">
+        <h3>NG</h3>
+        <div class="target" id="spNgPer">—</div>
+        <div class="tlbl">por fechadora, por dia, para fechar o gap</div>
+        <div class="det">Gap de <span id="spNgGap">—</span> · 5 fechadoras · <span id="spNgDays">—</span> dias. Moral baixa + API: lidere pelo controlável e celebre cada recuperação.</div>
+      </div>
+      <div class="spcard am">
+        <h3>LA AM</h3>
+        <div class="target" id="spAmPer">—</div>
+        <div class="tlbl">por fechador, por dia, para fechar o gap</div>
+        <div class="det">Gap de <span id="spAmGap">—</span> · 4 fechadores · <span id="spAmDays">—</span> dias. Tarefa per capita mais pesada: trate como a "próxima montanha" de um time de elite.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>A campanha — como conectar feedback e motivação</h3>
+      <ul class="checks">
+        <li><input type="checkbox" id="s1"><label for="s1">Traduzir o gap em meta diária por pessoa (os números acima) e afixar onde todos veem</label></li>
+        <li><input type="checkbox" id="s2"><label for="s2">No pulse diário, cada um declara o número de hoje; você remove a trava na hora</label></li>
+        <li><input type="checkbox" id="s3"><label for="s3">1:1 da reta final = recomprometer com um número pessoal + reconhecer o que já veio</label></li>
+        <li><input type="checkbox" id="s4"><label for="s4">Celebrar micro-vitórias em público todo dia (recuperação, fechamento, recorde pessoal)</label></li>
+        <li><input type="checkbox" id="s5"><label for="s5">Rito de sexta: fechar a semana, nomear quem avançou e preparar o empurrão</label></li>
+        <li><input type="checkbox" id="s6"><label for="s6">Definir o reconhecimento de chegada (o que acontece quando bater) — combinado antes</label></li>
+      </ul>
+      <div class="caution">
+        <b>⚠ Cuidado com o ranking no NG.</b> Num time com fissuras e moral baixa, um placar de "quem vende mais" aprofunda o atrito e desmotiva quem está atrás. No NG, celebre <b>movimento e recorde pessoal</b> ("a Thais recuperou 12 leads hoje"), não a comparação entre elas. No LA AM, que é de alta performance e sem conflito, um ranking saudável pode até puxar para cima — calibre por time, não use o mesmo mecanismo nos dois.
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabs=document.querySelectorAll('.tab'), panels=document.querySelectorAll('.panel');
+  tabs.forEach(t=>t.addEventListener('click',()=>{
+    tabs.forEach(x=>x.setAttribute('aria-selected', x===t));
+    panels.forEach(p=>p.classList.toggle('active', p.id===t.dataset.tab));
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+
+  const fmt=n=>Math.round(n).toLocaleString('pt-BR');
+  const fmtM=n=>'R$ '+ (n>=1e6 ? (n/1e6).toLocaleString('pt-BR',{maximumFractionDigits:2})+'M' : fmt(n));
+  const parse=s=>parseInt(String(s).replace(/\D/g,''),10)||0;
+  const META=150000000;
+
+  const dias=document.getElementById('dias');
+
+  function macroOp(real, bar, gapEl, pctEl, perEl, rateEl, ratePerEl, heads){
+    const r=parse(real.value), gap=Math.max(0,META-r), pct=Math.min(100,r/META*100);
+    const d=Math.max(1,parse(dias.value));
+    bar.style.width=pct+'%';
+    gapEl.textContent='Faltam '+fmtM(gap);
+    pctEl.textContent=pct.toFixed(1)+'%';
+    perEl.textContent=fmtM(gap/heads);
+    rateEl.textContent=fmtM(gap/d);
+    ratePerEl.textContent=fmtM(gap/d/heads);
+    return gap;
+  }
+  function refreshMacro(){
+    const ngGap=macroOp(ngReal,ngBar,ngGap_,ngPct,ngPer,ngRate,ngRatePer,5);
+    const amGap=macroOp(amReal,amBar,amGap_,amPct,amPer,amRate,amRatePer,4);
+    // sprint mirror
+    const d=Math.max(1,parse(dias.value));
+    spNgPer.textContent=fmtM(ngGap/5/d); spNgGap.textContent=fmtM(ngGap); spNgDays.textContent=d;
+    spAmPer.textContent=fmtM(amGap/4/d); spAmGap.textContent=fmtM(amGap); spAmDays.textContent=d;
+  }
+  const ngReal=document.getElementById('ngReal'),amReal=document.getElementById('amReal');
+  const ngBar=document.getElementById('ngBar'),amBar=document.getElementById('amBar');
+  const ngGap_=document.getElementById('ngGap'),amGap_=document.getElementById('amGap');
+  const ngPct=document.getElementById('ngPct'),amPct=document.getElementById('amPct');
+  const ngPer=document.getElementById('ngPer'),amPer=document.getElementById('amPer');
+  const ngRate=document.getElementById('ngRate'),amRate=document.getElementById('amRate');
+  const ngRatePer=document.getElementById('ngRatePer'),amRatePer=document.getElementById('amRatePer');
+  const spNgPer=document.getElementById('spNgPer'),spAmPer=document.getElementById('spAmPer');
+  const spNgGap=document.getElementById('spNgGap'),spAmGap=document.getElementById('spAmGap');
+  const spNgDays=document.getElementById('spNgDays'),spAmDays=document.getElementById('spAmDays');
+  [ngReal,amReal,dias].forEach(el=>el.addEventListener('input',refreshMacro));
+
+  // closers
+  const ngClosers=['Yara','Nayla','Patricia','Gabriela','Thais'];
+  const amClosers=['Luam','Maria','Taisa','Jobson'];
+  function buildRoster(el, names, metaInd, attnEl){
+    el.innerHTML=names.map((n,i)=>(
+      '<div class="closer"><div class="nm">'+n+'</div>'+
+      '<div class="inp">R$ <input type="text" data-i="'+i+'" placeholder="0"></div>'+
+      '<div class="pbar"><i></i></div>'+
+      '<div class="pct">0%</div></div>'
+    )).join('');
+    const rows=[...el.querySelectorAll('.closer')];
+    function upd(){
+      const data=rows.map((row,i)=>{
+        const v=parse(row.querySelector('input').value);
+        const pct=Math.min(100,v/metaInd*100);
+        row.querySelector('.pbar>i').style.width=pct+'%';
+        row.querySelector('.pct').textContent=pct.toFixed(0)+'%';
+        return {n:names[i],v,pct};
+      });
+      const filled=data.filter(d=>d.v>0);
+      if(filled.length){
+        const min=filled.reduce((a,b)=>b.pct<a.pct?b:a);
+        attnEl.innerHTML='<b>Comece o 1:1 por aqui:</b> '+min.n+' está em '+min.pct.toFixed(0)+'% da meta individual — o ponto mais atrás do time.';
+        attnEl.style.display='block';
+      } else { attnEl.style.display='none'; }
+    }
+    el.querySelectorAll('input').forEach(inp=>inp.addEventListener('input',upd));
+    attnEl.style.display='none';
+  }
+  buildRoster(document.getElementById('rosterNG'),ngClosers,15000000,document.getElementById('attnNG'));
+  buildRoster(document.getElementById('rosterAM'),amClosers,18750000,document.getElementById('attnAM'));
+
+  refreshMacro();
+</script>
+</body>
+</html>
