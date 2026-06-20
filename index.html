@@ -11,7 +11,8 @@
   :root{
     --ink:#1B2430;--ink-soft:#414B59;--paper:#FBFAF7;--surface:#fff;
     --line:#E6E1D6;--line-strong:#D6CFC0;
-    --ng:#B0463A;--ng-bg:#F6E7E3;--am:#1F7A6B;--am-bg:#E9F2EF;--rj:#C0791A;--rj-bg:#F7EFDF;--you:#3A4A78;--you-bg:#E8EBF4;
+    --ng:#B0463A;--ng-bg:#F6E7E3;--am:#1F7A6B;--am-bg:#E9F2EF;
+    --rj:#C0791A;--rj-bg:#F7EFDF;--you:#3A4A78;--you-bg:#E8EBF4;
     --metr:#5A6675;--gold:#B98B12;--ai:#5B3E8C;--ai-bg:#EEE8F6;
     --radius:14px;--shadow:0 1px 2px rgba(27,36,48,.04),0 8px 24px rgba(27,36,48,.06);
   }
@@ -467,7 +468,7 @@
     if(!todos.length){el.innerHTML='<p class="empty">Sem atribuições. Adicione a primeira acima.</p>';return;}
     const order={alta:0,media:1,baixa:2};
     todos.sort((a,b)=>(a.done-b.done)||(order[a.urg]-order[b.urg]));
-    el.innerHTML=todos.map((t,i)=>'<div class="todo"><input type="checkbox" data-i="'+i+'" '+(t.done?'checked':'')+'>  <div class="body"><div class="txt2">'+t.t+'</div><div class="tags"><span class="tag '+t.urg+'">'+t.urg+'</span><span class="tag op">'+t.op+'</span></div></div><button class="del" data-d="'+i+'">✕</button></div>').join('');
+    el.innerHTML=todos.map((t,i)=>'<div class="todo"><input type="checkbox" data-i="'+i+'" '+(t.done?'checked':'')+' ><div class="body"><div class="txt2">'+t.t+'</div><div class="tags"><span class="tag '+t.urg+'">'+t.urg+'</span><span class="tag op">'+t.op+'</span></div></div><button class="del" data-d="'+i+'">✕</button></div>').join('');
     el.querySelectorAll('input').forEach(c=>c.addEventListener('change',e=>{todos[e.target.dataset.i].done=e.target.checked;renderTodos();}));
     el.querySelectorAll('.del').forEach(b=>b.addEventListener('click',e=>{todos.splice(e.target.dataset.d,1);renderTodos();}));
   }
@@ -480,6 +481,7 @@
   function icsDate(d,h,m){return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'T'+pad(h)+pad(m)+'00';}
   function addMin(h,m,mins){let tot=h*60+m+mins;return[Math.floor(tot/60)%24,tot%60];}
   $('icsBtn').addEventListener('click',()=>{
+    // weekday: 0 Sun .. 1 Mon
     const ev=[
       {wd:1,h:8,m:0,dur:15,title:'Leitura de números',byday:'MO,TU,WE,TH,FR'},
       {wd:1,h:9,m:0,dur:60,title:'🔒 Planejar a semana'},
@@ -627,14 +629,16 @@ Termine com uma linha só sobre o que ela pode DESPRIORIZAR esta semana para nã
         conteudo:reportText
       };
       try{
-        const res=await fetch(url,{method:'POST',body:JSON.stringify(payload)});
+        // URLSearchParams evita o bloqueio CORS (simpleRequest, sem preflight OPTIONS)
+        const form=new URLSearchParams({data:JSON.stringify(payload)});
+        const res=await fetch(url,{method:'POST',body:form});
         const data=await res.json();
         if(data.success){
           $('rpDriveId').textContent=data.id;
           $('rpDriveLink').href=data.docUrl;
           $('rpDriveResult').style.display='block';
         }else{alert('Erro do servidor: '+data.error);}
-      }catch(err){alert('Não foi possível conectar ao Drive. Verifique a URL do Web App e tente novamente.');}
+      }catch(err){alert('Não foi possível conectar ao Drive.\n\nVerifique:\n1. URL correta (abre {"status":"ok"} no navegador?)\n2. Apps Script → Implantar → "Quem tem acesso" = "Qualquer pessoa"\n3. Se mudou algo no código, crie nova implantação com nova versão');}
       btn.disabled=false;btn.textContent='☁️ Salvar no Drive';
     });
   })();
