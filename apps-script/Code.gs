@@ -127,7 +127,7 @@ function createBrandedDoc_(id, payload, now) {
   hCell.setPaddingRight(28);
 
   // Nome do escritório
-  var hTitle = hCell.getParagraphs()[0];
+  var hTitle = hCell.getChild(0).asParagraph();
   hTitle.setText(brand.heading);
   hTitle.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
   hTitle.setSpacingAfter(4);
@@ -174,7 +174,7 @@ function createBrandedDoc_(id, payload, now) {
   divCell.setBackgroundColor(brand.separatorColor);
   divCell.setPaddingTop(2);
   divCell.setPaddingBottom(2);
-  divCell.getParagraphs()[0].setText('');
+  divCell.getChild(0).asParagraph().setText('');
 
   body.appendParagraph('').setSpacingBefore(0).setSpacingAfter(4);
 
@@ -219,7 +219,7 @@ function createBrandedDoc_(id, payload, now) {
   // Linha separadora no rodapé
   var fDivTable = footer.appendTable([['']]);
   fDivTable.setBorderColor(brand.separatorColor);
-  fDivTable.getCell(0,0).setBackgroundColor(brand.separatorColor).setPaddingTop(1).setPaddingBottom(1).getParagraphs()[0].setText('');
+  fDivTable.getCell(0,0).setBackgroundColor(brand.separatorColor).setPaddingTop(1).setPaddingBottom(1).getChild(0).asParagraph().setText('');
 
   var fPara = footer.appendParagraph(
     brand.footerText + '   |   ' + id + '   |   ' +
@@ -250,7 +250,7 @@ function styleMetaTable_(table, brand) {
       if (isLabel) {
         cell.setBackgroundColor(brand.lightBg);
       }
-      var para = cell.getParagraphs()[0];
+      var para = cell.getChild(0).asParagraph();
       var txt  = para.editAsText();
       txt.setFontFamily('Arial');
       if (isLabel) {
