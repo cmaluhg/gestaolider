@@ -112,7 +112,7 @@
   .todo:first-child{border-top:none}
   .todo input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 21px;height:21px;border:2px solid var(--line-strong);border-radius:6px;cursor:pointer;position:relative;margin-top:1px}
   .todo input:checked{background:var(--you);border-color:var(--you)}
-  .todo input:checked::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700}
+  .todo input:checked::after{content:"checkmark";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700}
   .todo .body{flex:1;font-size:14px}
   .todo input:checked ~ .body .txt2{text-decoration:line-through;color:var(--ink-soft)}
   .tag{font-size:10.5px;font-weight:700;font-family:'Space Mono',monospace;padding:2px 8px;border-radius:20px;letter-spacing:.05em}
@@ -148,7 +148,7 @@
   .checks{list-style:none;margin-top:8px}
   .checks li{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}.checks li:last-child{border-bottom:none}
   .checks input{appearance:none;-webkit-appearance:none;flex:0 0 20px;height:20px;border:2px solid var(--line-strong);border-radius:6px;cursor:pointer;position:relative}
-  .checks input:checked{background:var(--you);border-color:var(--you)}.checks input:checked::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700}
+  .checks input:checked{background:var(--you);border-color:var(--you)}.checks input:checked::after{content:"checkmark";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700}
   .caution{background:var(--ng-bg);border:1px solid var(--ng);border-radius:11px;padding:15px 17px;margin-top:16px;font-size:13.5px}.caution b{font-family:'Space Grotesk',sans-serif;color:var(--ng)}
 
   /* AI + report output */
@@ -317,7 +317,7 @@
       <li><input type="checkbox" id="s4"><label for="s4">Celebrar micro-vitórias em público todo dia</label></li>
       <li><input type="checkbox" id="s5"><label for="s5">Rito de sexta: fechar a semana, nomear quem avançou, preparar o empurrão</label></li>
     </ul>
-    <div class="caution"><b>⚠ Calibre o ranking por time.</b> No NG (fissuras, moral baixa), celebre movimento e recorde pessoal, não comparação — ranking aprofunda o atrito. No LA AM (alta performance, sem conflito), um ranking saudável puxa para cima. Mesmo sprint, combustíveis diferentes.</div>
+    <div class="caution"><b>Calibre o ranking por time.</b> No NG (fissuras, moral baixa), celebre movimento e recorde pessoal, não comparação — ranking aprofunda o atrito. No LA AM (alta performance, sem conflito), um ranking saudável puxa para cima. Mesmo sprint, combustíveis diferentes.</div>
   </div>
 </div></section>
 
@@ -369,8 +369,7 @@
   const $=id=>document.getElementById(id);
 
   // ---------- macro + sprint ----------
-  const M={};
-  ['ngReal','amReal','ngBar','amBar','ngGap','amGap','ngPct','amPct','ngPer','amPer','ngRate','amRate','ngRatePer','amRatePer','spNgPer','spAmPer','spNgGap','spAmGap','spNgDays','spAmDays'].forEach(k=>M[k]=$(k));
+  const M={};['ngReal','amReal','ngBar','amBar','ngGap','amGap','ngPct','amPct','ngPer','amPer','ngRate','amRate','ngRatePer','amRatePer','spNgPer','spAmPer','spNgGap','spAmGap','spNgDays','spAmDays'].forEach(k=>M[k]=$(k));
   function opCalc(real,heads){const r=parse(real),gap=Math.max(0,META-r),pct=Math.min(100,r/META*100),d=Math.max(1,parse(dias.value));return{r,gap,pct,d,heads};}
   function refresh(){
     const ng=opCalc(M.ngReal.value,5),am=opCalc(M.amReal.value,4);
@@ -486,12 +485,12 @@
     const blob=new Blob([ics],{type:'text/calendar'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='agenda-lider-essenciais.ics';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
   });
 
-  // ---------- AI analyst (live Claude) ----------
+  // ---------- AI analyst ----------
   $('iaBtn').addEventListener('click',async()=>{
     const btn=$('iaBtn'),out=$('iaOut'),sem=refresh();
     const note=$('iaInput').value.trim();
     btn.disabled=true;out.innerHTML='<span class="spinner"></span>Analisando os dados e o relato da semana...';
-    const prompt=`Você é a analista de performance e foco de uma líder que gerencia 3 operações e 12 pessoas. Seja direta, específica e prática. Responda em português do Brasil.\n\nCONTEXTO FIXO:\n- NG: meta R$150M, realizado R$${fmt(sem.ng.r)}, faltam ${fmtM(sem.ng.gap)} (${sem.ng.pct.toFixed(1)}%). 5 fechadoras: Yara, Nayla, Patricia, Gabriela, Thais. Problemas: API de mensagens caiu (precisa ativar número alternativo para recuperar leads), leads chegando frios, fissuras interpessoais e moral baixa.\n- LA AM: meta R$150M, realizado R$${fmt(sem.am.r)}, faltam ${fmtM(sem.am.gap)} (${sem.am.pct.toFixed(1)}%). 4 fechadores: Luam, Maria, Taisa, Jobson. Time de alta performance; risco é estagnar/coast. Tarefa per capita maior que a do NG (${fmtM(sem.am.gap/4)} por pessoa vs ${fmtM(sem.ng.gap/5)} no NG).\n- LA RJ (em construção, não corre pela meta de 150M): Amanda (frustração com negativas + falta de foco); Ruan (estagiário em onboarding); Brenno (ótimo comunicador mas não performa no tráfego pago).\n- Faltam ${sem.ng.d} dias úteis para o fechamento.\n\nRELATO DA SEMANA (input da líder):\n${note||'(a líder não detalhou; use o contexto fixo e os números acima)'}\n\nTAREFA: Aponte os 3 focos MAIS URGENTES para a próxima semana, em ordem de prioridade. Cada foco pode ser um colaborador específico ou um gargalo. Para cada um, escreva exatamente:\n1) Título do foco (curto)\n   Por que é urgente: (1 frase ligada aos dados/relato)\n   Primeira ação da líder: (1 ação concreta e específica)\nTermine com uma linha só sobre o que ela pode DESPRIORIZAR esta semana para não se dispersar.`;
+    const prompt=`Você é a analista de performance e foco de uma líder que gerencia 3 operações e 12 pessoas. Seja direta, específica e prática. Responda em português do Brasil.\n\nCONTEXTO FIXO:\n- NG: meta R$150M, realizado R$${fmt(sem.ng.r)}, faltam ${fmtM(sem.ng.gap)} (${sem.ng.pct.toFixed(1)}%). 5 fechadoras: Yara, Nayla, Patricia, Gabriela, Thais.\n- LA AM: meta R$150M, realizado R$${fmt(sem.am.r)}, faltam ${fmtM(sem.am.gap)} (${sem.am.pct.toFixed(1)}%). 4 fechadores: Luam, Maria, Taisa, Jobson.\n- LA RJ (em construção): Amanda, Ruan, Brenno.\n- Faltam ${sem.ng.d} dias úteis.\n\nRELATO: ${note||'(use o contexto fixo)'}\n\nTAREFA: 3 focos MAIS URGENTES em ordem. Para cada: título, por que é urgente, primeira ação. Termine com o que DESPRIORIZAR.`;
     try{
       const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
       const data=await res.json();
@@ -501,7 +500,7 @@
     btn.disabled=false;
   });
 
-  // ---------- executive report (por gestora / operação) ----------
+  // ---------- executive report ----------
   const GEST={'NG':'Jeniffe Damascena','LA AM':'Alessandra Braga','LA RJ':'Marcela Luz'};
   const OPNAME={'NG':'NG','LA AM':'LAADV AM','LA RJ':'LAADV RJ'};
   const rpStatusLbl=$('rpStatusLbl'),rpGestora=$('rpGestora');
@@ -534,15 +533,15 @@
       r+='   Ritmo necessário: '+fmtM(o.gap/o.d)+'/dia no time · '+fmtM(o.gap/o.d/heads)+'/dia por '+role+' ('+o.d+' dias úteis).\n\n';
     } else {
       r+=(n++)+'. STATUS DA OPERAÇÃO (EM ESTRUTURAÇÃO)\n';
-      r+='   LAADV RJ não corre pela meta de 150M — acompanhada por indicadores de construção (processo e tráfego pago).\n';
+      r+='   LAADV RJ não corre pela meta de 150M.\n';
       r+='   • Amanda (pré-protocolo): foco no essencial e resiliência à negativa.\n';
       r+='   • Ruan (estágio): onboarding — marcos de 30/60/90.\n';
-      r+='   • Brenno (tráfego): diagnóstico de performance (rastreamento, verba, habilidade).\n\n';
+      r+='   • Brenno (tráfego): diagnóstico de performance.\n\n';
     }
     if(status){r+=(n++)+'. '+(op==='NG'?'RECUPERAÇÃO DE LEADS / API':'STATUS OPERACIONAL')+'\n   '+status+'\n\n';}
     if(dest){r+=(n++)+'. DESTAQUES DA SEMANA\n   '+dest+'\n\n';}
     r+=(n++)+'. GESTÃO DE PESSOAS\n';
-    r+='   Feedbacks estruturados nesta operação: '+fb.length+(fbLines?'\n'+fbLines:'')+' \n\n';
+    r+='   Feedbacks estruturados nesta operação: '+fb.length+(fbLines?'\n'+fbLines:'')+'\n\n';
     r+=(n++)+'. ATRIBUIÇÕES DA LÍDER ('+opname+')\n';
     r+='   Concluídas:'+(doneLines?'\n'+doneLines:' nenhuma registrada')+'\n';
     r+='   Em aberto:'+(openLines?'\n'+openLines:' nenhuma')+'\n\n';
@@ -555,6 +554,6 @@
   $('rpCopy').addEventListener('click',function(){navigator.clipboard.writeText($('rpOut').textContent).then(()=>{this.textContent='Copiado ✓';setTimeout(()=>this.textContent='Copiar relatório',1600);}).catch(()=>{this.textContent='Selecione e copie manualmente';});});
 
   refresh();
-<\/script>
-<\/body>
-<\/html>
+</script>
+</body>
+</html>
