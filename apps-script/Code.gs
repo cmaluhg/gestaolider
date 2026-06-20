@@ -22,7 +22,13 @@ var HEADERS = [
 
 function doPost(e) {
   try {
-    var payload = JSON.parse(e.postData.contents);
+    // Suporta tanto application/x-www-form-urlencoded (URLSearchParams) quanto JSON puro
+    var payload;
+    if (e.parameter && e.parameter.data) {
+      payload = JSON.parse(e.parameter.data);
+    } else {
+      payload = JSON.parse(e.postData.contents);
+    }
     var sheet   = getOrCreateSheet_();
     var id      = generateId_(sheet);
     var now     = new Date();

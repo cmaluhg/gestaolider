@@ -628,14 +628,16 @@ Termine com uma linha só sobre o que ela pode DESPRIORIZAR esta semana para nã
         conteudo:reportText
       };
       try{
-        const res=await fetch(url,{method:'POST',body:JSON.stringify(payload)});
+        // URLSearchParams evita o bloqueio CORS (simpleRequest, sem preflight OPTIONS)
+        const form=new URLSearchParams({data:JSON.stringify(payload)});
+        const res=await fetch(url,{method:'POST',body:form});
         const data=await res.json();
         if(data.success){
           $('rpDriveId').textContent=data.id;
           $('rpDriveLink').href=data.docUrl;
           $('rpDriveResult').style.display='block';
         }else{alert('Erro do servidor: '+data.error);}
-      }catch(err){alert('Não foi possível conectar ao Drive. Verifique a URL do Web App e tente novamente.');}
+      }catch(err){alert('Não foi possível conectar ao Drive.\n\nVerifique:\n1. URL correta (abre {"status":"ok"} no navegador?)\n2. Apps Script → Implantar → "Quem tem acesso" = "Qualquer pessoa"\n3. Se mudou algo no código, crie nova implantação com nova versão');}
       btn.disabled=false;btn.textContent='☁️ Salvar no Drive';
     });
   })();
