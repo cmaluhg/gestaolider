@@ -127,11 +127,13 @@
   .week{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
   .day{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:11px;box-shadow:var(--shadow)}
   .day h3{font-family:'Space Grotesk',sans-serif;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);padding-bottom:7px;border-bottom:1px solid var(--line);margin-bottom:7px}
-  .ev{border-left:3px solid var(--metr);padding:5px 0 5px 8px;margin-bottom:6px}
+  .ev{border-left:3px solid var(--metr);padding:5px 0 5px 8px;margin-bottom:6px;position:relative}
   .ev .t{font-family:'Space Mono',monospace;font-size:10px;color:var(--ink-soft)}
   .ev .l{font-size:12px;font-weight:500;line-height:1.32}
   .ev.metr{border-color:var(--metr)}.ev.you{border-color:var(--you)}.ev.ng{border-color:var(--ng)}.ev.am{border-color:var(--am)}.ev.rj{border-color:var(--rj)}.ev.rec{border-color:var(--gold)}
   .ev .lock{font-size:9px;font-family:'Space Mono',monospace;color:var(--you)}
+  .gcal-btn{position:absolute;right:3px;top:3px;font-size:8.5px;font-family:'Space Mono',monospace;color:var(--you);text-decoration:none;opacity:0;transition:.15s;background:var(--you-bg);border-radius:4px;padding:1px 5px;white-space:nowrap}
+  .ev:hover .gcal-btn{opacity:1}
   .daily-strip{background:var(--you-bg);border:1px solid var(--you);border-radius:12px;padding:13px 16px;margin-bottom:14px;font-size:13px}.daily-strip b{font-family:'Space Grotesk',sans-serif;color:var(--you)}
   .dist{margin-top:18px}.dist dl{display:grid;grid-template-columns:160px 1fr;gap:2px 16px;font-size:13.5px}
   .dist dt{font-family:'Space Grotesk',sans-serif;font-weight:600;padding:7px 0;border-bottom:1px solid var(--line)}.dist dd{padding:7px 0;color:var(--ink-soft);border-bottom:1px solid var(--line)}
@@ -267,29 +269,34 @@
   <div class="legend">
     <span><i style="background:var(--metr)"></i>Métricas</span><span><i style="background:var(--you)"></i>1:1 / estratégico</span><span><i style="background:var(--ng)"></i>NG</span><span><i style="background:var(--am)"></i>LA AM</span><span><i style="background:var(--rj)"></i>LA RJ</span><span><i style="background:var(--gold)"></i>Reconhecimento</span>
   </div>
+
+  <div class="block" style="padding:0;overflow:hidden;margin-bottom:18px">
+    <iframe src="https://calendar.google.com/calendar/embed?src=maria.lucia%40luisalbertadv.com.br&ctz=America%2FSao_Paulo&mode=WEEK&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0" style="border:0;width:100%;height:500px;display:block" frameborder="0" scrolling="no"></iframe>
+  </div>
+
   <div class="week">
     <div class="day"><h3>Segunda</h3>
-      <div class="ev you"><div class="t">09:00 · 60'</div><div class="l">Planejar a semana <span class="lock">🔒</span></div></div>
-      <div class="ev ng"><div class="t">10:00 · 60'</div><div class="l">Alinhamento NG</div></div>
-      <div class="ev am"><div class="t">14:00 · 45'</div><div class="l">Alinhamento LA AM</div></div>
-      <div class="ev ng"><div class="t">15:00 · 60'</div><div class="l">Gargalo NG: API / leads</div></div></div>
+      <div class="ev you" data-wd="1" data-h="9" data-m="0" data-dur="60"><div class="t">09:00 · 60'</div><div class="l">Planejar a semana <span class="lock">🔒</span></div></div>
+      <div class="ev ng" data-wd="1" data-h="10" data-m="0" data-dur="60"><div class="t">10:00 · 60'</div><div class="l">Alinhamento NG</div></div>
+      <div class="ev am" data-wd="1" data-h="14" data-m="0" data-dur="45"><div class="t">14:00 · 45'</div><div class="l">Alinhamento LA AM</div></div>
+      <div class="ev ng" data-wd="1" data-h="15" data-m="0" data-dur="60"><div class="t">15:00 · 60'</div><div class="l">Gargalo NG: API / leads</div></div></div>
     <div class="day"><h3>Terça</h3>
-      <div class="ev rj"><div class="t">09:00 · 110'</div><div class="l">1:1 LA RJ — Amanda, Ruan, Brenno</div></div>
-      <div class="ev rj"><div class="t">14:00 · 60'</div><div class="l">Treino de tráfego com Brenno</div></div>
-      <div class="ev you"><div class="t">15:30 · 60'</div><div class="l">Bloco estratégico <span class="lock">🔒</span></div></div></div>
+      <div class="ev rj" data-wd="2" data-h="9" data-m="0" data-dur="110"><div class="t">09:00 · 110'</div><div class="l">1:1 LA RJ — Amanda, Ruan, Brenno</div></div>
+      <div class="ev rj" data-wd="2" data-h="14" data-m="0" data-dur="60"><div class="t">14:00 · 60'</div><div class="l">Treino de tráfego com Brenno</div></div>
+      <div class="ev you" data-wd="2" data-h="15" data-m="30" data-dur="60"><div class="t">15:30 · 60'</div><div class="l">Bloco estratégico <span class="lock">🔒</span></div></div></div>
     <div class="day"><h3>Quarta</h3>
-      <div class="ev ng"><div class="t">09:00 · 90'</div><div class="l">1:1 NG — Yara, Nayla, Patricia</div></div>
-      <div class="ev ng"><div class="t">14:00 · 60'</div><div class="l">1:1 NG — Gabriela, Thais</div></div>
-      <div class="ev rec"><div class="t">16:00 · 30'</div><div class="l">Reconhecimento do meio da semana</div></div></div>
+      <div class="ev ng" data-wd="3" data-h="9" data-m="0" data-dur="90"><div class="t">09:00 · 90'</div><div class="l">1:1 NG — Yara, Nayla, Patricia</div></div>
+      <div class="ev ng" data-wd="3" data-h="14" data-m="0" data-dur="60"><div class="t">14:00 · 60'</div><div class="l">1:1 NG — Gabriela, Thais</div></div>
+      <div class="ev rec" data-wd="3" data-h="16" data-m="0" data-dur="30"><div class="t">16:00 · 30'</div><div class="l">Reconhecimento do meio da semana</div></div></div>
     <div class="day"><h3>Quinta</h3>
-      <div class="ev am"><div class="t">09:00 · 60'</div><div class="l">1:1 LA AM — 2 fechadores (rotativo)</div></div>
-      <div class="ev rj"><div class="t">10:30 · 45'</div><div class="l">Alinhamento LA RJ (trio)</div></div>
-      <div class="ev metr"><div class="t">14:00 · 120'</div><div class="l">Reserva para gargalos / imprevistos</div></div></div>
+      <div class="ev am" data-wd="4" data-h="9" data-m="0" data-dur="60"><div class="t">09:00 · 60'</div><div class="l">1:1 LA AM — 2 fechadores (rotativo)</div></div>
+      <div class="ev rj" data-wd="4" data-h="10" data-m="30" data-dur="45"><div class="t">10:30 · 45'</div><div class="l">Alinhamento LA RJ (trio)</div></div>
+      <div class="ev metr" data-wd="4" data-h="14" data-m="0" data-dur="120"><div class="t">14:00 · 120'</div><div class="l">Reserva para gargalos / imprevistos</div></div></div>
     <div class="day"><h3>Sexta</h3>
-      <div class="ev metr"><div class="t">09:00 · 60'</div><div class="l">Fechamento: números + ranking</div></div>
-      <div class="ev rec"><div class="t">10:00 · 30'</div><div class="l">Rito de motivação / empurrão final</div></div>
-      <div class="ev you"><div class="t">11:00 · 60'</div><div class="l">Preparar feedbacks + próxima semana</div></div>
-      <div class="ev you"><div class="t">14:00 · 60'</div><div class="l">Bloco estratégico <span class="lock">🔒</span></div></div></div>
+      <div class="ev metr" data-wd="5" data-h="9" data-m="0" data-dur="60"><div class="t">09:00 · 60'</div><div class="l">Fechamento: números + ranking</div></div>
+      <div class="ev rec" data-wd="5" data-h="10" data-m="0" data-dur="30"><div class="t">10:00 · 30'</div><div class="l">Rito de motivação / empurrão final</div></div>
+      <div class="ev you" data-wd="5" data-h="11" data-m="0" data-dur="60"><div class="t">11:00 · 60'</div><div class="l">Preparar feedbacks + próxima semana</div></div>
+      <div class="ev you" data-wd="5" data-h="14" data-m="0" data-dur="60"><div class="t">14:00 · 60'</div><div class="l">Bloco estratégico <span class="lock">🔒</span></div></div></div>
   </div>
   <div class="block dist">
     <h3>Espelhar na Google Agenda</h3>
@@ -643,6 +650,24 @@ Termine com uma linha só sobre o que ela pode DESPRIORIZAR esta semana para nã
   })();
 
   refresh();
+
+  // ---------- Google Calendar links nos blocos da semana ----------
+  document.querySelectorAll('.ev[data-wd]').forEach(function(ev) {
+    var wd=+ev.dataset.wd, h=+ev.dataset.h, m=+ev.dataset.m, dur=+ev.dataset.dur;
+    var title=ev.querySelector('.l').textContent.replace('🔒','').trim();
+    var d=nextDate(wd);
+    var end=addMin(h,m,dur);
+    var fmt=function(dt,hh,mm){return dt.getFullYear()+pad(dt.getMonth()+1)+pad(dt.getDate())+'T'+pad(hh)+pad(mm)+'00';};
+    var url='https://calendar.google.com/calendar/render?action=TEMPLATE'
+      +'&text='+encodeURIComponent(title)
+      +'&dates='+fmt(d,h,m)+'/'+fmt(d,end[0],end[1])
+      +'&recur=RRULE:FREQ%3DWEEKLY'
+      +'&src=maria.lucia%40luisalbertadv.com.br';
+    var a=document.createElement('a');
+    a.className='gcal-btn'; a.href=url; a.target='_blank'; a.title='Adicionar ao Google Calendar';
+    a.textContent='+ GCal';
+    ev.appendChild(a);
+  });
 </script>
 </body>
 </html>
