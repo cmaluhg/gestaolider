@@ -336,6 +336,18 @@
 <!-- RELATORIO -->
 <section class="panel" id="relatorio"><div class="wrap">
   <p class="lead">O relatório executivo para as gestoras de cada operação. Escolha a gestora — o relatório sai endereçado a ela e focado só na operação dela, puxando os números, os feedbacks e as atribuições daquela frente.</p>
+
+  <details class="block" id="driveConfig" style="cursor:pointer">
+    <summary style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;list-style:none;display:flex;align-items:center;gap:10px">
+      <span style="font-size:18px">☁️</span> Integração Google Drive
+      <span id="driveBadge" style="font-family:'Space Mono',monospace;font-size:11px;padding:2px 9px;border-radius:20px;background:var(--line);color:var(--ink-soft);margin-left:auto">não configurado</span>
+    </summary>
+    <p style="font-size:13px;color:var(--ink-soft);margin:12px 0 8px">Cole aqui a URL do seu Google Apps Script Web App. Ao gerar um relatório, ele será salvo automaticamente na planilha e criado como Google Doc na pasta do Drive. Siga o guia <code>apps-script/COMO-CONFIGURAR.md</code> para obter a URL.</p>
+    <label class="fl" style="margin-top:8px">URL do Web App (Google Apps Script)</label>
+    <input class="txt" id="driveUrl" placeholder="https://script.google.com/macros/s/AKfy.../exec">
+    <div class="rowbtns" style="margin-top:10px"><button class="btn btn-primary" id="driveSaveUrl">Salvar URL</button></div>
+  </details>
+
   <div class="block">
     <h3>Campos da semana</h3>
     <label class="fl">Relatório para (gestora)</label>
@@ -353,7 +365,15 @@
     <div class="rowbtns"><button class="btn btn-primary" id="rpGen">Gerar relatório</button></div>
   </div>
   <div class="out" id="rpOut"><span class="ph">O relatório formatado aparece aqui, pronto para copiar e enviar.</span></div>
-  <div class="rowbtns" id="rpCopyRow" style="display:none"><button class="btn btn-ghost" id="rpCopy">Copiar relatório</button></div>
+  <div class="rowbtns" id="rpCopyRow" style="display:none">
+    <button class="btn btn-ghost" id="rpCopy">Copiar relatório</button>
+    <button class="btn btn-primary" id="rpDrive" style="background:var(--am)">☁️ Salvar no Drive</button>
+  </div>
+  <div id="rpDriveResult" style="display:none;margin-top:14px;background:var(--am-bg);border:1px solid var(--am);border-radius:11px;padding:14px 16px;font-size:13.5px">
+    <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--am);margin-bottom:6px">✓ Relatório salvo no Drive</div>
+    <div>ID: <code id="rpDriveId" style="font-family:'Space Mono',monospace;font-size:12px"></code></div>
+    <div style="margin-top:4px"><a id="rpDriveLink" href="#" target="_blank" style="color:var(--am);font-weight:600">Abrir Google Doc →</a></div>
+  </div>
 </div></section>
 
 <script>
@@ -568,6 +588,57 @@ Termine com uma linha só sobre o que ela pode DESPRIORIZAR esta semana para nã
     $('rpCopyRow').style.display='flex';
   });
   $('rpCopy').addEventListener('click',function(){navigator.clipboard.writeText($('rpOut').textContent).then(()=>{this.textContent='Copiado ✓';setTimeout(()=>this.textContent='Copiar relatório',1600);}).catch(()=>{this.textContent='Selecione e copie manualmente';});});
+
+  // ---------- Google Drive integration ----------
+  (function(){
+    const KEY='lider_drive_url';
+    const urlInput=$('driveUrl'),badge=$('driveBadge');
+    function loadUrl(){
+      const v=localStorage.getItem(KEY)||'';
+      if(v){urlInput.value=v;badge.textContent='configurado';badge.style.background='var(--am-bg)';badge.style.color='var(--am)';}
+    }
+    loadUrl();
+    $('driveSaveUrl').addEventListener('click',()=>{
+      const v=urlInput.value.trim();
+      if(!v){alert('Cole a URL do Web App primeiro.');return;}
+      localStorage.setItem(KEY,v);
+      badge.textContent='configurado';badge.style.background='var(--am-bg)';badge.style.color='var(--am)';
+      alert('URL salva! Agora use "Salvar no Drive" ao gerar relatórios.');
+    });
+
+    $('rpDrive').addEventListener('click',async function(){
+      const url=localStorage.getItem(KEY);
+      if(!url){alert('Configure a URL do Web App na seção "Integração Google Drive" acima.');$('driveConfig').open=true;return;}
+      const reportText=$('rpOut').textContent;
+      if(!reportText||reportText.includes('O relatório formatado')){alert('Gere o relatório primeiro.');return;}
+      const sem=refresh();
+      const op=$('rpGestora').value;
+      const btn=this;
+      btn.disabled=true;btn.textContent='Salvando...';
+      $('rpDriveResult').style.display='none';
+      const payload={
+        gestora:GEST[op],operacao:OPNAME[op],
+        periodo:$('rpPeriodo').value.trim()||'Semana atual',
+        realizado:op==='NG'?fmt(sem.ng.r):op==='LA AM'?fmt(sem.am.r):'N/A',
+        pct:op==='NG'?sem.ng.pct.toFixed(1)+'%':op==='LA AM'?sem.am.pct.toFixed(1)+'%':'N/A',
+        destaques:$('rpDestaque').value.trim(),
+        riscos:$('rpRisco').value.trim(),
+        foco:$('rpFoco').value.trim(),
+        status:$('rpApi').value.trim(),
+        conteudo:reportText
+      };
+      try{
+        const res=await fetch(url,{method:'POST',body:JSON.stringify(payload)});
+        const data=await res.json();
+        if(data.success){
+          $('rpDriveId').textContent=data.id;
+          $('rpDriveLink').href=data.docUrl;
+          $('rpDriveResult').style.display='block';
+        }else{alert('Erro do servidor: '+data.error);}
+      }catch(err){alert('Não foi possível conectar ao Drive. Verifique a URL do Web App e tente novamente.');}
+      btn.disabled=false;btn.textContent='☁️ Salvar no Drive';
+    });
+  })();
 
   refresh();
 </script>
