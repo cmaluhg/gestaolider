@@ -116,7 +116,7 @@ function createBrandedDoc_(id, payload, now) {
   body.setMarginLeft(54);
   body.setMarginRight(54);
 
-  // ── 1. FAIXA DE CABEÇALHO ──────
+  // ── 1. FAIXA DE CABEÇALHO ──────────────────────────────────
   var hTable = body.appendTable([['']]);
   hTable.setBorderColor(brand.headerBg);
   var hCell = hTable.getCell(0, 0);
@@ -126,7 +126,7 @@ function createBrandedDoc_(id, payload, now) {
   hCell.setPaddingLeft(28);
   hCell.setPaddingRight(28);
 
-  var hTitle = hCell.getParagraphs()[0];
+  var hTitle = hCell.getChild(0).asParagraph();
   hTitle.setText(brand.heading);
   hTitle.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
   hTitle.setSpacingAfter(4);
@@ -170,7 +170,7 @@ function createBrandedDoc_(id, payload, now) {
   divCell.setBackgroundColor(brand.separatorColor);
   divCell.setPaddingTop(2);
   divCell.setPaddingBottom(2);
-  divCell.getParagraphs()[0].setText('');
+  divCell.getChild(0).asParagraph().setText('');
 
   body.appendParagraph('').setSpacingBefore(0).setSpacingAfter(4);
 
@@ -207,7 +207,11 @@ function createBrandedDoc_(id, payload, now) {
   var footer = doc.addFooter();
   var fDivTable = footer.appendTable([['']]);
   fDivTable.setBorderColor(brand.separatorColor);
-  fDivTable.getCell(0,0).setBackgroundColor(brand.separatorColor).setPaddingTop(1).setPaddingBottom(1).getParagraphs()[0].setText('');
+  fDivTable.getCell(0,0)
+    .setBackgroundColor(brand.separatorColor)
+    .setPaddingTop(1)
+    .setPaddingBottom(1)
+    .getChild(0).asParagraph().setText('');
 
   var fPara = footer.appendParagraph(
     brand.footerText + '   |   ' + id + '   |   ' +
@@ -238,7 +242,7 @@ function styleMetaTable_(table, brand) {
       if (isLabel) {
         cell.setBackgroundColor(brand.lightBg);
       }
-      var para = cell.getParagraphs()[0];
+      var para = cell.getChild(0).asParagraph();
       var txt  = para.editAsText();
       txt.setFontFamily('Arial');
       if (isLabel) {
@@ -264,9 +268,9 @@ function getOrCreateSheet_() {
     var header = sheet.getRange(1, 1, 1, HEADERS.length);
     header.setFontWeight('bold').setBackground('#1B2430').setFontColor('#FFFFFF').setHorizontalAlignment('center');
     sheet.setFrozenRows(1);
-    sheet.setColumnWidth(1,90); sheet.setColumnWidth(2,90); sheet.setColumnWidth(3,60);
-    sheet.setColumnWidth(4,160); sheet.setColumnWidth(5,80); sheet.setColumnWidth(6,160);
-    sheet.setColumnWidth(7,110); sheet.setColumnWidth(8,70); sheet.setColumnWidth(9,220);
+    sheet.setColumnWidth(1,90);  sheet.setColumnWidth(2,90);  sheet.setColumnWidth(3,60);
+    sheet.setColumnWidth(4,160); sheet.setColumnWidth(5,80);  sheet.setColumnWidth(6,160);
+    sheet.setColumnWidth(7,110); sheet.setColumnWidth(8,70);  sheet.setColumnWidth(9,220);
     sheet.setColumnWidth(10,220); sheet.setColumnWidth(11,220); sheet.setColumnWidth(12,180);
     sheet.setColumnWidth(13,100);
   }
