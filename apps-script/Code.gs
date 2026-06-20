@@ -148,7 +148,7 @@ function createBrandedDoc_(id, payload, now) {
   );
 
   // ── 2. TABELA DE METADADOS ────────────────────────────────
-  body.appendParagraph('').setSpacingBefore(0).setSpacingAfter(0);
+  body.appendParagraph(' ').setSpacingBefore(0).setSpacingAfter(0);
 
   var mTable = body.appendTable([
     ['ID DO RELATÓRIO', 'DATA DE EMISSÃO'],
@@ -161,7 +161,7 @@ function createBrandedDoc_(id, payload, now) {
   styleMetaTable_(mTable, brand);
 
   // ── 3. LINHA DECORATIVA ───────────────────────────────────
-  var divider = body.appendParagraph('');
+  var divider = body.appendParagraph(' ');
   divider.setSpacingBefore(10);
   divider.setSpacingAfter(10);
   var divTable = body.appendTable([['']]);
@@ -170,15 +170,15 @@ function createBrandedDoc_(id, payload, now) {
   divCell.setBackgroundColor(brand.separatorColor);
   divCell.setPaddingTop(2);
   divCell.setPaddingBottom(2);
-  divCell.getChild(0).asParagraph().setText('');
+  divCell.getChild(0).asParagraph().setText(' ');
 
-  body.appendParagraph('').setSpacingBefore(0).setSpacingAfter(4);
+  body.appendParagraph(' ').setSpacingBefore(0).setSpacingAfter(4);
 
   // ── 4. CONTEÚDO DO RELATÓRIO ─────────────────────────────
   var lines = (payload.conteudo || '').split('\n');
   for (var i = 0; i < lines.length; i++) {
     var line = lines[i];
-    var para = body.appendParagraph(line);
+    var para = body.appendParagraph(line || ' ');
     var txt  = para.editAsText();
     txt.setFontFamily(brand.bodyFont);
     txt.setFontSize(10.5);
@@ -211,7 +211,7 @@ function createBrandedDoc_(id, payload, now) {
     .setBackgroundColor(brand.separatorColor)
     .setPaddingTop(1)
     .setPaddingBottom(1)
-    .getChild(0).asParagraph().setText('');
+    .getChild(0).asParagraph().setText(' ');
 
   var fPara = footer.appendParagraph(
     brand.footerText + '   |   ' + id + '   |   ' +
