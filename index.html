@@ -352,7 +352,7 @@
     <h3>Campos da semana</h3>
     <label class="fl">Relatório para (gestora)</label>
     <select id="rpGestora">
-      <option value="NG">Jeniffe Damascena — NG</option>
+      <option value="NG">Jennifer Damascena — NG</option>
       <option value="LA AM">Alessandra Braga — LAADV AM</option>
       <option value="LA RJ">Marcela Luz — LAADV RJ</option>
     </select>
@@ -481,7 +481,6 @@
   function icsDate(d,h,m){return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'T'+pad(h)+pad(m)+'00';}
   function addMin(h,m,mins){let tot=h*60+m+mins;return[Math.floor(tot/60)%24,tot%60];}
   $('icsBtn').addEventListener('click',()=>{
-    // weekday: 0 Sun .. 1 Mon
     const ev=[
       {wd:1,h:8,m:0,dur:15,title:'Leitura de números',byday:'MO,TU,WE,TH,FR'},
       {wd:1,h:9,m:0,dur:60,title:'🔒 Planejar a semana'},
@@ -512,22 +511,7 @@
     const btn=$('iaBtn'),out=$('iaOut'),sem=refresh();
     const note=$('iaInput').value.trim();
     btn.disabled=true;out.innerHTML='<span class="spinner"></span>Analisando os dados e o relato da semana...';
-    const prompt=`Você é a analista de performance e foco de uma líder que gerencia 3 operações e 12 pessoas. Seja direta, específica e prática. Responda em português do Brasil.
-
-CONTEXTO FIXO:
-- NG: meta R$150M, realizado R$${fmt(sem.ng.r)}, faltam ${fmtM(sem.ng.gap)} (${sem.ng.pct.toFixed(1)}%). 5 fechadoras: Yara, Nayla, Patricia, Gabriela, Thais. Problemas: API de mensagens caiu (precisa ativar número alternativo para recuperar leads), leads chegando frios, fissuras interpessoais e moral baixa.
-- LA AM: meta R$150M, realizado R$${fmt(sem.am.r)}, faltam ${fmtM(sem.am.gap)} (${sem.am.pct.toFixed(1)}%). 4 fechadores: Luam, Maria, Taisa, Jobson. Time de alta performance; risco é estagnar/coast. Tarefa per capita maior que a do NG (${fmtM(sem.am.gap/4)} por pessoa vs ${fmtM(sem.ng.gap/5)} no NG).
-- LA RJ (em construção, não corre pela meta de 150M): Amanda (frustração com negativas + falta de foco); Ruan (estagiário em onboarding); Brenno (ótimo comunicador mas não performa no tráfego pago).
-- Faltam ${sem.ng.d} dias úteis para o fechamento.
-
-RELATO DA SEMANA (input da líder):
-${note||'(a líder não detalhou; use o contexto fixo e os números acima)'}
-
-TAREFA: Aponte os 3 focos MAIS URGENTES para a próxima semana, em ordem de prioridade. Cada foco pode ser um colaborador específico ou um gargalo. Para cada um, escreva exatamente:
-1) Título do foco (curto)
-   Por que é urgente: (1 frase ligada aos dados/relato)
-   Primeira ação da líder: (1 ação concreta e específica)
-Termine com uma linha só sobre o que ela pode DESPRIORIZAR esta semana para não se dispersar.`;
+    const prompt=`Você é a analista de performance e foco de uma líder que gerencia 3 operações e 12 pessoas. Seja direta, específica e prática. Responda em português do Brasil.\n\nCONTEXTO FIXO:\n- NG: meta R$150M, realizado R$${fmt(sem.ng.r)}, faltam ${fmtM(sem.ng.gap)} (${sem.ng.pct.toFixed(1)}%). 5 fechadoras: Yara, Nayla, Patricia, Gabriela, Thais. Problemas: API de mensagens caiu (precisa ativar número alternativo para recuperar leads), leads chegando frios, fissuras interpessoais e moral baixa.\n- LA AM: meta R$150M, realizado R$${fmt(sem.am.r)}, faltam ${fmtM(sem.am.gap)} (${sem.am.pct.toFixed(1)}%). 4 fechadores: Luam, Maria, Taisa, Jobson. Time de alta performance; risco é estagnar/coast. Tarefa per capita maior que a do NG (${fmtM(sem.am.gap/4)} por pessoa vs ${fmtM(sem.ng.gap/5)} no NG).\n- LA RJ (em construção, não corre pela meta de 150M): Amanda (frustração com negativas + falta de foco); Ruan (estagiário em onboarding); Brenno (ótimo comunicador mas não performa no tráfego pago).\n- Faltam ${sem.ng.d} dias úteis para o fechamento.\n\nRELATO DA SEMANA (input da líder):\n${note||'(a líder não detalhou; use o contexto fixo e os números acima)'}\n\nTAREFA: Aponte os 3 focos MAIS URGENTES para a próxima semana, em ordem de prioridade. Cada foco pode ser um colaborador específico ou um gargalo. Para cada um, escreva exatamente:\n1) Título do foco (curto)\n   Por que é urgente: (1 frase ligada aos dados/relato)\n   Primeira ação da líder: (1 ação concreta e específica)\nTermine com uma linha só sobre o que ela pode DESPRIORIZAR esta semana para não se dispersar.`;
     try{
       const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
       const data=await res.json();
@@ -538,7 +522,7 @@ Termine com uma linha só sobre o que ela pode DESPRIORIZAR esta semana para nã
   });
 
   // ---------- executive report (por gestora / operação) ----------
-  const GEST={'NG':'Jeniffe Damascena','LA AM':'Alessandra Braga','LA RJ':'Marcela Luz'};
+  const GEST={'NG':'Jennifer Damascena','LA AM':'Alessandra Braga','LA RJ':'Marcela Luz'};
   const OPNAME={'NG':'NG','LA AM':'LAADV AM','LA RJ':'LAADV RJ'};
   const rpStatusLbl=$('rpStatusLbl'),rpGestora=$('rpGestora');
   rpGestora.addEventListener('change',()=>{
