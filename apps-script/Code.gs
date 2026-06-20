@@ -150,7 +150,7 @@ function createBrandedDoc_(id, payload, now) {
   );
 
   // ── 2. TABELA DE METADADOS ────────────────────────────────
-  body.appendParagraph('').setSpacingBefore(0).setSpacingAfter(0);
+  body.appendParagraph(' ').setSpacingBefore(0).setSpacingAfter(0);
 
   var mTable = body.appendTable([
     ['ID DO RELATÓRIO', 'DATA DE EMISSÃO'],
@@ -163,7 +163,7 @@ function createBrandedDoc_(id, payload, now) {
   styleMetaTable_(mTable, brand);
 
   // ── 3. LINHA DECORATIVA ───────────────────────────────────
-  var divider = body.appendParagraph('');
+  var divider = body.appendParagraph(' ');
   divider.setSpacingBefore(10);
   divider.setSpacingAfter(10);
   divider.setBorderBottom(true);
@@ -176,7 +176,7 @@ function createBrandedDoc_(id, payload, now) {
   divCell.setPaddingBottom(2);
   divCell.getChild(0).asParagraph().setText('');
 
-  body.appendParagraph('').setSpacingBefore(0).setSpacingAfter(4);
+  body.appendParagraph(' ').setSpacingBefore(0).setSpacingAfter(4);
 
   // ── 4. CONTEÚDO DO RELATÓRIO ─────────────────────────────
   var lines = (payload.conteudo || '').split('\n');
