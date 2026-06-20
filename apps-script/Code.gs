@@ -5,10 +5,10 @@
 
 // ── CONFIGURE AQUI ──────────────────────────────────────────
 // 1. ID da planilha (está na URL do Google Sheets após /d/)
-var SHEET_ID = 'COLE_O_ID_DA_PLANILHA_AQUI';
+var SHEET_ID = '1UFb2ZGLAWBwN0XUKyXakoKZPYiouTWlVTSyWwhWVuNg';
 
 // 2. ID da pasta do Drive (está na URL da pasta após /folders/)
-var FOLDER_ID = 'COLE_O_ID_DA_PASTA_AQUI';
+var FOLDER_ID = '1t7Dw49g74DmKBabqaB050FHeUchC7Hg6';
 
 // 3. Nome da aba dentro da planilha
 var SHEET_NAME = 'Relatórios';
