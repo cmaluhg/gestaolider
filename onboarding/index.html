@@ -1457,20 +1457,41 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
   </div>
 
   <div class="block">
-    <h3>📖 Dicionário de termos técnicos</h3>
-    <p>Vocabulário comum do dia a dia corporativo — nem sempre é jargão exclusivo daqui, mas você vai ouvir esses termos com frequência, então vale ter a "tradução" na ponta da língua.</p>
+    <h3>📖 Glossário: os termos que a gente usa no dia a dia</h3>
+    <p>Este é o dicionário das nossas nomenclaturas internas — as palavras que você vai ouvir e usar toda hora aqui. Os oito primeiros são o "Kit de termos essenciais" oficial da RA; os demais são as ferramentas e termos jurídicos que aparecem nos outros módulos.</p>
+
+    <h4 style="font-family:'Space Grotesk',sans-serif;margin:14px 0 6px;color:var(--you)">Cliente e atendimento</h4>
     <ul>
-      <li><b>ASAP</b> — "o quanto antes". Usado quando algo é urgente de verdade, não força de expressão.</li>
-      <li><b>Benchmark</b> — comparar o seu resultado com uma referência (de mercado ou de um colega) para saber se está bom.</li>
-      <li><b>Budget</b> — o orçamento. O limite de dinheiro disponível para gastar em algo.</li>
-      <li><b>Churn</b> — quando um cliente cancela o serviço. O objetivo é sempre manter esse número o menor possível.</li>
-      <li><b>Deadline</b> — a data limite. O dia (e a hora) em que a tarefa precisa estar entregue, sem desculpa.</li>
-      <li><b>Feedback</b> — retorno sobre um trabalho, seja elogio ou correção. Sempre serve para melhorar.</li>
-      <li><b>Follow-up</b> — fazer o acompanhamento. Voltar a falar com alguém sobre um assunto que ainda está em aberto.</li>
-      <li><b>KPI</b> (Key Performance Indicator) — indicador-chave de performance. O número que mostra se uma meta está sendo batida (ex.: a Taxa de Conversão do Módulo 1).</li>
-      <li><b>Onboarding</b> — é literalmente este processo que você está vivendo agora: a integração de alguém novo no time.</li>
-      <li><b>Reportar</b> — informar formalmente algo a alguém (ex.: "reportar um bug" é abrir um TKT, como no Módulo 2).</li>
-      <li><b>Touchpoint</b> — qualquer ponto de contato com o cliente (WhatsApp, ligação, e-mail). Cada touchpoint é uma chance de fazer bem, como no Módulo 3.</li>
+      <li><b>Action / ID da Action</b> — o "RG do cliente dentro do escritório": o número único que identifica aquele cliente/caso em todos os sistemas (gerador de contratos, NocoDB, TKT). É por ele que você encontra e referencia tudo do cliente.</li>
+      <li><b>Canal</b> — por onde o cliente está sendo atendido <i>no momento</i> (ex.: WhatsApp/Nicochat, Instagram, ligação).</li>
+      <li><b>Origem</b> — de onde o cliente <i>veio</i> (a campanha ou fonte que trouxe o lead). Não confunda com Canal: Origem é de onde ele veio; Canal é onde ele está sendo atendido agora.</li>
+      <li><b>Conversão</b> — quando um atendimento vira contrato.</li>
+    </ul>
+
+    <h4 style="font-family:'Space Grotesk',sans-serif;margin:14px 0 6px;color:var(--you)">Ferramentas</h4>
+    <ul>
+      <li><b>Nicochat</b> — nossa plataforma de atendimento ao cliente (a caixa de entrada de WhatsApp). Ver Módulo 3.</li>
+      <li><b>NocoDB</b> — o nosso banco de dados/CRM onde ficam registrados os fechamentos de cada fechador. É onde você confere se o número de fechamentos bate com o dashboard. Ver Módulo 4.</li>
+      <li><b>Gerar Contrato</b> — o portal e o passo a passo para montar e enviar o contrato: conferir dados → escolher modelo → preencher valores → enviar para assinatura → acompanhar até assinar. Ver Módulo 5.</li>
+      <li><b>SuperSign</b> — a ferramenta de assinatura eletrônica pela qual o cliente assina o contrato (o código de confirmação chega no WhatsApp dele). Ver Módulo 5.</li>
+      <li><b>TKT (Ticket)</b> — o chamado que você abre no Discord (canal #ticket-tech) quando alguma ferramenta trava; sempre informe a ferramenta, a descrição do problema e o ID da Action. Ver Módulo 2.</li>
+      <li><b>Quadro / Tag</b> — a etiqueta de status do atendimento dentro do Nicochat (ex.: "Termo de ciência / Recebeu o link"), que mostra em que etapa o cliente está. Ver Módulo 3.</li>
+    </ul>
+
+    <h4 style="font-family:'Space Grotesk',sans-serif;margin:14px 0 6px;color:var(--you)">Métricas</h4>
+    <ul>
+      <li><b>Taxa de Conversão</b> — a porcentagem de atendimentos que viram contrato (ex.: de 120 atendimentos, 12 viraram contrato = 10%). Mede a eficiência <i>geral</i> do funil.</li>
+      <li><b>Taxa de Aproveitamento</b> — a porcentagem de oportunidades aproveitadas dentro do que chegou qualificado. Mede a eficiência nas <i>etapas finais</i>.</li>
+    </ul>
+
+    <h4 style="font-family:'Space Grotesk',sans-serif;margin:14px 0 6px;color:var(--you)">Termos jurídicos do dia a dia</h4>
+    <ul>
+      <li><b>Rubrica</b> — cada tipo de cobrança abusiva/matéria que você fecha (RMC, Cesta, Gastos com Crédito, etc.). Ver a aula de Matérias.</li>
+      <li><b>Rubricas Reunidas</b> — juntar várias rubricas do mesmo banco num único processo. Ver a aula de Matérias.</li>
+      <li><b>IRDR</b> — Incidente de Resolução de Demandas Repetitivas: matérias em suspensão obrigatória (Cesta — Tema 8; Mora/Encargos de Limite — Tema 7) que NUNCA podem ser reunidas com as demais. Ver a aula de Matérias.</li>
+      <li><b>Protocolar / Protocolado</b> — dar entrada oficial na ação. O valor total protocolado no mês é o que ativa o seu fator multiplicador de comissão. Ver Módulo 8.</li>
+      <li><b>Soma Padrão</b> — a soma ponderada das ações que você fechou no mês (peso da rubrica × ações fechadas); é a base do cálculo da sua comissão. Ver Módulo 8.</li>
+      <li><b>Fator Multiplicador</b> — o multiplicador (de 1x até o teto de 4x) aplicado sobre a Soma Padrão conforme o valor protocolado no mês. Ver Módulo 8.</li>
     </ul>
   </div>
 </div></section>
