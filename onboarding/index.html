@@ -410,9 +410,15 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
   </div>
 
   <div class="block">
+    <h3>A tela: uma caixa de entrada de WhatsApp organizada por conta</h3>
+    <p>Na prática, o Nicochat é uma caixa de entrada estilo inbox: à esquerda a conversa com o cliente pelo WhatsApp (ex.: conta "LAADV WPP"), à direita um painel com os dados do contato (nome, telefone, e-mail, há quanto tempo foi criado/inscrito, última ação) e um campo de <b>Quadro</b> — o estágio atual daquele atendimento no seu funil (ex.: "Termo de ciência / Recebeu o link"). É esse campo Quadro que funciona como a tag/etiqueta descrita abaixo.</p>
+    <p>Encerrar um atendimento, na prática, é clicar em <b>"Mover para Concluído"</b>, no topo da conversa.</p>
+  </div>
+
+  <div class="block">
     <h3>Capítulo 1 — Pontos de atenção diária</h3>
     <h4>Tags: o que são e por que importam</h4>
-    <p>Tags são marcadores que categorizam e organizam os atendimentos dentro do Nicochat — funcionam como etiquetas que identificam o tipo, o status ou o contexto de cada conversa. O uso incorreto impacta direto na continuidade do atendimento: o cliente pode ser perdido ou mal direcionado. <span class="confirmar">A CONFIRMAR: telas exatas de onde incluir/remover cada tag e a lista oficial de tags por operação.</span></p>
+    <p>Tags são marcadores que categorizam e organizam os atendimentos dentro do Nicochat — funcionam como etiquetas que identificam o tipo, o status ou o contexto de cada conversa (na tela, isso aparece no campo "Quadro" do painel de contato). O uso incorreto impacta direto na continuidade do atendimento: o cliente pode ser perdido ou mal direcionado. <span class="confirmar">A CONFIRMAR: lista completa e oficial dos valores de Quadro/tag e onde exatamente incluir/remover cada uma.</span></p>
     <h4>Atendimentos: iniciar, registrar, transferir, encerrar</h4>
     <p>Cada uma dessas quatro etapas tem um procedimento padrão — saber onde finalizar, como confirmar o encerramento e como transferir corretamente evita clientes perdidos e garante a continuidade do serviço.</p>
     <h4>Status dos atendimentos: controle ao final do dia</h4>
@@ -454,6 +460,11 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li><b>Transfira com contexto</b> — inclua sempre um resumo (áudio) do que foi tratado até o momento.</li>
       <li><b>Confirme o recebimento</b> — o setor que recebe deve confirmar e dar continuidade imediatamente.</li>
     </ul>
+  </div>
+
+  <div class="block">
+    <h3>Automações e sequências</h3>
+    <p>O Nicochat dispara mensagens automáticas em determinados pontos do atendimento — por exemplo, ao enviar o link de assinatura o sistema registra algo como "Subscribed to sequence: REC ASSINATURA" (uma sequência de lembrete de assinatura), e depois de o cliente assinar, dispara automaticamente uma mensagem confirmando e pedindo o preenchimento do formulário socioeconômico. Você não escreve essas mensagens do zero — mas precisa saber que elas existem, para não duplicar informação nem deixar o cliente confuso quando elas chegarem.</p>
   </div>
 
   <div class="block">
@@ -558,30 +569,46 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
   <div class="porque">Por que isso importa: um contrato mal preenchido ou uma pendência não reportada a tempo atrasa o protocolo — e é o protocolo que garante sua comissão.</div>
 
   <div class="block">
-    <h3>O fluxo real, passo a passo</h3>
-    <div class="flow">
-      <div class="flowstep">1. Conferir dados</div>
-      <div class="flowarrow">→</div>
-      <div class="flowstep">2. Escolher modelo</div>
-      <div class="flowarrow">→</div>
-      <div class="flowstep">3. Preencher valores</div>
-      <div class="flowarrow">→</div>
-      <div class="flowstep">4. Enviar p/ assinatura</div>
-      <div class="flowarrow">→</div>
-      <div class="flowstep">5. Acompanhar até assinar</div>
-    </div>
-    <p style="margin-top:12px">A orientação central, independente da tela: confira cada dado do cliente contra o documento antes de gerar, porque erro de digitação no contrato é o motivo mais comum de retrabalho e de atraso no protocolo. <span class="confirmar">A CONFIRMAR: campos exatos do formulário (matéria, valor da causa, dados bancários) e capturas de tela do passo "escolher modelo"/"preencher valores".</span></p>
+    <h3>O portal e os dois formulários</h3>
+    <p>Você acessa o gerador pelo portal <b>Luis Albert</b>, com login e senha do seu e-mail corporativo. Na tela inicial, escolha um dos dois formulários: <b>Gerar contrato</b> (para criar um contrato novo) ou <b>Enviar contrato assinado</b> (para os casos em que o contrato já foi assinado fora do fluxo padrão). Este módulo cobre o fluxo de "Gerar contrato", em três etapas.</p>
   </div>
 
   <div class="block">
-    <h3 style="display:flex;align-items:center;gap:8px"><span class="badge config" style="margin:0">configurável</span> Assinatura eletrônica — o que o cliente vê (NGAM)</h3>
-    <p>Na operação NGAM, a etapa "enviar" usa o app <b>SuperSign</b>. O fluxo do lado do cliente:</p>
-    <div class="steps">
-      <div class="step"><div class="n">1</div><div class="b"><p>Cliente abre o documento e escolhe assinar <b>desenhando</b> ou <b>digitando</b> o nome, com opção de estilo de fonte.</p></div></div>
-      <div class="step"><div class="n">2</div><div class="b"><p>Informa o CPF e marca a caixa "Declaro que li e concordo com os Termos de Assinatura..." → toca em <b>Finalizar Assinatura</b>.</p></div></div>
-      <div class="step"><div class="n">3</div><div class="b"><p><b>Verificação de segurança via WhatsApp</b>: chega um código de 6 dígitos no WhatsApp do cliente, que ele digita para confirmar. Se não chegar, há opção de reenviar após ~52 segundos.</p></div></div>
-    </div>
-    <div class="exemplo"><b>Atenção:</b> o deck geral de onboarding da operação cita "Clicksign" como ferramenta de envio, mas o material oficial de treinamento da NGAM mostra o SuperSign em uso real. <span class="confirmar">A CONFIRMAR: se cada operação usa uma ferramenta de assinatura diferente (SuperSign na NGAM, Clicksign em LAAM/LARJ) ou se um dos materiais está desatualizado.</span></div>
+    <h3>Etapa 1 — Detalhes Gerais</h3>
+    <p>Campos reais do formulário:</p>
+    <ul>
+      <li><b>ID Action</b> e <b>Tipo de atendimento</b></li>
+      <li><b>Atendente</b> (já vem preenchido com o seu usuário logado) e <b>Nome do Cliente</b></li>
+      <li><b>Data de Nascimento, CPF, RG, Nacionalidade, Natural de, Profissão, Estado Civil, Gênero</b></li>
+      <li><b>Escritório</b> — dropdown: o mesmo gerador atende mais de um escritório/operação, então confirme sempre qual está selecionado antes de prosseguir</li>
+      <li><b>Representante legal?</b> e <b>Possui Pendência?</b> (dropdowns)</li>
+      <li><b>Gerar Processos</b> — Sim/Não (padrão "Sim")</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>Etapa 2 — Detalhes de contato</h3>
+    <p>WhatsApp, Telefone Secundário, CEP, Endereço, Bairro, Número, UF do endereço, Cidade e E-mail.</p>
+  </div>
+
+  <div class="block">
+    <h3>Etapa 3 — Detalhes do contrato</h3>
+    <ul>
+      <li><b>Forma de autenticação</b> (ex.: "Selfie com documento")</li>
+      <li><b>Percentual do contrato</b> (ex.: "50%") — o percentual contratual entre cliente e escritório sobre o valor da causa. <span class="confirmar">A CONFIRMAR: demais opções de percentual disponíveis e o critério para escolher cada uma — não confundir com o fator multiplicador da sua comissão do Módulo 8, são coisas diferentes.</span></li>
+      <li><b>Cliente declarante?</b> (Sim/Não) <span class="confirmar">A CONFIRMAR: o que esse campo determina</span></li>
+      <li><b>Observação</b> (texto livre) e <b>Docs</b> (upload de arquivos do cliente)</li>
+      <li><b>Rubricas</b> — lista repetível: você escolhe o código da rubrica (os mesmos códigos do Módulo 6/8, ex. BX_ANT_FIN, CESTA, GASTO_C_CRED) e a <b>parte adversa</b> (ex. "Banco Bradesco S.A."), podendo adicionar quantas rubricas o cliente tiver.</li>
+      <li><b>Rubricas Reunidas</b> — mesmo padrão (rubrica reunida + parte adversa), para os casos do Módulo 6 em que várias cobranças do mesmo banco são reunidas num único processo.</li>
+    </ul>
+    <p>Ao final, clique em <b>Enviar</b>. É esse envio que gera o contrato e o encaminha para assinatura pelo Nicochat.</p>
+  </div>
+
+  <div class="block">
+    <h3>Como o cliente recebe e assina o contrato (pelo Nicochat)</h3>
+    <p>Depois do envio, você manda o link de assinatura pelo próprio atendimento no Nicochat — o sistema registra a inscrição numa sequência automática de lembrete (algo como "Subscribed to sequence: REC ASSINATURA"). O roteiro real enviado ao cliente:</p>
+    <div class="exemplo"><b>Mensagem real enviada ao cliente:</b> "Prontinho, esse é o link para assinatura do seu contrato 🤩 [Assinar contrato]" seguida de: "Para assinar é bem simples, você vai seguir 4 passos: Clicar no link e tocar no botão verde escrito 'Iniciar Assinatura'; Escolher Rubricar ou Assinar; Preencher com o CPF; Preencher com o código que chegará para você no WhatsApp e finalizar por favor; Qualquer dúvida estou aqui para lhe auxiliar😀"</div>
+    <p>Depois que o cliente assina, o Nicochat dispara automaticamente uma mensagem de confirmação e pede o preenchimento de um <b>formulário socioeconômico</b> (link externo, leva menos de 2 minutos) para ajudar na confecção da peça. A mesma mensagem informa ao cliente o prazo e o canal de acompanhamento — ver Módulo 7.</p>
   </div>
 
   <div class="block">
@@ -596,7 +623,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     </div>
     <div class="faq">
       <div class="q">O cliente diz que não recebeu o código de verificação por WhatsApp na hora de assinar. O que faço?</div>
-      <div class="a">Peça para ele conferir se o número cadastrado está correto e usar a opção de reenviar código (disponível após cerca de 52 segundos). Se persistir, trate como falha técnica: abra TKT com o Id da Action, nos mesmos moldes do link não recebido.</div>
+      <div class="a">Peça para ele conferir se o número cadastrado está correto e usar a opção de reenviar código. Se persistir, trate como falha técnica: abra TKT com o Id da Action, nos mesmos moldes do link não recebido.</div>
     </div>
   </div>
 
@@ -604,17 +631,17 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     <h4>Verificação rápida</h4>
     <ol>
       <li>O cliente diz que não recebeu o link do contrato. Qual é o seu primeiro passo?</li>
-      <li>Por que você não deve gerar um segundo contrato antes de abrir o TKT?</li>
-      <li>Como o cliente confirma a própria identidade na hora de assinar, no fluxo da NGAM?</li>
+      <li>Onde você seleciona as rubricas e a parte adversa do cliente no formulário?</li>
+      <li>O que acontece automaticamente depois que o cliente assina o contrato?</li>
     </ol>
   </div>
 
   <div class="recap">
     <h4>Não pode esquecer</h4>
     <ol>
-      <li>O fluxo é sempre: conferir dados → escolher modelo → preencher valores → enviar → acompanhar até assinar.</li>
-      <li>Link não recebido → TKT com Id da Action, nunca duplicar contrato por conta própria.</li>
-      <li>A verificação de identidade na assinatura passa por um código de 6 dígitos via WhatsApp — se o cliente não recebe, isso também é caso de TKT.</li>
+      <li>O fluxo é: Detalhes Gerais → Detalhes de Contato → Detalhes do Contrato → Enviar, sempre conferindo o escritório correto.</li>
+      <li>Rubricas e Rubricas Reunidas são campos próprios no formulário — cadastre todas as que o cliente tiver, não só a principal.</li>
+      <li>Link não recebido ou código de verificação não recebido → sempre TKT com o Id da Action, nunca duplicar contrato por conta própria.</li>
     </ol>
   </div>
 </div></section>
@@ -780,6 +807,13 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
   </div>
 
   <div class="block">
+    <h3>O que o cliente ouve de você, logo após assinar</h3>
+    <p>A mensagem automática enviada pelo Nicochat após a assinatura já define, com o cliente, o prazo e o canal oficiais — vale saber de cor porque o cliente vai te cobrar por isso:</p>
+    <div class="exemplo"><b>Trecho real da mensagem pós-assinatura:</b> "Nós trabalharemos para peticionar a sua ação no menor tempo possível. Pedimos um <b>prazo de 15 a 30 dias úteis</b> para dar entrada na sua ação. Neste número você poderá realizar o <b>acompanhamento do seu processo</b>. [...] Em caso de dúvidas, estaremos à disposição. <b>Segunda a Sexta de 08h00 às 17h00.</b>"</div>
+    <p>Ou seja: o protocolo tem um prazo prometido de 15 a 30 dias úteis contado da assinatura — se uma pendência sua atrasar o processo além disso, é você quem estica esse prazo que já foi combinado com o cliente.</p>
+  </div>
+
+  <div class="block">
     <h3>O seu papel nas pendências</h3>
     <p>Quando surge uma pendência — documento faltando, dado divergente, assinatura incompleta — ela precisa ser sanada por <b>você</b>, o fechador que trouxe o cliente. Ninguém mais tem o relacionamento e o contexto que você tem com aquele cliente.</p>
     <div class="exemplo"><b>Por que isso é inegociável:</b> de nada adianta fechar dez contratos num mês se metade fica parada em pendência. A comissão depende diretamente dos valores protocolados — não dos valores assinados. Fechar é a metade do trabalho; destravar a pendência é a outra metade.</div>
@@ -789,6 +823,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     <h4>Verificação rápida</h4>
     <ol>
       <li>Coloque em ordem: protocolo, triagem, assinatura, pendências, funil, peticionamento, organização de documentos, distribuição ao fechador.</li>
+      <li>Qual é o prazo prometido ao cliente para dar entrada na ação, e a partir de quando ele conta?</li>
       <li>Por que a comissão está ligada ao protocolo e não à assinatura do contrato?</li>
     </ol>
   </div>
@@ -797,7 +832,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     <h4>Não pode esquecer</h4>
     <ol>
       <li>O caminho é: funil → distribuição → assinatura → triagem → organização de documentos → (pendências) → peticionamento → protocolo.</li>
-      <li>Pendência é trabalho seu, não de outra área.</li>
+      <li>O prazo prometido ao cliente é de 15 a 30 dias úteis após a assinatura — pendência sua consome esse prazo.</li>
       <li>Comissão nasce no protocolo, não na assinatura.</li>
     </ol>
   </div>
@@ -1014,17 +1049,17 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     <h2>Relatório de lacunas</h2>
   </div>
   <div class="block">
-    <p style="margin-bottom:10px">Esta versão já incorpora os 13 arquivos enviados da pasta <code>Onboarding</code> (rubricas bancárias LAADV, rubricas reunidas NGAM/Bradesco, treinamento jurídico de provas e teses, guia do CDC, deck de cultura "Introdução RA", scripts oficiais de Cesta e RMC, treinamento oficial do Nicochat, planilha de comissão "LA V2.0", vídeos de extrato Bradesco e assinatura SuperSign, e as imagens de marca). O que ainda falta, marcado como <span class="confirmar">A CONFIRMAR</span> no ponto correspondente do material:</p>
+    <p style="margin-bottom:10px">Esta versão já incorpora os 16 arquivos enviados da pasta <code>Onboarding</code> (rubricas bancárias LAADV, rubricas reunidas NGAM/Bradesco, treinamento jurídico de provas e teses, guia do CDC, deck de cultura "Introdução RA", scripts oficiais de Cesta e RMC, treinamento oficial do Nicochat, planilha de comissão "LA V2.0", vídeos de extrato Bradesco e assinatura SuperSign, imagens de marca, e as telas reais do gerador de contratos e do Nicochat no portal Luis Albert). O que ainda falta, marcado como <span class="confirmar">A CONFIRMAR</span> no ponto correspondente do material:</p>
     <div class="gap-item"><span class="tag">Módulo 2</span>Nomes exatos dos grupos de Discord por operação e contato do tech responsável (nenhum material recebido detalhou isso — a sequência de ferramentas em si veio de instrução direta da gestão, não da pasta).</div>
-    <div class="gap-item"><span class="tag">Módulo 3</span>Telas de onde incluir/remover cada tag no Nicochat e a lista oficial de tags por operação (o treinamento oficial explica o conceito e os procedimentos, mas não mostra as telas).</div>
+    <div class="gap-item"><span class="tag">Módulo 3</span>Lista completa e oficial dos valores possíveis do campo "Quadro"/tag no Nicochat (vimos só um valor real, "Termo de ciência / Recebeu o link") e o significado dos contadores no topo da tela (28, 9, 50, 4).</div>
     <div class="gap-item"><span class="tag">Módulo 4</span>NocoDB — nenhum material recebido cobre telas, estrutura ou o que exatamente o fechador vê nessa ferramenta (a planilha "LA V2.0" resolve a parte de comissão, mas não substitui o CRM).</div>
-    <div class="gap-item"><span class="tag">Módulo 5</span>Divergência entre ferramentas de assinatura: o vídeo oficial da NGAM mostra o <b>SuperSign</b> em uso real; o deck genérico de cultura cita <b>Clicksign</b>. Confirmar se cada operação usa uma ferramenta diferente ou se um dos materiais está desatualizado. Também faltam os campos exatos do formulário do gerador (matéria, valor da causa, dados bancários).</div>
+    <div class="gap-item"><span class="tag">Módulo 5</span>Divergência entre ferramentas de assinatura: o vídeo oficial da NGAM mostra o <b>SuperSign</b> em uso real; o deck genérico de cultura cita <b>Clicksign</b>. As telas do gerador que recebemos são do portal "Luis Albert" (LAADV) — confirmar se a NGAM usa o mesmo portal ou um próprio. Também faltam as demais opções de "Percentual do contrato" além de 50%, e o que o campo "Cliente declarante?" determina.</div>
     <div class="gap-item"><span class="tag">Módulo 6</span>Documentos e scripts para matérias fora do escopo bancário/RMC (ex.: energia, água, telefonia) e para operações fora da LAAM — os materiais recebidos cobrem bem o bancário (Cesta, RMC/RCC, Gastos com Crédito, Parc Cred Pess, BX Ant Fin) e trazem conteúdo forte de energia/água (ANEEL), mas sem confirmação de qual operação atende essa matéria.</div>
-    <div class="gap-item"><span class="tag">Módulo 8</span>Modelo de comissão da NGAM (só recebemos o "LA V2.0", da LAAM/LARJ). Também vale confirmar se o valor de exemplo "1.876" observado numa aba já preenchida é o valor final da comissão em reais ou um índice intermediário.</div>
+    <div class="gap-item"><span class="tag">Módulo 8</span>Modelo de comissão da NGAM (só recebemos o "LA V2.0", da LAAM/LARJ). Também vale confirmar se o valor de exemplo "1.876" observado numa aba já preenchida é o valor final da comissão em reais ou um índice intermediário, e se o "Percentual do contrato" (50%, visto no Módulo 5) tem alguma relação com essa conta ou é totalmente independente.</div>
     <div class="gap-item"><span class="tag">Geral</span>Significado exato da coluna de origem/tag na planilha de comissão — os valores observados ("RETORNO", "CAMPANHA") sugerem tipo de lead, não uma pendência de documento como o nome da coluna às vezes indica.</div>
-    <div class="gap-item"><span class="tag">Geral</span>Relação formal entre a <b>RA Tecnologia</b> (empresa de tecnologia/backoffice) e o canal de captação citado nos scripts (grafado como "Reclamei" num script e "reclame aí" em outro — padronizar a grafia oficial) — e como os dois se conectam às marcas NGADV/LAADV.</div>
+    <div class="gap-item"><span class="tag">Geral</span>Relação formal entre a <b>RA Tecnologia</b> (empresa de tecnologia/backoffice), o canal de captação citado nos scripts (grafado como "Reclamei" num script e "reclame aí" em outro — padronizar a grafia oficial) e o domínio "3sgroup.com.br" visto no link do formulário socioeconômico enviado ao cliente pelo Nicochat — pode ser o nome do grupo por trás de tudo isso, vale confirmar.</div>
     <div class="gap-item"><span class="tag">Geral</span>Confirmação do estágio atual da operação LARJ — nenhum material recebido tratou especificamente da LARJ; o painel de gestão já existente indica que ainda está "em estruturação", medida por processo e não por volume.</div>
-    <div class="gap-item"><span class="tag">Geral</span>Cuidado de privacidade: a planilha de comissão recebida contém nomes reais de clientes. Este material de treinamento usa apenas a estrutura e exemplos anonimizados — nunca use a planilha de produção com dados reais para treinar alguém novo (ver Observações do Designer Instrucional).</div>
+    <div class="gap-item"><span class="tag">Geral</span>Cuidado de privacidade: a planilha de comissão recebida contém nomes reais de clientes, e uma das telas do Nicochat mostrou o nome completo de um cliente real (Aldair Silveira de Alencar Filho) e de seu pai. Este material de treinamento usa apenas a estrutura, fórmulas e exemplos anonimizados — nunca use telas ou planilhas de produção com dados reais para treinar alguém novo (ver Observações do Designer Instrucional).</div>
   </div>
   <div class="sig">Assinado,<br><b>Maria Lúcia Grana</b> — Gestão Comercial</div>
 </div></section>
@@ -1071,6 +1106,14 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     <div class="obs">
       <h4>Resolver a divergência SuperSign x Clicksign antes de rodar o treinamento de verdade</h4>
       <p>Ensinar a ferramenta errada de assinatura no Módulo 5 quebra a confiança do novato no material inteiro logo na primeira ferramenta prática que ele vai usar de fato. Antes de publicar esta versão como treinamento oficial, vale confirmar rapidamente com o tech qual ferramenta cada operação usa hoje.</p>
+    </div>
+    <div class="obs">
+      <h4>Um dos prints do Nicochat trazia o nome completo de um cliente real</h4>
+      <p>Removi qualquer identificação individual do material final, mas o print mostrava nome completo do cliente e do pai dele na tela de atendimento. Reforço o mesmo cuidado já registrado sobre a planilha de comissão: ao montar o material definitivo de treinamento (prints, vídeos de tela), vale gravar uma demonstração com um cliente fictício, em vez de capturar tela de atendimento real — evita expor dado de cliente para quem está sendo treinado e para qualquer pessoa que vier a acessar este material depois.</p>
+    </div>
+    <div class="obs">
+      <h4>"Percentual do contrato" e "fator multiplicador da comissão" são dois números diferentes — deixe isso muito claro na prática</h4>
+      <p>O formulário de gerar contrato tem um campo "Percentual do contrato" (ex.: 50%), que é o percentual combinado entre cliente e escritório sobre o valor da causa. Isso não tem relação direta, que os materiais recebidos confirmem, com o cálculo da comissão do fechador do Módulo 8 (peso × ações × valor gerado). Como os dois envolvem "percentual" e "contrato", um novato pode facilmente confundir os dois números. Já deixei a ressalva no Módulo 5, mas sugiro reforçar isso verbalmente na prática guiada.</p>
     </div>
   </div>
   <div class="sig">Assinado,<br><b>Maria Lúcia Grana</b> — Gestão Comercial</div>
