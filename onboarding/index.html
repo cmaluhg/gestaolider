@@ -102,6 +102,10 @@ nav.tabs{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.95);backd
 .opcard dd{color:var(--ink-soft)}
 
 .check{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-top:14px}
+.materia-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.materia-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;background:var(--you-bg);color:var(--you);border:1px solid var(--you);border-radius:6px;padding:2px 8px;flex:0 0 auto}
+.materia-head h4{font-family:'Space Grotesk',sans-serif;font-size:17px;margin:0}
+.materia-legal{margin-top:8px;font-size:12.5px;color:var(--ink-soft)}
 .check h4{font-family:'Space Grotesk',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:10px}
 .check ol{padding-left:18px}
 .check li{margin-bottom:8px;font-size:13.5px}
@@ -131,6 +135,11 @@ nav.tabs{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.95);backd
 table.tl{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
 table.tl th{text-align:left;font-family:'Space Grotesk',sans-serif;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);border-bottom:2px solid var(--line-strong);padding:8px 10px}
 table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.pill{display:inline-block;font-family:'Space Mono',monospace;font-size:10.5px;padding:1px 7px;border-radius:20px;white-space:nowrap}
+.pill.reune{background:#E7F3EC;color:#1E6B41;border:1px solid #7FBF9A}
+.pill.naoreune{background:var(--rj-bg);color:#9A5E10;border:1px solid var(--rj)}
+.pill.vc{background:#FDEEDD;color:#B45309;border:1px solid #E8720C}
+.pill.ci{background:#E7ECF0;color:#334E68;border:1px solid #9FB3C8}
 
 .lib{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
 .libitem{display:flex;gap:14px;border:1px solid var(--line);border-radius:11px;padding:14px 16px;align-items:flex-start}
@@ -221,6 +230,8 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
   <button class="tab" role="tab" aria-selected="false" data-tab="m8">8 · Comissão</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="m9">9 · Alta perf.</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="m10">10 · Biblioteca</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="materias">Entendendo as matérias</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="workspace">Workspace &amp; Glossário</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="tl">Linha do tempo</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="repl">Guia de replicação</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="gaps">Lacunas</button>
@@ -1196,6 +1207,207 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li>Ler na ordem ajuda porque os livros seguintes constroem sobre os anteriores.</li>
     </ol>
     <button class="completebtn" data-mod="10" onclick="toggleComplete(10,this)">✓ Marcar Módulo 10 como concluído</button>
+  </div>
+</div></section>
+
+<!-- ENTENDENDO AS MATÉRIAS -->
+<section class="panel" id="materias"><div class="wrap">
+  <div class="modhead">
+    <div class="modicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7z"/><path d="M9.5 12.5l2 2 4-4.5"/></svg></div>
+    <div class="modhead-text">
+    <div class="modno">Aprofundamento</div>
+    <h2>Entendendo as matérias (rubricas)</h2>
+    </div>
+  </div>
+  <div class="objetivo"><b>Ao final desta aba você será capaz de:</b> explicar, com suas próprias palavras, o que cada matéria realmente representa para o cliente — não só reconhecer a sigla na planilha.</div>
+  <div class="porque">Por que isso importa: quem só decora o nome da rubrica erra a classificação assim que o caso sai um pouco do padrão. Quem entende o impacto identifica a rubrica escondida — e evita indicar, sem querer, algo que fura o IRDR ou perde prazo.</div>
+
+  <div class="block">
+    <h3>Antes das rubricas: o que são "Rubricas Reunidas"</h3>
+    <p>Quase tudo o que você capta gira em torno deste conceito. <b>Rubricas reunidas</b> é juntar, em uma única ação judicial, várias cobranças indevidas ou vendas casadas praticadas pelo <b>mesmo banco</b> contra o <b>mesmo cliente</b> — em vez de abrir um processo separado para cada uma. Por quê?</p>
+    <ul>
+      <li><b>Evita extinções:</b> processos fatiados demais são extintos por fracionamento de demanda, litigância de má-fé ou "assédio processual".</li>
+      <li><b>Mais celeridade:</b> um processo único, com todas as rubricas, é julgado de forma mais rápida e completa.</li>
+      <li><b>Mais procedência:</b> a reunião fortalece a tese, reduz risco de nulidade e aumenta a chance de êxito.</li>
+    </ul>
+    <div class="exemplo"><b>Onde você entra:</b> é na captação que a ação nasce. Uma captação bem feita = menos problema no jurídico + mais procedência. Por isso esta aba existe: para você reconhecer cada rubrica na entrada, saber o que reunir e o que separar, e não deixar nenhuma cobrança indevida passar batido.</div>
+  </div>
+
+  <div class="block">
+    <h3>O gancho central: Produto x Serviço</h3>
+    <p>Esta é a distinção que decide se uma cobrança é abusiva ou não — memorize:</p>
+    <table class="tl">
+      <tr><th>Serviço (Tarifa)</th><th>Produto</th></tr>
+      <tr>
+        <td>Cobrança por serviço prestado, <b>regulada pelo BACEN</b>. Não exige autorização expressa — decorre do próprio uso (mas exige comprovar que o cliente ultrapassou a franquia gratuita). Ex.: cesta de serviços, manutenção de conta, extrato mensal, saque em terminal, taxa de SMS.</td>
+        <td>Exige <b>autorização expressa</b> do consumidor. A falta de consentimento é o ponto central para o sucesso da ação. Ex.: seguros (vida/residencial/cartão), cesta, anuidade de cartão, empréstimos e financiamentos, capitalização, previdência privada, assistência funeral/residencial.</td>
+      </tr>
+    </table>
+    <p style="margin-top:10px">A Resolução BACEN 3.919/2010 garante gratuitamente, por mês: <b>4 saques</b>, <b>2 transferências</b> entre contas da mesma instituição, <b>2 extratos</b> (movimentação dos últimos 30 dias), <b>1º cartão de débito + 2ª via</b> (exceto perda/roubo), consultas ilimitadas por internet/telefone e <b>10 folhas de cheque</b> por mês.</p>
+    <div class="exemplo"><b>Atenção — IRDR:</b> processos que discutem <b>tarifa bancária + dano moral</b> estão suspensos pelo IRDR Tema 8 do TJ-AM. Produtos bancários NÃO são afetados por esse tema e seguem normalmente.</div>
+  </div>
+
+  <div class="block">
+    <h3>Tabela-mestra: o que pode reunir e o que precisa ficar separado</h3>
+    <p>Referência oficial do POP (Bradesco), revisão de 30/04/2026. A <b>categoria</b> diz a natureza da cobrança; a coluna <b>Reunião</b> diz se aquela rubrica entra no processo reunido ou tem que ir em ação separada por causa de IRDR.</p>
+    <table class="tl">
+      <tr><th>Rubrica (código)</th><th>Descrição</th><th>Categoria</th><th>Reunião</th></tr>
+      <tr><td>CESTA</td><td>Cesta / Pacote de Serviço</td><td><span class="pill vc">Venda Casada</span></td><td><span class="pill naoreune">NÃO reunir · IRDR Tema 8</span></td></tr>
+      <tr><td>MORA</td><td>Mora de Crédito Pessoal / Encargos de Limite de Crédito</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill naoreune">NÃO reunir · IRDR Tema 7</span></td></tr>
+      <tr><td>TIT_CAP</td><td>Título de Capitalização</td><td><span class="pill vc">Venda Casada</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>SEGURO</td><td>Seguro (Prestamista / Morte / Invalidez)</td><td><span class="pill vc">Venda Casada</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>PARC_CRED_PESS</td><td>Parcela de Crédito Pessoal</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>GASTOS_CARTAO</td><td>Gastos de Cartão de Crédito</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>MORA_CEL</td><td>Mora Cel</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>AD_DEPOSITANTE</td><td>Adiantamento a Depositante</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>BX_ANT_FIN</td><td>Baixa Antecipada de Financiamento / Liq. Ant. Financ.</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>SAQUE_TERMINAL</td><td>Saque Terminal / Correspondente</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>EMISSAO_EXTRATO</td><td>Emissão de Extrato</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>ANUIDADE</td><td>Anuidade de Cartão de Crédito</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>VIDA_PREV</td><td>Vida e Previdência</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>INV_FACIL</td><td>Invest Fácil</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>COBRANCA_IND</td><td>Cobrança Indevida</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>EXTRATO_MOVIMENTO</td><td>Extrato Movimento</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>DIV_ATRASO</td><td>Dívida em Atraso</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>REORG_FINAN</td><td>Reorganização Financeira</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>OP_VENCIDAS</td><td>Operações Vencidas</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>REG_LANCAMENTO</td><td>Regularização de Lançamento</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>MORA_OPERACOES</td><td>Mora Operação</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>ENCARGOS_DESCOBERTOS</td><td>Encargos Descobertos</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+      <tr><td>ENCARGOS_EXCESSO</td><td>Encargos Excesso de Limite</td><td><span class="pill ci">Cobrança Indevida</span></td><td><span class="pill reune">Pode reunir</span></td></tr>
+    </table>
+    <div class="exemplo"><b>A pegadinha que mais derruba processo:</b> "Encargos de <u>Excesso</u> de Limite" (ENCARGOS_EXCESSO) <b>PODE</b> ser reunido. Não confunda com "Encargos de <u>Limite</u> de Crédito" (dentro de MORA), que é afetado pelo IRDR Tema 7 e <b>não</b> pode ser reunido. Uma palavra muda tudo.</div>
+  </div>
+
+  <div class="block">
+    <h3>⚠️ O que NUNCA reunir (IRDR — suspensão obrigatória)</h3>
+    <p>Duas matérias estão sob Incidente de Resolução de Demandas Repetitivas (IRDR) e têm suspensão obrigatória. Se você as juntar com as demais rubricas, corre o risco de <b>travar o processo inteiro</b> — inclusive as rubricas que estavam boas. Elas vão sempre em ação separada:</p>
+    <table class="tl">
+      <tr><th>Tema</th><th>Rubrica</th><th>Processo IRDR</th></tr>
+      <tr><td><b>Tema 7</b></td><td>Mora de Crédito Pessoal · Encargos de Limite de Crédito</td><td>0004464-79.2023.8.04.0000</td></tr>
+      <tr><td><b>Tema 8</b></td><td>Cesta / Pacote de Serviços</td><td>0005053-71.2023.8.04.0000</td></tr>
+    </table>
+    <div class="exemplo"><b>Regra prática de triagem:</b> ao montar a captação, separe primeiro CESTA (Tema 8) e MORA/Encargos de Limite (Tema 7) em processos próprios; só depois reúna todo o resto. A primeira rubrica que sai para a Vara Comum é sempre <b>Gastos com Crédito</b>.</div>
+  </div>
+
+  <div class="block">
+    <h3>Casos reais do escritório — por que a triagem importa</h3>
+    <ul>
+      <li><b>Cumulação forçada pelo juiz:</b> num processo de rubricas reunidas, o magistrado mandou juntar com um processo afetado por IRDR (Tema 7). O jurídico resistiu por manifestação nos autos — e a separação correta na entrada teria evitado a complicação.</li>
+      <li><b>Extinção revertida no TJAM (São Gabriel da Cachoeira):</b> a 1ª instância extinguiu por "assédio processual"; o TJAM (Des. João de Jesus Abdala Simões) deu provimento à apelação, anulou a sentença e determinou o sobrestamento até o IRDR. A separação foi <b>validada pelo Tribunal</b>.</li>
+      <li><b>Procedência parcial:</b> num processo com muitas rubricas, o juiz acolheu algumas e negou outras — gerando recurso e retrabalho no jurídico. Quanto mais rubricas juntas, maior a exposição a esse cenário: captar as rubricas <b>certas</b>, com precisão, reduz o risco.</li>
+    </ul>
+    <div class="porque">A lição das três histórias é a mesma: o comercial é o primeiro filtro de qualidade do processo. A ação nasce na sua captação.</div>
+  </div>
+
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:19px;margin:26px 0 4px">Matéria por matéria</h3>
+  <p style="font-size:14px;color:var(--ink-soft);margin-bottom:14px">As matérias com base jurídica e exemplos reais já confirmados. Cada card segue a mesma lógica: o que é, por que importa, e um exemplo prático.</p>
+
+  <div class="block materia-card">
+    <div class="materia-head"><span class="materia-tag">CESTA</span><h4>Cesta / Pacote de Serviços</h4></div>
+    <p><b>O que é:</b> a cobrança mensal do banco por um conjunto de serviços (extrato, saques, transferências, etc.). O banco PODE cobrar por isso — mas só se o cliente autorizou esse pacote expressamente, em contrato separado da abertura de conta.</p>
+    <p><b>Por que importa:</b> quando o banco não separa essa autorização do contrato de abertura de conta, ele cobra por algo que o cliente nunca escolheu de fato — venda casada (Art.39 CDC). É também a matéria com IRDR próprio (Tema 8): classificar errado aqui e reunir com outra rubrica pode suspender o processo inteiro.</p>
+    <div class="exemplo"><b>Na prática:</b> cliente tem descontos mensais de "Cesta Padrão" desde a abertura da conta e nunca assinou nada separado autorizando aquele pacote específico. Sem esse termo de adesão separado, é cobrança sem autorização expressa.</div>
+    <p class="materia-legal">Base legal: Res. BACEN 3.919/2010 · IRDR Tema 8 TJAM (processo 0005053-71.2023.8.04.0000) — nunca reunir com outras rubricas.</p>
+  </div>
+
+  <div class="block materia-card">
+    <div class="materia-head"><span class="materia-tag">RMC / RCC</span><h4>Cartão Consignado — Reserva de Margem Consignável</h4></div>
+    <p><b>O que é:</b> o banco oferece um "cartão consignado" — só que, em vez de funcionar como um cartão normal (fatura integral todo mês), o cliente faz um saque ou recebe um depósito na conta, achando que é um empréstimo comum.</p>
+    <p><b>Por que importa:</b> esse saque vira uma fatura que quase nunca é paga integralmente — só o mínimo é descontado automaticamente do salário/benefício (a "reserva de margem consignável") todo mês. Como o mínimo não cobre nem os juros, a dívida nunca diminui. É um endividamento perpétuo, proibido pelo CDC — toda dívida precisa ter um prazo para acabar.</p>
+    <div class="exemplo"><b>Na prática:</b> cliente relata que "pegou um empréstimo", mas na real recebeu um cartão, sacou o limite, e há anos vê o mesmo valor sendo descontado do contracheque sem a dívida diminuir. Isso é RMC/RCC.</div>
+    <p class="materia-legal">Base legal e saída: CDC (veda dívida sem prazo definido). Resolução: negociar quitação direto com o banco, ou via judicial — cancelamento da dívida + devolução em dobro do indevido + dano moral (R$5.000–10.000).</p>
+  </div>
+
+  <div class="block materia-card">
+    <div class="materia-head"><span class="materia-tag">GASTO_C_CRED</span><h4>Gastos com Crédito</h4></div>
+    <p><b>O que é:</b> débito automático na fatura do cartão de crédito de "gastos" que o cliente nunca autorizou expressamente — aparece na fatura como "Gastos Cartão de Crédito" ou "Gasto com Cred".</p>
+    <p><b>Por que importa:</b> o Tema 1.085 do STJ exige consentimento prévio, livre e expresso para esse tipo de cobrança. É comum o desconto aparecer numa data anterior à própria ativação do cartão pelo cliente — ou seja, cobrança sem uso real do crédito.</p>
+    <div class="exemplo"><b>Na prática:</b> caso real (processo 0566791-63.2024.8.04.0001) — cartão ativado em 2022, mas os descontos já apareciam desde 2019: prova concreta de cobrança sem uso nem autorização.</div>
+    <p class="materia-legal">Base legal: Tema 1.085 STJ, Res. BACEN 3.919/2010. Precedente: TJAM 3ªCC AC 0587796-78.2023 (repetição em dobro + dano moral R$2.000–5.000).</p>
+  </div>
+
+  <div class="block materia-card">
+    <div class="materia-head"><span class="materia-tag">PARC_CRED_PESS</span><h4>Parcela Crédito Pessoal</h4></div>
+    <p><b>O que é:</b> descontos recorrentes vinculados a vários contratos de empréstimo diferentes, sem que o cliente tenha assinado ou solicitado novamente para todos eles.</p>
+    <p><b>Por que importa:</b> é comum o cliente ter dezenas de descontos ativos, mas só uma fração deles com contrato assinado correspondente — o resto foi gerado pelo banco sem nova solicitação. O banco vai alegar que "o cliente usou o capital"; por isso extrato sozinho não basta, o que prova o caso é a ausência do contrato.</p>
+    <div class="exemplo"><b>Na prática:</b> exemplo real — 58 descontos mensais ativos, vinculados a apenas 29 contratos distintos: para quase metade dos descontos não existe contrato correspondente.</div>
+    <p class="materia-legal">Base legal: TJAM 3ª Turma Recursal RI 0714746-74.2025 — ausência de contrato = restituição em dobro + dano moral R$5.000.</p>
+  </div>
+
+  <div class="block materia-card">
+    <div class="materia-head"><span class="materia-tag">BX_ANT_FIN</span><h4>Baixa de Antecipação de Financiamento/Empréstimo</h4></div>
+    <p><b>O que é:</b> quando o salário ou aposentadoria do cliente cai na conta, o banco "varre" automaticamente o saldo para quitar dívidas internas (empréstimos com o próprio banco), antes que o cliente consiga usar o dinheiro — sem aviso prévio.</p>
+    <p><b>Por que importa:</b> o cliente recebe o benefício e, no mesmo dia, já vê boa parte sumir sem entender por quê — é uma renegociação automática de dívida que ele nunca autorizou daquela forma. O banco deveria apresentar um documento descrevendo essa "Renegociação Automática" e uma carta de liquidação detalhando contratos quitados, valor e anuência do cliente — na prática, isso quase nunca existe.</p>
+    <div class="exemplo"><b>Na prática:</b> cliente recebe a aposentadoria e, no mesmo dia, vê o saldo reduzido para pagar uma dívida antiga do banco, sem ter assinado nada recente autorizando esse desconto específico.</div>
+    <p class="materia-legal">Base legal: Tema 1.085 STJ, por analogia (mesma lógica de consentimento prévio e expresso).</p>
+  </div>
+
+  <div class="block materia-card">
+    <div class="materia-head"><span class="materia-tag">SVA</span><h4>Serviço de Valor Agregado (telefonia)</h4></div>
+    <p><b>O que é:</b> serviços extras cobrados na fatura de telefone/celular além do plano contratado (toques, conteúdo, assinaturas) — cobrados automaticamente, sem o cliente ter pedido.</p>
+    <p><b>Por que importa:</b> é outra venda casada — o cliente contratou só o plano de telefonia, e a operadora "empurra" serviços extras na fatura, sabendo que a maioria das pessoas não confere item por item todo mês.</p>
+    <div class="exemplo"><b>Na prática:</b> a própria fatura telefônica do cliente já serve de comprovante de residência E de prova do desconto — por isso pedimos no mínimo 5 faturas detalhadas mostrando a cobrança recorrente, mais o comprovante de pagamento (prova de que o dano existiu de fato). Ver documentação completa no Módulo 6.</div>
+  </div>
+
+  <div class="block materia-card">
+    <div class="materia-head"><span class="materia-tag">ENERGIA / ÁGUA</span><h4>Recuperação de Faturamento (inclui TOI)</h4></div>
+    <p><b>O que é:</b> cobranças retroativas de concessionárias de energia/água baseadas num TOI (Termo de Ocorrência e Inspeção) — um laudo que a própria concessionária emite, unilateralmente, dizendo que houve erro ou fraude no consumo.</p>
+    <p><b>Por que importa:</b> um TOI emitido pela própria concessionária não tem presunção absoluta de legitimidade (Súmula 256 TJRJ) — o cliente tem direito a um prazo de 15 dias para recorrer ou pedir perícia antes que a cobrança vire dívida (Art.581 Res.1000/2021). E existe limite de quanto tempo pode ser cobrado retroativamente: erro da concessionária = só 3 ciclos; fraude sem data definida de início = 6 ciclos; fraude com data comprovada = até 36 ciclos.</p>
+    <div class="exemplo"><b>Na prática:</b> cliente recebe cobrança alta e retroativa "porque o medidor estava com defeito" (TOI), sem nunca ter recebido aviso do prazo de 15 dias para contestar — isso já é motivo de nulidade da cobrança.</div>
+    <p class="materia-legal">Base legal: Resolução 1000/2021 ANEEL (Arts.253, 256, 323, 581) · Súmula 256 TJRJ · Tema 932 STJ (prescrição de 5 anos/60 meses).</p>
+  </div>
+
+  <div class="block materia-card">
+    <div class="materia-head"><span class="materia-tag">ESPECÍFICA</span><h4>Matérias fora do escopo bancário/telefonia/energia</h4></div>
+    <p><b>O que é:</b> qualquer história de consumidor que não se encaixa nas categorias acima — problema com companhia aérea, compra online com defeito, entre outras. Não existe uma lista fixa de documentos aqui.</p>
+    <p><b>Por que importa:</b> cada uma dessas histórias só vira um caso forte se você souber, na ponta do atendimento, quais provas contam aquela história específica, na ordem certa — a pergunta que guia tudo é "como eu comprovo que isso aconteceu, nessa ordem, e que gerou esse dano?".</p>
+    <div class="exemplo"><b>Na prática:</b> já documentado com exemplos reais (companhia aérea, compra online) no Módulo 6, seção "Documentação para matérias Específicas".</div>
+  </div>
+
+  <div class="check">
+    <h4>Cards detalhados x tabela-mestra</h4>
+    <p>Todas as rubricas do Bradesco já estão classificadas na tabela-mestra acima (categoria + se reúne ou não). Os cards detalhados de "o que é / por que importa" cobrem, por enquanto, as matérias para as quais já recebemos base jurídica e exemplos reais completos (Gastos com Crédito, Parc Cred Pess, BX Ant Fin, Cesta, RMC/RCC, SVA, Energia/Água, Específica). <span class="confirmar">A CONFIRMAR: conceito, impacto e exemplo prático detalhados das demais rubricas da tabela (Título de Capitalização, Seguro, Anuidade, Vida e Previdência, Invest Fácil, etc.) — assim que recebermos o material, viram cards completos.</span></p>
+  </div>
+</div></section>
+
+<!-- WORKSPACE & GLOSSÁRIO -->
+<section class="panel" id="workspace"><div class="wrap">
+  <div class="modhead">
+    <div class="modicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M8 21h8M12 17v4"/></svg></div>
+    <div class="modhead-text">
+    <div class="modno">Aprofundamento</div>
+    <h2>Guia do Workspace &amp; glossário técnico</h2>
+    </div>
+  </div>
+  <div class="objetivo"><b>Ao final desta aba você será capaz de:</b> usar as ferramentas do Google Workspace no seu dia a dia sem travar, e entender os termos comuns que vão aparecer em reuniões e conversas com o time.</div>
+
+  <div class="block">
+    <h3>🛠️ Dominando o Google Workspace</h3>
+    <p><b>O que é o Workspace?</b> Pense nele como o nosso "escritório digital". É o ecossistema do Google onde toda a mágica acontece: em vez de salvar as coisas no seu computador, tudo fica na nuvem para que todo mundo possa colaborar em tempo real.</p>
+    <ul>
+      <li><b>Google Drive</b> — é o nosso arquivo central. Regra de ouro: nunca salve arquivos importantes na área de trabalho do seu computador. Use sempre as pastas compartilhadas do Drive, para ninguém perder nada.</li>
+      <li><b>Google Sheets (Planilhas) e Docs (Documentos)</b> — são os equivalentes ao Excel e Word, mas com um superpoder: várias pessoas podem mexer ao mesmo tempo. Você vai ver os avatares dos seus colegas na mesma folha, em tempo real.</li>
+      <li><b>Google Meet</b> — nossa sala de reuniões. É onde fazemos as dailies (reuniões diárias) e os alinhamentos. Mantenha a câmera aberta sempre que possível.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>📖 Dicionário de termos técnicos</h3>
+    <p>Vocabulário comum do dia a dia corporativo — nem sempre é jargão exclusivo daqui, mas você vai ouvir esses termos com frequência, então vale ter a "tradução" na ponta da língua.</p>
+    <ul>
+      <li><b>ASAP</b> — "o quanto antes". Usado quando algo é urgente de verdade, não força de expressão.</li>
+      <li><b>Benchmark</b> — comparar o seu resultado com uma referência (de mercado ou de um colega) para saber se está bom.</li>
+      <li><b>Budget</b> — o orçamento. O limite de dinheiro disponível para gastar em algo.</li>
+      <li><b>Churn</b> — quando um cliente cancela o serviço. O objetivo é sempre manter esse número o menor possível.</li>
+      <li><b>Deadline</b> — a data limite. O dia (e a hora) em que a tarefa precisa estar entregue, sem desculpa.</li>
+      <li><b>Feedback</b> — retorno sobre um trabalho, seja elogio ou correção. Sempre serve para melhorar.</li>
+      <li><b>Follow-up</b> — fazer o acompanhamento. Voltar a falar com alguém sobre um assunto que ainda está em aberto.</li>
+      <li><b>KPI</b> (Key Performance Indicator) — indicador-chave de performance. O número que mostra se uma meta está sendo batida (ex.: a Taxa de Conversão do Módulo 1).</li>
+      <li><b>Onboarding</b> — é literalmente este processo que você está vivendo agora: a integração de alguém novo no time.</li>
+      <li><b>Reportar</b> — informar formalmente algo a alguém (ex.: "reportar um bug" é abrir um TKT, como no Módulo 2).</li>
+      <li><b>Touchpoint</b> — qualquer ponto de contato com o cliente (WhatsApp, ligação, e-mail). Cada touchpoint é uma chance de fazer bem, como no Módulo 3.</li>
+    </ul>
   </div>
 </div></section>
 
