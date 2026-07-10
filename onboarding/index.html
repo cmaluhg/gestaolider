@@ -23,9 +23,24 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(
 .wrap{max-width:920px;margin:0 auto;padding:0 20px}
 a{color:var(--you)}
 header.top{background:var(--ink);color:#fff;padding:34px 0 28px;border-bottom:3px solid var(--you)}
+.hero{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+.hero-text{flex:1 1 auto;min-width:0}
+.hero-art{flex:0 0 auto;display:none}
+@media(min-width:760px){.hero-art{display:block}}
 .eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#9FB0AC;margin-bottom:10px}
 header.top h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em}
 header.top p{color:#C3CCD6;max-width:70ch;margin-top:10px;font-size:14.5px}
+.namerow{display:flex;align-items:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+.namerow label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#9FB0AC}
+.namerow input{font-family:'Inter',sans-serif;font-size:13.5px;padding:8px 12px;border-radius:9px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;min-width:220px}
+.namerow input::placeholder{color:#8494A3}
+.namerow input:focus{outline:none;border-color:var(--you);background:rgba(255,255,255,.1)}
+.progresswrap{margin-top:16px;max-width:420px}
+.progresslabel{display:flex;justify-content:space-between;font-family:'Space Grotesk',sans-serif;font-size:12.5px;font-weight:600;color:#C3CCD6;margin-bottom:6px}
+.progresslabel span:last-child{color:var(--you);font-family:'Space Mono',monospace}
+.progressbar{height:8px;background:rgba(255,255,255,.12);border-radius:8px;overflow:hidden}
+.progressbar>i{display:block;height:100%;width:0%;background:var(--you);border-radius:8px;transition:width .4s ease}
+.progresssub{font-size:11.5px;color:#8494A3;margin-top:6px}
 
 nav.tabs{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .tabs-inner{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;max-width:920px;margin:0 auto;padding:0 20px}
@@ -46,7 +61,13 @@ nav.tabs{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.95);backd
 .objetivo b{font-family:'Space Grotesk',sans-serif;color:var(--you)}
 .porque{border-left:3px solid var(--gold);padding:4px 0 4px 14px;margin-top:12px;font-size:13.5px;color:var(--ink-soft);font-family:'Newsreader',serif;font-style:italic}
 
-.block{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:16px}
+.block{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:16px;transition:transform .18s ease,box-shadow .18s ease}
+.block:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(14,36,57,.08),0 14px 28px rgba(14,36,57,.10)}
+.opcard,.libitem{transition:transform .18s ease,box-shadow .18s ease}
+.opcard:hover,.libitem:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(14,36,57,.08)}
+.completebtn{display:inline-flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;padding:9px 16px;border-radius:9px;cursor:pointer;margin-top:14px;transition:.15s}
+.completebtn:hover{background:rgba(255,255,255,.1)}
+.completebtn.done{background:var(--you);border-color:var(--you);color:#fff}
 .block h3{font-family:'Space Grotesk',sans-serif;font-size:17px;margin-bottom:8px}
 .block h4{font-family:'Space Grotesk',sans-serif;font-size:14.5px;margin:14px 0 6px}
 .block p{font-size:14px;margin-bottom:8px}
@@ -159,10 +180,35 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
 <body>
 
 <header class="top">
-  <div class="wrap">
-    <div class="eyebrow">Onboarding · Fechador de Contratos · NGAM · LAAM · LARJ</div>
-    <h1>Do zero à autonomia: sua trilha como fechador</h1>
-    <p>Este não é um manual para ler e esquecer. É o percurso que você vai seguir nos primeiros 30 dias — ferramenta por ferramenta, atendimento por atendimento — até operar sozinho, com método e ética, defendendo os direitos dos nossos clientes.</p>
+  <div class="wrap hero">
+    <div class="hero-text">
+      <div class="eyebrow">Onboarding · Fechador de Contratos · NGAM · LAAM · LARJ</div>
+      <h1 id="heroTitle">Do zero à autonomia: sua trilha como fechador</h1>
+      <p>Este não é um manual para ler e esquecer. É o percurso que você vai seguir nos primeiros 30 dias — ferramenta por ferramenta, atendimento por atendimento — até operar sozinho, com método e ética, defendendo os direitos dos nossos clientes.</p>
+      <div class="namerow">
+        <label for="userName">Seu nome</label>
+        <input type="text" id="userName" placeholder="Digite seu nome para personalizar">
+      </div>
+      <div class="progresswrap">
+        <div class="progresslabel"><span>Seu progresso</span><span id="progressPct">0%</span></div>
+        <div class="progressbar"><i id="progressFill"></i></div>
+        <div class="progresssub" id="progressSub">0 de 11 módulos marcados como concluídos</div>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 220 220" width="200" height="200">
+        <circle cx="110" cy="110" r="100" fill="#16324A"/>
+        <rect x="55" y="52" width="110" height="120" rx="12" fill="#FBF8F3"/>
+        <rect x="70" y="70" width="80" height="10" rx="5" fill="#E4DED2"/>
+        <rect x="70" y="90" width="55" height="10" rx="5" fill="#E4DED2"/>
+        <circle cx="82" cy="118" r="9" fill="#E8720C"/>
+        <path d="M78 118l3 4 6-8" stroke="#FBF8F3" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="100" y="113" width="50" height="10" rx="5" fill="#E4DED2"/>
+        <circle cx="82" cy="144" r="9" fill="#E4DED2"/>
+        <rect x="100" y="139" width="50" height="10" rx="5" fill="#E4DED2"/>
+        <circle cx="168" cy="60" r="16" fill="#E8720C"/>
+      </svg>
+    </div>
   </div>
 </header>
 
@@ -216,6 +262,21 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     <div class="exemplo"><b>Vale lembrar:</b> nenhuma meta, nenhuma comissão e nenhuma pressão de fechamento justifica prometer resultado garantido a um cliente. Isso não é só uma regra de compliance — é o que protege a credibilidade do escritório e a sua própria carreira aqui.</div>
   </div>
 
+  <div class="block">
+    <h3>Sua rede de apoio</h3>
+    <p>Você não vai destravar sozinho os primeiros 30 dias — existe gente e canal certo para cada tipo de trava:</p>
+    <div class="opgrid">
+      <div class="opcard ng"><div class="opname">NGAM</div><dl><dt>Gestora da operação</dt><dd>Jennifer Damascena</dd></dl></div>
+      <div class="opcard am"><div class="opname">LAAM</div><dl><dt>Gestora da operação</dt><dd>Alessandra Braga</dd></dl></div>
+      <div class="opcard rj"><div class="opname">LARJ</div><dl><dt>Gestora da operação</dt><dd>Marcela Luz</dd></dl></div>
+    </div>
+    <ul style="margin-top:14px">
+      <li><b>Dúvida de ferramenta, acesso ou bug</b> → canal #·ticket-tech no Discord (Módulo 2).</li>
+      <li><b>Dúvida de script, matéria ou classificação de rubrica</b> → consulte sua gestora ou o jurídico antes de avançar (Módulo 6: "prefira errar por consultar do que por não consultar").</li>
+      <li><b>Dúvida sobre comissão ou planilha</b> → sua gestora (Módulo 8).</li>
+    </ul>
+  </div>
+
   <div class="check">
     <h4>Verificação rápida</h4>
     <ol>
@@ -232,6 +293,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li>Você nunca promete resultado garantido — em nenhuma circunstância.</li>
       <li>Os primeiros 30 dias têm um formato: acessos → domínio de ferramenta → prática guiada → autonomia.</li>
     </ol>
+    <button class="completebtn" data-mod="0" onclick="toggleComplete(0,this)">✓ Marcar Módulo 0 como concluído</button>
   </div>
 </div></section>
 
@@ -313,6 +375,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li>Os cinco conceitos (captação, qualificação, follow-up, conversão, ticket médio) formam a métrica do seu trabalho — e Conversão ≠ Aproveitamento.</li>
       <li>Ética não é opcional: orientar, nunca prometer resultado garantido.</li>
     </ol>
+    <button class="completebtn" data-mod="1" onclick="toggleComplete(1,this)">✓ Marcar Módulo 1 como concluído</button>
   </div>
 </div></section>
 
@@ -397,6 +460,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li>O e-mail corporativo é a chave que libera tudo depois dele.</li>
       <li>TKT completo (ferramenta, descrição clara, Id da Action se houver) resolve mais rápido — e vira um canal só seu, #ticket-bug-{seu usuário}.</li>
     </ol>
+    <button class="completebtn" data-mod="2" onclick="toggleComplete(2,this)">✓ Marcar Módulo 2 como concluído</button>
   </div>
 </div></section>
 
@@ -500,6 +564,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li>Erro ao enviar mensagem = TKT + telefone corporativo + outro canal, nessa ordem, nunca ignorar.</li>
       <li>Transferir sem contexto e sem confirmação de recebimento é o maior erro do sistema — sempre resuma e confirme.</li>
     </ol>
+    <button class="completebtn" data-mod="3" onclick="toggleComplete(3,this)">✓ Marcar Módulo 3 como concluído</button>
   </div>
 
   <div class="quiz" id="quiz-nicochat">
@@ -577,6 +642,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li>Conferência semanal é NocoDB × Dashboard × planilha — os três precisam bater.</li>
       <li>A coluna de "origem" (RETORNO/CAMPANHA ou LEAD/RET) é sobre de onde veio o cliente, não sobre pendência de documento.</li>
     </ol>
+    <button class="completebtn" data-mod="4" onclick="toggleComplete(4,this)">✓ Marcar Módulo 4 como concluído</button>
   </div>
 </div></section>
 
@@ -665,6 +731,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li>Rubricas e Rubricas Reunidas são campos próprios no formulário — cadastre todas as que o cliente tiver, não só a principal.</li>
       <li>Link não recebido ou código de verificação não recebido → sempre TKT com o Id da Action, nunca duplicar contrato por conta própria.</li>
     </ol>
+    <button class="completebtn" data-mod="5" onclick="toggleComplete(5,this)">✓ Marcar Módulo 5 como concluído</button>
   </div>
 </div></section>
 
@@ -850,6 +917,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li>Todo cliente é um mar de oportunidades — pergunte além do motivo que trouxe ele até você, e sempre separe rubricas com IRDR das demais.</li>
       <li>RG, CPF, comprovante de residência atualizado e a comprovação dos descontos (extrato ou contracheque) são a base documental de qualquer ação.</li>
     </ol>
+    <button class="completebtn" data-mod="6" onclick="toggleComplete(6,this)">✓ Marcar Módulo 6 como concluído</button>
   </div>
 
   <div class="quiz" id="quiz-rubricas">
@@ -913,6 +981,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li>O prazo prometido ao cliente é de 15 a 30 dias úteis após a assinatura — pendência sua consome esse prazo.</li>
       <li>Comissão nasce no protocolo, não na assinatura.</li>
     </ol>
+    <button class="completebtn" data-mod="7" onclick="toggleComplete(7,this)">✓ Marcar Módulo 7 como concluído</button>
   </div>
 </div></section>
 
@@ -988,6 +1057,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li>Os pesos por rubrica mudam periodicamente — confira sempre a planilha do mês vigente.</li>
       <li>NGAM e LAAM já usam esse mecanismo completo; LARJ ainda recebe só o valor base.</li>
     </ol>
+    <button class="completebtn" data-mod="8" onclick="toggleComplete(8,this)">✓ Marcar Módulo 8 como concluído</button>
   </div>
 </div></section>
 
@@ -1030,6 +1100,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li>Alta performance é rotina, não pico ocasional.</li>
       <li>O "mar de oportunidades" vale também para quem já é cliente do escritório.</li>
     </ol>
+    <button class="completebtn" data-mod="9" onclick="toggleComplete(9,this)">✓ Marcar Módulo 9 como concluído</button>
   </div>
 </div></section>
 
@@ -1066,6 +1137,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li>Cada livro resolve uma dificuldade concreta que você já viveu nos módulos anteriores.</li>
       <li>Ler na ordem ajuda porque os livros seguintes constroem sobre os anteriores.</li>
     </ol>
+    <button class="completebtn" data-mod="10" onclick="toggleComplete(10,this)">✓ Marcar Módulo 10 como concluído</button>
   </div>
 </div></section>
 
@@ -1212,6 +1284,43 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
 <script>
 const tabs=document.querySelectorAll('.tab'),panels=document.querySelectorAll('.panel');
 tabs.forEach(t=>t.addEventListener('click',()=>{tabs.forEach(x=>x.setAttribute('aria-selected',x===t));panels.forEach(p=>p.classList.toggle('active',p.id===t.dataset.tab));window.scrollTo({top:0,behavior:'smooth'});}));
+
+// ---------- nome + progresso ----------
+const TOTAL_MODULES=11;
+const nameInput=document.getElementById('userName'),heroTitle=document.getElementById('heroTitle');
+function applyName(){
+  const n=(nameInput.value||'').trim();
+  heroTitle.textContent=n?('Boas-vindas à sua trilha, '+n.split(' ')[0]+'!'):'Do zero à autonomia: sua trilha como fechador';
+}
+try{nameInput.value=localStorage.getItem('onb_name')||'';}catch(e){}
+applyName();
+nameInput.addEventListener('input',()=>{try{localStorage.setItem('onb_name',nameInput.value);}catch(e){}applyName();});
+
+function getCompleted(){
+  try{return JSON.parse(localStorage.getItem('onb_completed')||'{}');}catch(e){return {};}
+}
+function updateProgress(){
+  const done=getCompleted();
+  let count=0;
+  for(let i=0;i<TOTAL_MODULES;i++) if(done[i]) count++;
+  const pct=Math.round(count/TOTAL_MODULES*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('progressPct').textContent=pct+'%';
+  document.getElementById('progressSub').textContent=count+' de '+TOTAL_MODULES+' módulos marcados como concluídos';
+  document.querySelectorAll('.completebtn').forEach(btn=>{
+    const mod=btn.dataset.mod;
+    const isDone=!!done[mod];
+    btn.classList.toggle('done',isDone);
+    btn.textContent=isDone?'✓ Módulo '+mod+' concluído':'✓ Marcar Módulo '+mod+' como concluído';
+  });
+}
+function toggleComplete(mod,btn){
+  const done=getCompleted();
+  done[mod]=!done[mod];
+  try{localStorage.setItem('onb_completed',JSON.stringify(done));}catch(e){}
+  updateProgress();
+}
+updateProgress();
 
 function renderQuiz(containerId, quiz){
   const el=document.getElementById(containerId);
