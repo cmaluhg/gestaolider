@@ -9,13 +9,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Newsreader:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#1B2430;--ink-soft:#414B59;--paper:#FBFAF7;--surface:#fff;
-  --line:#E6E1D6;--line-strong:#D6CFC0;
-  --ng:#B0463A;--ng-bg:#F6E7E3;--am:#1F7A6B;--am-bg:#E9F2EF;
-  --rj:#C0791A;--rj-bg:#F7EFDF;--you:#3A4A78;--you-bg:#E8EBF4;
-  --metr:#5A6675;--gold:#B98B12;--ai:#5B3E8C;--ai-bg:#EEE8F6;
+  /* Identidade RA Tecnologia: navy + laranja — marca neutra compartilhada por NGAM/LAAM/LARJ */
+  --ink:#0E2439;--ink-soft:#4B5D6E;--paper:#FBF8F3;--surface:#fff;
+  --line:#E4DED2;--line-strong:#D2C9B8;
+  --ng:#0E2439;--ng-bg:#E7ECF0;--am:#E8720C;--am-bg:#FDEEDD;
+  --rj:#C0791A;--rj-bg:#F7EFDF;--you:#E8720C;--you-bg:#FDEEDD;
+  --metr:#5A6675;--gold:#0E2439;--ai:#0E2439;--ai-bg:#E7ECF0;
   --ok:#1F7A6B;--warn:#C0791A;--err:#B0463A;
-  --radius:14px;--shadow:0 1px 2px rgba(27,36,48,.04),0 8px 24px rgba(27,36,48,.06);
+  --radius:14px;--shadow:0 1px 2px rgba(14,36,57,.06),0 8px 24px rgba(14,36,57,.08);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -57,7 +58,7 @@ nav.tabs{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.95);backd
 .badge.config{background:var(--ai-bg);color:var(--ai)}
 
 .exemplo{background:#FFFCF3;border:1px dashed var(--gold);border-radius:11px;padding:14px 16px;margin-top:10px;font-size:13.5px}
-.exemplo b{font-family:'Space Grotesk',sans-serif;color:#9A6E10}
+.exemplo b{font-family:'Space Grotesk',sans-serif;color:var(--gold)}
 
 .confirmar{background:var(--rj-bg);border:1px solid var(--rj);border-radius:8px;padding:2px 8px;font-family:'Space Mono',monospace;font-size:12px;color:#9A5E10;display:inline-block}
 
@@ -350,14 +351,23 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
   </div>
 
   <div class="block">
-    <h3>Como abrir um TKT para o tech</h3>
-    <p>O Discord é o canal oficial para três coisas: comunicação interna do time, abertura de TKT para o tech quando algo trava, e solicitação de inclusão ou exclusão de acessos. Ao abrir um TKT, informe sempre:</p>
+    <h3>Como abrir um TKT — passo a passo real</h3>
+    <p>No canal <b>#·ticket-tech</b> do seu servidor, um bot publica o painel "Central de Atendimento Interno": "Nessa seção, você pode tirar suas dúvidas ou entrar em contato com a nossa equipe administrativa. Para evitar problemas, leia as opções com atenção e lembre-se de ser claro e objetivo ao descrever o seu problema." Abaixo do painel, um menu "Selecione uma opção..." com as categorias reais:</p>
     <ul>
-      <li>O que você estava tentando fazer</li>
-      <li>O que aconteceu (mensagem de erro, tela travada, acesso negado)</li>
-      <li>Se envolve um cliente específico, o <b>Id da Action</b> dele (você vai usar isso de novo no Módulo 5)</li>
+      <li><b>Suporte TI</b> — problemas relacionados ao servidor ou à internet</li>
+      <li><b>Relatar um problema/bug</b> — um problema ou bug que você encontrou</li>
+      <li><b>Solicitar criação ou exclusão de acessos</b> — pedir ou remover acesso a recursos</li>
+      <li><b>Sugestão/Ideia</b> — uma sugestão para melhorar</li>
+      <li><b>Tirar dúvida</b> — dúvidas com a equipe de suporte</li>
     </ul>
-    <div class="exemplo"><b>Exemplo real:</b> "Não consigo acessar o NocoDB, aparece 'acesso negado'. Meu e-mail corporativo é [nome]@[domínio]. Comecei hoje na operação LAAM." — um TKT assim resolve rápido porque já tem tudo que o tech precisa saber.</div>
+    <p>Ao escolher "Relatar um problema/bug", abre um formulário com aviso "Não compartilhe sua senha ou outras informações confidenciais", com estes campos:</p>
+    <ul>
+      <li><b>Selecione a ferramenta*</b> (obrigatório) — qual ferramenta está com o problema</li>
+      <li><b>Descrição*</b> (obrigatório) — descreva o que aconteceu</li>
+      <li><b>ID</b> (opcional) — o <b>Id da Action/formulário</b> relacionado, se houver</li>
+      <li><b>Url</b> (opcional) — a url do serviço, se aplicável</li>
+    </ul>
+    <div class="exemplo"><b>Exemplo real de bom preenchimento:</b> Ferramenta: "Formulários". Descrição: "Criei o contrato do cliente [nome] mas ele não recebeu o contrato." ID: [Id da Action]. Um TKT assim resolve rápido porque já tem tudo que o tech precisa saber — sempre inclua o Id da Action quando o problema envolver um cliente específico (você vai usar esse mesmo Id de novo no Módulo 5).</div>
   </div>
 
   <div class="check">
@@ -371,12 +381,13 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
   </div>
 
   <div class="block">
-    <h3 style="display:flex;align-items:center;gap:8px"><span class="badge config" style="margin:0">configurável</span> Grupos e canais por operação</h3>
+    <h3 style="display:flex;align-items:center;gap:8px"><span class="badge config" style="margin:0">configurável</span> Servidores de Discord por operação</h3>
     <div class="opgrid">
-      <div class="opcard ng"><div class="opname">NGAM</div><dl><dt>Grupo Discord</dt><dd class="confirmar">A CONFIRMAR</dd><dt>Contato tech</dt><dd class="confirmar">A CONFIRMAR</dd></dl></div>
-      <div class="opcard am"><div class="opname">LAAM</div><dl><dt>Grupo Discord</dt><dd class="confirmar">A CONFIRMAR</dd><dt>Contato tech</dt><dd class="confirmar">A CONFIRMAR</dd></dl></div>
-      <div class="opcard rj"><div class="opname">LARJ</div><dl><dt>Grupo Discord</dt><dd class="confirmar">A CONFIRMAR</dd><dt>Contato tech</dt><dd class="confirmar">A CONFIRMAR</dd></dl></div>
+      <div class="opcard ng"><div class="opname">NGAM</div><dl><dt>Servidor</dt><dd>Aparentemente o mesmo servidor onde fica o canal #nps-ngam <span class="confirmar">A CONFIRMAR: nome oficial do servidor e por que não se chama "NGAM"</span></dd></dl></div>
+      <div class="opcard am"><div class="opname">LAAM</div><dl><dt>Servidor</dt><dd>"LAADV - AM"</dd></dl></div>
+      <div class="opcard rj"><div class="opname">LARJ</div><dl><dt>Servidor</dt><dd>"LAADV - RJ"</dd></dl></div>
     </div>
+    <p style="margin-top:12px">Em todos, o canal de suporte é o <b>#·ticket-tech</b> (às vezes há também um canal geral <b>#·avisos-tech</b> com um menu de TKT parecido). Cada ticket vira um canal próprio, nomeado automaticamente como <b>#ticket-bug-{seu usuário}</b>.</p>
   </div>
 
   <div class="recap">
@@ -384,7 +395,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     <ol>
       <li>A ordem é Discord → e-mail corporativo → Nicochat/NocoDB/gerador/servidor → Workspace. Nunca pule etapa.</li>
       <li>O e-mail corporativo é a chave que libera tudo depois dele.</li>
-      <li>TKT completo (o quê, o que aconteceu, Id da Action se houver) resolve mais rápido.</li>
+      <li>TKT completo (ferramenta, descrição clara, Id da Action se houver) resolve mais rápido — e vira um canal só seu, #ticket-bug-{seu usuário}.</li>
     </ol>
   </div>
 </div></section>
@@ -508,21 +519,31 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
   <div class="porque">Por que isso importa: é aqui que a sua comissão vira número confirmado. Um erro de preenchimento não corrigido a tempo é dinheiro que você não recebe — ou recebe errado.</div>
 
   <div class="block">
-    <h3>O que é</h3>
-    <p>O NocoDB é o CRM onde você vê a lista dos seus atendimentos e dos clientes fechados — numa visão simplificada, pensada para o fechador acompanhar o próprio resultado sem precisar navegar em telas de gestão.</p>
+    <h3>O que é (estrutura real)</h3>
+    <p>O NocoDB é o CRM onde ficam os seus atendimentos e fechamentos. Cada fechadora tem sua própria <b>base</b>, nomeada <b>"FECHAMENTOS {SEU NOME}"</b>, com uma visão em tabela ("Default View"). Colunas reais confirmadas:</p>
+    <table class="tl">
+      <tr><th>Coluna</th><th>O que vai ali</th></tr>
+      <tr><td>ID_ACTION</td><td>O mesmo Id da Action usado no gerador de contratos e nos TKTs</td></tr>
+      <tr><td>ENTRADA</td><td>Data e hora do registro</td></tr>
+      <tr><td>CLIENTE</td><td>Nome do cliente</td></tr>
+      <tr><td>TELEFONE</td><td>Telefone do cliente</td></tr>
+      <tr><td>ATENDENTE</td><td>Seu nome</td></tr>
+      <tr><td>MOTIVO_ENCERRAMENTO</td><td>Ex.: "ASSINADO" — por que aquele atendimento foi encerrado</td></tr>
+    </table>
+    <p style="margin-top:10px">Um mesmo Id da Action pode aparecer em <b>mais de uma linha</b> — cada linha corresponde a uma rubrica/matéria fechada para aquele cliente, não ao cliente como um todo. Cliente com 3 matérias fechadas gera 3 linhas com o mesmo ID_ACTION.</p>
   </div>
 
   <div class="block">
     <h3>A rotina de double check (diária + semanal)</h3>
     <div class="steps">
       <div class="step"><div class="n">D</div><div class="b"><h4>Diariamente</h4><p>Cliente assinou o contrato → você <b>adiciona as ações e o cliente na planilha de comissão</b> no mesmo dia. Não acumule para o fim da semana — é assim que se perde registro.</p></div></div>
-      <div class="step"><div class="n">S</div><div class="b"><h4>Semanalmente</h4><p>Você confere se o número de ações da sua planilha bate com o que está no NocoDB. Se não bater, é sinal de erro de preenchimento ou de fechamento não sincronizado — resolva antes que vire divergência de comissão.</p></div></div>
+      <div class="step"><div class="n">S</div><div class="b"><h4>Semanalmente</h4><p>Você confere se o número de fechamentos do <b>NocoDB bate com o Dashboard</b> (o painel de "Ranking de Ações Fechadas" e "Funil de leads por campanha e produtividade da equipe") — e se o total também bate com a sua planilha de comissão. Se não bater, é sinal de erro de preenchimento ou de fechamento não sincronizado — resolva antes que vire divergência de comissão.</p></div></div>
     </div>
-    <div class="exemplo"><b>Por que essa dupla checagem existe:</b> ela é a garantia, dos dois lados, de que não haverá erro no comissionamento. Você protege o seu próprio pagamento fazendo esse hábito todo dia, não só no fim do mês.</div>
+    <div class="exemplo"><b>Por que essa dupla checagem existe:</b> o dashboard de ranking é alimentado justamente pela contagem de linhas do NocoDB de cada fechadora — se o seu número de fechamentos não bate com o que aparece no ranking, alguma coisa ficou fora do lugar. Você protege o seu próprio pagamento fazendo esse hábito todo dia, não só no fim do mês.</div>
   </div>
 
   <div class="block">
-    <h3 style="display:flex;align-items:center;gap:8px"><span class="badge config" style="margin:0">configurável</span> Estrutura real da planilha (modelo LA — LAAM/LARJ)</h3>
+    <h3 style="display:flex;align-items:center;gap:8px"><span class="badge config" style="margin:0">configurável</span> Estrutura real da planilha de comissão</h3>
     <p>A planilha é mensal (uma aba por mês) e cada linha é um cliente/dia. Colunas fixas no início:</p>
     <table class="tl">
       <tr><th>Coluna</th><th>O que vai ali</th></tr>
@@ -531,12 +552,12 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <tr><td>TOTAL DE AÇÕES</td><td>Quantas ações esse cliente fechou</td></tr>
       <tr><td>UF</td><td>Estado do cliente (ex.: AM)</td></tr>
       <tr><td>STATUS DOCUMENTOS DRIVE</td><td>Ex.: "SUBIU" — confirma que a documentação já está no Drive</td></tr>
-      <tr><td>Origem/tag</td><td>Valores observados: "RETORNO" ou "CAMPANHA" <span class="confirmar">A CONFIRMAR: essa coluna aparece nomeada como pendência em alguns modelos, mas os valores preenchidos parecem indicar origem do lead, não uma pendência de documento — confirmar com a gestão o significado exato</span></td></tr>
+      <tr><td>Origem do lead</td><td>Na LAAM/LARJ aparece como "RETORNO"/"CAMPANHA"; na NGAM, como "LEAD"/"RET" — indica se o cliente é um lead novo ou um retorno/follow-up (não é pendência de documento, apesar do nome da coluna).</td></tr>
     </table>
     <p style="margin-top:12px">Depois vêm as colunas de rubrica — uma por tipo de ação (matéria) que você trata no Módulo 6 (Cesta, RMC, RCC, Gastos com Crédito, BX Ant Fin, Parc Cred Pess, entre outras). Você marca quantas ações daquele tipo fechou para aquele cliente. <b>Essa lista de rubricas muda periodicamente</b> conforme revisão interna — sempre use a aba do mês vigente, nunca uma lista antiga como referência fixa.</p>
     <div class="opgrid">
-      <div class="opcard am"><div class="opname">LAAM / LARJ</div><dl><dt>Planilha</dt><dd>Modelo confirmado — estrutura acima ("LA V2.0").</dd></dl></div>
-      <div class="opcard ng"><div class="opname">NGAM</div><dl><dt>Planilha</dt><dd class="confirmar">A CONFIRMAR: modelo específico da NGAM não recebido — pode ter estrutura diferente.</dd></dl></div>
+      <div class="opcard am"><div class="opname">LAAM / LARJ</div><dl><dt>Planilha</dt><dd>Modelo confirmado ("LA V2.0").</dd></dl></div>
+      <div class="opcard ng"><div class="opname">NGAM</div><dl><dt>Planilha</dt><dd>Modelo confirmado, mesma estrutura ("NG LA V2.0").</dd></dl></div>
     </div>
   </div>
 
@@ -544,7 +565,8 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     <h4>Verificação rápida</h4>
     <ol>
       <li>O que você faz no mesmo dia em que um cliente assina?</li>
-      <li>Qual é o objetivo da conferência semanal entre planilha e NocoDB?</li>
+      <li>O que a conferência semanal compara, além de planilha e NocoDB?</li>
+      <li>Por que um mesmo Id da Action pode aparecer em várias linhas do NocoDB?</li>
     </ol>
   </div>
 
@@ -552,8 +574,8 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     <h4>Não pode esquecer</h4>
     <ol>
       <li>Preenchimento da planilha é diário, no dia da assinatura — não no fim de semana.</li>
-      <li>Conferência com o NocoDB é semanal, e ela existe para evitar erro de comissão.</li>
-      <li>Cada operação tem a própria planilha — não misture modelos entre NGAM, LAAM e LARJ.</li>
+      <li>Conferência semanal é NocoDB × Dashboard × planilha — os três precisam bater.</li>
+      <li>A coluna de "origem" (RETORNO/CAMPANHA ou LEAD/RET) é sobre de onde veio o cliente, não sobre pendência de documento.</li>
     </ol>
   </div>
 </div></section>
@@ -750,7 +772,7 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <li><b>Comprovante de residência atualizado</b> no nome do cliente (pode ser conta de água, luz, celular, entre outros).</li>
       <li><b>Comprovação dos descontos</b> — extratos bancários (para matérias de conta/cartão) ou contracheques (para matérias que envolvem benefício/folha de pagamento, como RMC).</li>
     </ul>
-    <div class="exemplo"><b>Como orientar o cliente a tirar o extrato do banco (passo a passo real, testado no app do Bradesco):</b> Home do app → "Ver extrato" → seleciona o ano → escolhe o período → toca no ícone de download → escolhe o formato (PDF ou CSV/Excel) → "Baixar". O app confirma com "Extrato baixado com sucesso!". Oriente o cliente a baixar o histórico completo, não só o mês do problema — o checklist de auditoria trabalha melhor com o histórico linear inteiro.</div>
+    <div class="exemplo"><b>Como orientar o cliente a tirar o extrato do banco (passo a passo real, testado no app do Bradesco):</b> Home do app → "Ver extrato" → escolhe o período → seleciona o ano → toca no ícone de download → escolhe o formato (PDF ou CSV/Excel) → "Baixar". O app confirma com "Extrato baixado com sucesso!". Oriente o cliente a baixar o histórico completo, não só o mês do problema — o checklist de auditoria trabalha melhor com o histórico linear inteiro.</div>
     <p><span class="confirmar">A CONFIRMAR: lista de documentos para matérias fora do escopo bancário/consignado (ex.: energia, água, telefonia) e para operações fora de LAAM.</span></p>
   </div>
 
@@ -849,33 +871,43 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
   <div class="porque">Por que isso importa: é o motivo prático de tudo o que você faz — e entender a conta evita divergência na hora de receber.</div>
 
   <div class="block">
-    <h3>Como funciona (mecanismo real, operação LA — LAAM/LARJ)</h3>
-    <p>O comissionamento opera por <b>fator multiplicador</b>. Cada rubrica (tipo de ação) tem um peso fixo do mês, chamado <b>BASE</b>. O cálculo, em quatro passos:</p>
+    <h3>Como funciona (mecanismo real — NGAM e LAAM)</h3>
+    <p>O comissionamento opera por <b>fator multiplicador</b>. Cada rubrica (tipo de ação) tem um peso fixo do mês, chamado <b>BASE</b>. O cálculo:</p>
     <ol>
       <li><b>Valor Padrão</b> (por rubrica) = BASE × quantidade fechada daquela rubrica no mês.</li>
-      <li><b>Soma Padrão</b> = soma do Valor Padrão de todas as rubricas do mês.</li>
-      <li><b>Valor Gerado</b> = valor total protocolado no mês.</li>
-      <li><b>Comissão</b> = SE Valor Gerado ultrapassar o piso mínimo do mês, ENTÃO Soma Padrão × Valor Gerado ÷ 1.000.000; SENÃO zero.</li>
+      <li><b>Soma Padrão</b> (o "valor base" da sua comissão) = soma do Valor Padrão de todas as rubricas do mês.</li>
+      <li><b>Valor Gerado</b> = valor total protocolado por você no mês.</li>
+      <li><b>Multiplicador</b>, em três faixas:
+        <ul>
+          <li>Protocolado abaixo de <b>R$ 2,5 milhões</b>: multiplicador 1x — você recebe só a Soma Padrão (valor base), sem ganho extra.</li>
+          <li>Entre <b>R$ 2,5 milhões e R$ 4 milhões</b>: o multiplicador escala junto com o valor protocolado, em milhões (ex.: protocolado R$ 2,5M → multiplicador 2,5x).</li>
+          <li>A partir de <b>R$ 4 milhões (teto)</b>: o multiplicador trava em 4x — protocolar mais que isso não aumenta o multiplicador.</li>
+        </ul>
+      </li>
+      <li><b>Comissão</b> = Soma Padrão × Multiplicador.</li>
     </ol>
-    <div class="exemplo"><b>Ou seja:</b> não basta fechar muitas ações de baixo peso — o que realmente move sua comissão é a combinação entre o peso das rubricas que você fechou e o valor total que a operação protocolou no mês acima do piso mínimo. Fechar rubricas de peso alto (ex.: matérias específicas, ações reunidas) pesa mais na sua "Soma Padrão" do que fechar várias de peso baixo.</div>
+    <div class="exemplo"><b>Exemplo real, ponta a ponta:</b> Soma Padrão (valor base) de R$500. Com R$2,5M protocolados no mês → comissão = 500 × 2,5 = <b>R$1.250</b>. Com R$4M protocolados → comissão = 500 × 4 = <b>R$2.000</b> (teto). Acima de R$4M, o multiplicador não sobe mais — o que aumenta sua comissão a partir daí é fechar mais rubricas (o que aumenta a própria Soma Padrão), não o multiplicador.</div>
+    <div class="exemplo"><b>Ou seja:</b> não basta fechar muitas ações de baixo peso — o que move sua comissão é a combinação entre o peso das rubricas que você fechou (Soma Padrão) e quanto a sua produção protocolada no mês te coloca entre 1x e 4x de multiplicador. Fechar rubricas de peso alto (ex.: matérias específicas, ações reunidas) pesa mais na sua Soma Padrão do que fechar várias de peso baixo.</div>
   </div>
 
   <div class="block">
-    <h3 style="display:flex;align-items:center;gap:8px"><span class="badge config" style="margin:0">configurável</span> Tabela de pesos (BASE) — exemplo do mês vigente, operação LA</h3>
+    <h3 style="display:flex;align-items:center;gap:8px"><span class="badge config" style="margin:0">configurável</span> Tabela de pesos (BASE) — exemplo do mês vigente</h3>
     <table class="tl">
       <tr><th>Rubrica</th><th>Peso</th></tr>
       <tr><td>Específica</td><td>7</td></tr>
-      <tr><td>Gastos com Crédito, Seguro, BX Ant Fin, Refinanciamento Ind. Esp.</td><td>5</td></tr>
+      <tr><td>Específica Energia</td><td>6</td></tr>
+      <tr><td>Gastos com Crédito, Seguro (LAAM), BX Ant Fin, Refinanciamento Ind. Esp., Div. Atraso, Reorg. Finan., Op. Vencidas, Reg. Lançamento</td><td>5</td></tr>
       <tr><td>Bloqueio App Motorista, RMC, RCC</td><td>4</td></tr>
-      <tr><td>Cesta, Tarifa Ind, Mora, SVA, Cobrança Ind., Parc Cred Pess</td><td>3</td></tr>
-      <tr><td>Tít. Capitalização, Parc. Automático, Refinanciamento Ind., Venda Casada</td><td>2</td></tr>
-      <tr><td>Juros Abusivos, Mora Cel, ANP, Vida/Prev, Anuidade, Inv. Fácil, AD Depositante, COI-Boleto</td><td>1</td></tr>
+      <tr><td>Cesta, Mora, Cobrança Ind., Parc Cred Pess, TOI, Parc. Automático, Mora Operações, Encargo Lim. Créd., Mora C. Crédito, Tarifa Ind. (LAAM)</td><td>3</td></tr>
+      <tr><td>Tít. Capitalização, Refinanciamento Ind., Venda Casada (LAAM), Juros Abusivos+COI</td><td>2</td></tr>
+      <tr><td>Juros Abusivos, Mora Cel, ANP, SVA, SLN, Vida/Prev, Seguro (NGAM), Anuidade, Inv. Fácil, AD Depositante, COI-Boleto, Emissão Extrato, COI_Sind, Saque Terminal, Extrato Movimento, Incorp. Bancos, Encargos Descobertos, Encargos Excesso</td><td>1</td></tr>
       <tr><td>Rubricas Reunidas (ex.: "São Gabriel")</td><td>10</td></tr>
     </table>
-    <div class="exemplo"><b>Atenção — os pesos mudam periodicamente.</b> A lista e os valores acima são um retrato de um mês específico; a operação revisa esse modelo com regularidade, então trate a tabela como exemplo do mecanismo, não como número fixo. Sempre confira a aba do mês vigente na sua planilha antes de calcular sua própria comissão.</div>
+    <div class="exemplo"><b>Atenção — os pesos mudam periodicamente.</b> A lista e os valores acima são um retrato de um mês específico (e já variam entre NGAM e LAAM em alguns pontos, como Seguro e Tarifa Ind.); a operação revisa esse modelo com regularidade, então trate a tabela como exemplo do mecanismo, não como número fixo. Sempre confira a aba do mês vigente na sua planilha antes de calcular sua própria comissão.</div>
     <div class="opgrid">
-      <div class="opcard am"><div class="opname">LAAM / LARJ</div><dl><dt>Modelo</dt><dd>Confirmado — mecanismo e tabela acima.</dd></dl></div>
-      <div class="opcard ng"><div class="opname">NGAM</div><dl><dt>Modelo</dt><dd class="confirmar">A CONFIRMAR — modelo de comissão específico da NGAM não recebido; pode seguir lógica diferente.</dd></dl></div>
+      <div class="opcard ng"><div class="opname">NGAM</div><dl><dt>Modelo</dt><dd>Confirmado — mecanismo de 3 faixas e tabela acima ("NG LA V2.0").</dd></dl></div>
+      <div class="opcard am"><div class="opname">LAAM</div><dl><dt>Modelo</dt><dd>Confirmado — mesmo mecanismo de 3 faixas ("LA V2.0").</dd></dl></div>
+      <div class="opcard rj"><div class="opname">LARJ</div><dl><dt>Modelo</dt><dd>Ainda recebe apenas o valor base (Soma Padrão) — sem fase de multiplicador ativa, coerente com a operação estar em estruturação.</dd></dl></div>
     </div>
   </div>
 
@@ -888,17 +920,17 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     <h4>Verificação rápida</h4>
     <ol>
       <li>O que é o "BASE" de uma rubrica e para que ele serve na conta da comissão?</li>
-      <li>Por que fechar uma rubrica de peso 7 pesa mais na sua comissão do que fechar uma de peso 1?</li>
-      <li>Por que você deve sempre conferir a aba do mês vigente em vez de decorar uma tabela de pesos?</li>
+      <li>Com Soma Padrão de R$800 e R$3M protocolados no mês, qual é a comissão?</li>
+      <li>Por que protocolar acima de R$4M não aumenta mais o multiplicador — o que continua aumentando a comissão nesse ponto?</li>
     </ol>
   </div>
 
   <div class="recap">
     <h4>Não pode esquecer</h4>
     <ol>
-      <li>Comissão = Soma Padrão (pesos × ações fechadas) × Valor Gerado ÷ 1.000.000 — só acima do piso mínimo do mês.</li>
+      <li>Comissão = Soma Padrão (pesos × ações fechadas) × Multiplicador — 1x abaixo de R$2,5M, escalando até 4x em R$4M, travado em 4x acima disso.</li>
       <li>Os pesos por rubrica mudam periodicamente — confira sempre a planilha do mês vigente.</li>
-      <li>O modelo confirmado acima é da operação LA (LAAM/LARJ); o da NGAM ainda não foi recebido.</li>
+      <li>NGAM e LAAM já usam esse mecanismo completo; LARJ ainda recebe só o valor base.</li>
     </ol>
   </div>
 </div></section>
@@ -1049,17 +1081,15 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     <h2>Relatório de lacunas</h2>
   </div>
   <div class="block">
-    <p style="margin-bottom:10px">Esta versão já incorpora os 16 arquivos enviados da pasta <code>Onboarding</code> (rubricas bancárias LAADV, rubricas reunidas NGAM/Bradesco, treinamento jurídico de provas e teses, guia do CDC, deck de cultura "Introdução RA", scripts oficiais de Cesta e RMC, treinamento oficial do Nicochat, planilha de comissão "LA V2.0", vídeos de extrato Bradesco e assinatura SuperSign, imagens de marca, e as telas reais do gerador de contratos e do Nicochat no portal Luis Albert). O que ainda falta, marcado como <span class="confirmar">A CONFIRMAR</span> no ponto correspondente do material:</p>
-    <div class="gap-item"><span class="tag">Módulo 2</span>Nomes exatos dos grupos de Discord por operação e contato do tech responsável (nenhum material recebido detalhou isso — a sequência de ferramentas em si veio de instrução direta da gestão, não da pasta).</div>
+    <p style="margin-bottom:10px">Esta versão já incorpora os 22 arquivos enviados da pasta <code>Onboarding</code> — incluindo rubricas bancárias LAADV/NGAM, treinamento jurídico de provas e teses, guia do CDC, deck de cultura "Introdução RA", scripts oficiais de Cesta e RMC, treinamento oficial do Nicochat, as planilhas de comissão "LA V2.0" e "NG LA V2.0", vídeos de extrato Bradesco e assinatura SuperSign, telas reais do gerador de contratos e do Nicochat, e telas reais do Discord (servidores, TKT) e do NocoDB. O que ainda falta, marcado como <span class="confirmar">A CONFIRMAR</span> no ponto correspondente do material:</p>
+    <div class="gap-item"><span class="tag">Módulo 2</span>Nome/motivo do servidor de Discord da NGAM aparecer como "GRUPO M.L.N." em vez de algo com "NGAM" no nome (identificamos que é o servidor certo pelo canal #nps-ngam, mas o porquê da nomenclatura não foi explicado). Contato humano do tech por trás do bot "Renato" também não foi confirmado.</div>
     <div class="gap-item"><span class="tag">Módulo 3</span>Lista completa e oficial dos valores possíveis do campo "Quadro"/tag no Nicochat (vimos só um valor real, "Termo de ciência / Recebeu o link") e o significado dos contadores no topo da tela (28, 9, 50, 4).</div>
-    <div class="gap-item"><span class="tag">Módulo 4</span>NocoDB — nenhum material recebido cobre telas, estrutura ou o que exatamente o fechador vê nessa ferramenta (a planilha "LA V2.0" resolve a parte de comissão, mas não substitui o CRM).</div>
-    <div class="gap-item"><span class="tag">Módulo 5</span>Divergência entre ferramentas de assinatura: o vídeo oficial da NGAM mostra o <b>SuperSign</b> em uso real; o deck genérico de cultura cita <b>Clicksign</b>. As telas do gerador que recebemos são do portal "Luis Albert" (LAADV) — confirmar se a NGAM usa o mesmo portal ou um próprio. Também faltam as demais opções de "Percentual do contrato" além de 50%, e o que o campo "Cliente declarante?" determina.</div>
-    <div class="gap-item"><span class="tag">Módulo 6</span>Documentos e scripts para matérias fora do escopo bancário/RMC (ex.: energia, água, telefonia) e para operações fora da LAAM — os materiais recebidos cobrem bem o bancário (Cesta, RMC/RCC, Gastos com Crédito, Parc Cred Pess, BX Ant Fin) e trazem conteúdo forte de energia/água (ANEEL), mas sem confirmação de qual operação atende essa matéria.</div>
-    <div class="gap-item"><span class="tag">Módulo 8</span>Modelo de comissão da NGAM (só recebemos o "LA V2.0", da LAAM/LARJ). Também vale confirmar se o valor de exemplo "1.876" observado numa aba já preenchida é o valor final da comissão em reais ou um índice intermediário, e se o "Percentual do contrato" (50%, visto no Módulo 5) tem alguma relação com essa conta ou é totalmente independente.</div>
-    <div class="gap-item"><span class="tag">Geral</span>Significado exato da coluna de origem/tag na planilha de comissão — os valores observados ("RETORNO", "CAMPANHA") sugerem tipo de lead, não uma pendência de documento como o nome da coluna às vezes indica.</div>
+    <div class="gap-item"><span class="tag">Módulo 5</span>Divergência entre ferramentas de assinatura: o vídeo oficial da NGAM mostra o <b>SuperSign</b> em uso real; o deck genérico de cultura cita <b>Clicksign</b>. Confirmar se a NGAM usa um portal próprio ou o mesmo "Luis Albert". Também faltam as demais opções de "Percentual do contrato" além de 50%, e o que o campo "Cliente declarante?" determina.</div>
+    <div class="gap-item"><span class="tag">Módulo 6</span>Documentos e scripts para matérias fora do escopo bancário/RMC (ex.: energia, água, telefonia) e para a LARJ — os materiais recebidos cobrem bem o bancário (Cesta, RMC/RCC, Gastos com Crédito, Parc Cred Pess, BX Ant Fin) e trazem conteúdo forte de energia/água (ANEEL), mas sem confirmação de qual operação atende essa matéria.</div>
+    <div class="gap-item"><span class="tag">Módulo 8</span>A fórmula literal encontrada nas duas planilhas de comissão usa piso de R$2.000.000 e zera a comissão abaixo dele; a regra verbal confirmada pela gestora usa piso de R$2,5M com pagamento do valor base (não zero) abaixo disso. Tratamos a explicação verbal como a regra vigente — vale a gestão confirmar se a fórmula das planilhas está desatualizada, ou se o valor base abaixo do piso é pago por outro mecanismo fora dessas abas. Também vale confirmar se o "Percentual do contrato" (50%, visto no Módulo 5) tem alguma relação com essa conta ou é totalmente independente.</div>
     <div class="gap-item"><span class="tag">Geral</span>Relação formal entre a <b>RA Tecnologia</b> (empresa de tecnologia/backoffice), o canal de captação citado nos scripts (grafado como "Reclamei" num script e "reclame aí" em outro — padronizar a grafia oficial) e o domínio "3sgroup.com.br" visto no link do formulário socioeconômico enviado ao cliente pelo Nicochat — pode ser o nome do grupo por trás de tudo isso, vale confirmar.</div>
-    <div class="gap-item"><span class="tag">Geral</span>Confirmação do estágio atual da operação LARJ — nenhum material recebido tratou especificamente da LARJ; o painel de gestão já existente indica que ainda está "em estruturação", medida por processo e não por volume.</div>
-    <div class="gap-item"><span class="tag">Geral</span>Cuidado de privacidade: a planilha de comissão recebida contém nomes reais de clientes, e uma das telas do Nicochat enviadas mostrava o nome completo de um cliente real e de um familiar dele. Este material de treinamento usa apenas a estrutura, fórmulas e exemplos anonimizados — nunca use telas ou planilhas de produção com dados reais para treinar alguém novo (ver Observações do Designer Instrucional).</div>
+    <div class="gap-item"><span class="tag">Geral</span>Confirmação do estágio atual da operação LARJ — nenhum material recebido tratou especificamente da LARJ além da confirmação de que ainda recebe só o valor base de comissão; o painel de gestão já existente indica que ainda está "em estruturação", medida por processo e não por volume.</div>
+    <div class="gap-item"><span class="tag">Geral</span>Cuidado de privacidade: mais de um material recebido (planilhas de comissão, telas do Nicochat e do NocoDB) continha nomes reais de clientes e telefones. Este material de treinamento usa apenas estrutura, fórmulas e exemplos anonimizados — nunca use telas ou planilhas de produção com dados reais para treinar alguém novo (ver Observações do Designer Instrucional).</div>
   </div>
   <div class="sig">Assinado,<br><b>Maria Lúcia Grana</b> — Gestão Comercial</div>
 </div></section>
@@ -1080,8 +1110,8 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
       <p>A ética inegociável ("nunca prometer resultado garantido") e a consulta ao jusbr ("não fechar ação duplicada") nascem do mesmo princípio: não enganar o cliente, mesmo sem intenção. Colocar a existência do jusbr já no Módulo 1, como princípio, e deixar o "como usar" no Módulo 6, reforça a ideia mais cedo.</p>
     </div>
     <div class="obs">
-      <h4>Risco pedagógico: Módulo 8 (Comissionamento) fica quase todo em [A CONFIRMAR]</h4>
-      <p>Sem os percentuais reais, o módulo de comissão — provavelmente o mais aguardado pelo fechador novato — vira teoria abstrata. Recomendo que a gestão priorize essa lacuna especificamente antes das demais: é o módulo com maior custo de ficar incompleto.</p>
+      <h4>Módulo 8 (Comissionamento) já tem a fórmula real, mas duas fontes divergem no piso</h4>
+      <p>A planilha, na fórmula literal, zera a comissão abaixo de R$2.000.000 protocolados; a explicação verbal da gestora usa R$2.500.000 como piso e paga o valor base (não zero) abaixo dele. Optei por ensinar a versão verbal, por vir diretamente da gestão — mas essa é exatamente a lacuna com maior custo de ficar sem solução, porque é o número que o próprio fechador vai usar para calcular o quanto vai receber. Peço que isso seja confirmado antes do primeiro treinamento real.</p>
     </div>
     <div class="obs">
       <h4>Considerar uma prática guiada real antes da autonomia do Dia 30</h4>
@@ -1106,6 +1136,10 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
     <div class="obs">
       <h4>Resolver a divergência SuperSign x Clicksign antes de rodar o treinamento de verdade</h4>
       <p>Ensinar a ferramenta errada de assinatura no Módulo 5 quebra a confiança do novato no material inteiro logo na primeira ferramenta prática que ele vai usar de fato. Antes de publicar esta versão como treinamento oficial, vale confirmar rapidamente com o tech qual ferramenta cada operação usa hoje.</p>
+    </div>
+    <div class="obs">
+      <h4>Nomenclatura interna nem sempre bate com o nome da operação — vale um glossário de "nomes internos x nomes oficiais"</h4>
+      <p>O servidor de Discord da NGAM se chama "GRUPO M.L.N.", não "NGAM"; a coluna de origem do lead muda de nome e valores entre LAAM ("RETORNO"/"CAMPANHA") e NGAM ("LEAD"/"RET"); o canal de captação aparece como "Reclamei" num script e "reclame aí" em outro. Nada disso é grave, mas um fechador novato vai se confundir se ninguém disser, em voz alta, "esse servidor com nome estranho é o seu". Sugiro um quadro simples de "nome interno → o que realmente é" no Módulo 1 ou 2.</p>
     </div>
     <div class="obs">
       <h4>Um dos prints do Nicochat trazia o nome completo de um cliente real</h4>
