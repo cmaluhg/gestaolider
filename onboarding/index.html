@@ -53,6 +53,13 @@ nav.tabs{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.95);backd
 .tab{flex:0 0 auto;background:none;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:12.5px;color:var(--ink-soft);padding:13px 11px;border-bottom:2px solid transparent;white-space:nowrap}
 .tab:hover{color:var(--ink)}
 .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--you)}
+.tab.tab-extra{color:var(--you);font-weight:700}
+.tab.tab-extra[aria-selected="true"]{color:#fff;background:var(--you);border-radius:8px 8px 0 0}
+.jumpbox{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:var(--you-bg);border:1px solid var(--you);border-radius:var(--radius);padding:16px 18px;margin-bottom:16px}
+.jumpbox b{font-family:'Space Grotesk',sans-serif;font-size:15px}
+.jumpbox p{font-size:13.5px;color:var(--ink-soft)}
+.jumpbtn{flex:0 0 auto;background:var(--you);color:#fff;border:none;border-radius:9px;padding:11px 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;cursor:pointer;white-space:nowrap;transition:transform .15s ease,box-shadow .15s ease}
+.jumpbtn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(232,114,12,.3)}
 
 .panel{display:none;padding:30px 0 90px}
 .panel.active{display:block;animation:fade .25s ease}
@@ -222,16 +229,16 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
   <button class="tab" role="tab" aria-selected="true" data-tab="m0">0 · Boas-vindas</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="m1">1 · Operação</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="m2">2 · Ferramentas</button>
+  <button class="tab tab-extra" role="tab" aria-selected="false" data-tab="workspace">🛠️ Workspace &amp; Glossário</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="m3">3 · Nicochat</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="m4">4 · NocoDB</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="m5">5 · Contratos</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="m6">6 · Atendimento</button>
+  <button class="tab tab-extra" role="tab" aria-selected="false" data-tab="materias">📖 Matérias (aula)</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="m7">7 · Jornada</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="m8">8 · Comissão</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="m9">9 · Alta perf.</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="m10">10 · Biblioteca</button>
-  <button class="tab" role="tab" aria-selected="false" data-tab="materias">Entendendo as matérias</button>
-  <button class="tab" role="tab" aria-selected="false" data-tab="workspace">Workspace &amp; Glossário</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="tl">Linha do tempo</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="repl">Guia de replicação</button>
   <button class="tab" role="tab" aria-selected="false" data-tab="gaps">Lacunas</button>
@@ -773,6 +780,14 @@ table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:
   </div>
   <div class="objetivo"><b>Ao final deste módulo você será capaz de:</b> conduzir um atendimento completo, do pré-atendimento ao pós-fechamento, aplicando o método em sete passos e enxergando o "mar de oportunidades" em cada caso.</div>
   <div class="porque">Por que isso importa: este é o módulo que mais impacta sua conversão, seu ticket médio e a experiência do cliente. Tudo o que vier antes existe para sustentar este módulo.</div>
+
+  <div class="jumpbox">
+    <div>
+      <b>📖 Antes de atender: faça a aula de Matérias</b>
+      <p style="margin:4px 0 0">Este módulo usa as rubricas o tempo todo. Para entender cada matéria a fundo — o que é, por que importa e como aparece na prática — abra a aula dedicada às rubricas.</p>
+    </div>
+    <button class="jumpbtn" onclick="document.querySelector('.tab[data-tab=materias]').click();window.scrollTo(0,0);return false;">Abrir a aula de Matérias →</button>
+  </div>
 
   <div class="block">
     <h3>Pré-atendimento: a consulta ao jusbr</h3>
