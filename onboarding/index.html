@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onboarding do Fechador de Contratos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Newsreader:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B2430;--ink-soft:#414B59;--paper:#FBFAF7;--surface:#fff;
+  --line:#E6E1D6;--line-strong:#D6CFC0;
+  --ng:#B0463A;--ng-bg:#F6E7E3;--am:#1F7A6B;--am-bg:#E9F2EF;
+  --rj:#C0791A;--rj-bg:#F7EFDF;--you:#3A4A78;--you-bg:#E8EBF4;
+  --metr:#5A6675;--gold:#B98B12;--ai:#5B3E8C;--ai-bg:#EEE8F6;
+  --ok:#1F7A6B;--warn:#C0791A;--err:#B0463A;
+  --radius:14px;--shadow:0 1px 2px rgba(27,36,48,.04),0 8px 24px rgba(27,36,48,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+a{color:var(--you)}
+header.top{background:var(--ink);color:#fff;padding:34px 0 28px;border-bottom:3px solid var(--you)}
+.eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#9FB0AC;margin-bottom:10px}
+header.top h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em}
+header.top p{color:#C3CCD6;max-width:70ch;margin-top:10px;font-size:14.5px}
+
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(251,250,247,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.tabs-inner{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;max-width:920px;margin:0 auto;padding:0 20px}
+.tabs-inner::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;background:none;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:12.5px;color:var(--ink-soft);padding:13px 11px;border-bottom:2px solid transparent;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--you)}
+
+.panel{display:none;padding:30px 0 90px}
+.panel.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.modhead{margin-bottom:22px}
+.modhead .modno{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--you)}
+.modhead h2{font-family:'Space Grotesk',sans-serif;font-size:26px;margin-top:4px}
+.modtime{display:inline-flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:11.5px;color:var(--ink-soft);background:var(--line);padding:3px 10px;border-radius:20px;margin-top:8px}
+.objetivo{background:var(--you-bg);border:1px solid var(--you);border-radius:11px;padding:14px 16px;margin-top:14px;font-size:14px}
+.objetivo b{font-family:'Space Grotesk',sans-serif;color:var(--you)}
+.porque{border-left:3px solid var(--gold);padding:4px 0 4px 14px;margin-top:12px;font-size:13.5px;color:var(--ink-soft);font-family:'Newsreader',serif;font-style:italic}
+
+.block{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:16px}
+.block h3{font-family:'Space Grotesk',sans-serif;font-size:17px;margin-bottom:8px}
+.block h4{font-family:'Space Grotesk',sans-serif;font-size:14.5px;margin:14px 0 6px}
+.block p{font-size:14px;margin-bottom:8px}
+.block ul,.block ol{padding-left:20px;font-size:14px;margin-bottom:8px}
+.block li{margin-bottom:5px}
+
+.badge{display:inline-flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+.badge.core{background:var(--you-bg);color:var(--you)}
+.badge.config{background:var(--ai-bg);color:var(--ai)}
+
+.exemplo{background:#FFFCF3;border:1px dashed var(--gold);border-radius:11px;padding:14px 16px;margin-top:10px;font-size:13.5px}
+.exemplo b{font-family:'Space Grotesk',sans-serif;color:#9A6E10}
+
+.confirmar{background:var(--rj-bg);border:1px solid var(--rj);border-radius:8px;padding:2px 8px;font-family:'Space Mono',monospace;font-size:12px;color:#9A5E10;display:inline-block}
+
+.opgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.opcard{border:1px solid var(--line);border-radius:11px;padding:14px;position:relative;overflow:hidden}
+.opcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
+.opcard.ng::before{background:var(--ng)}.opcard.am::before{background:var(--am)}.opcard.rj::before{background:var(--rj)}
+.opcard .opname{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px}
+.opcard.ng .opname{color:var(--ng)}.opcard.am .opname{color:var(--am)}.opcard.rj .opname{color:var(--rj)}
+.opcard dl{margin-top:8px;font-size:12.5px}
+.opcard dt{font-weight:600;margin-top:6px}
+.opcard dd{color:var(--ink-soft)}
+
+.check{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-top:14px}
+.check h4{font-family:'Space Grotesk',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:10px}
+.check ol{padding-left:18px}
+.check li{margin-bottom:8px;font-size:13.5px}
+
+.recap{background:var(--ink);color:#fff;border-radius:var(--radius);padding:18px 20px;margin-top:16px}
+.recap h4{font-family:'Space Grotesk',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:#9FB0AC;margin-bottom:10px}
+.recap ol{padding-left:18px;font-size:14px}
+.recap li{margin-bottom:6px}
+
+.steps{counter-reset:step}
+.step{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.step:first-child{border-top:none}
+.step .n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--you);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px}
+.step .b h4{margin:0 0 3px}
+.step .b p{margin-bottom:4px}
+
+.faq{border-top:1px solid var(--line);padding:14px 0}
+.faq:first-child{border-top:none}
+.faq .q{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--you)}
+.faq .a{font-size:13.5px;margin-top:5px}
+
+.flow{display:flex;flex-wrap:wrap;gap:0;align-items:stretch;margin-top:14px}
+.flowstep{background:var(--you-bg);border:1px solid var(--you);border-radius:9px;padding:10px 13px;font-size:12.5px;font-weight:600;color:var(--you);font-family:'Space Grotesk',sans-serif;flex:1 1 140px;text-align:center;display:flex;align-items:center;justify-content:center}
+.flowarrow{display:flex;align-items:center;justify-content:center;flex:0 0 26px;color:var(--ink-soft);font-size:16px}
+.flowstep.warn{background:var(--rj-bg);border-color:var(--rj);color:#9A5E10}
+
+table.tl{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
+table.tl th{text-align:left;font-family:'Space Grotesk',sans-serif;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);border-bottom:2px solid var(--line-strong);padding:8px 10px}
+table.tl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+
+.lib{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
+.libitem{display:flex;gap:14px;border:1px solid var(--line);border-radius:11px;padding:14px 16px;align-items:flex-start}
+.libitem .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:var(--line-strong);flex:0 0 30px}
+.libitem .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px}
+.libitem .au{font-size:12.5px;color:var(--ink-soft);font-family:'Space Mono',monospace}
+.libitem .nota{font-size:13px;margin-top:5px}
+
+.quiz{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-top:18px}
+.quiz .qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.quiz .qhead h3{font-family:'Space Grotesk',sans-serif;font-size:18px}
+.quiz .cutoff{font-family:'Space Mono',monospace;font-size:11px;color:var(--ink-soft);background:var(--line);padding:3px 10px;border-radius:20px}
+.qitem{border-top:1px solid var(--line);padding:16px 0}
+.qitem:first-child{border-top:none}
+.qitem .qtext{font-weight:600;font-size:14.5px;margin-bottom:10px;font-family:'Space Grotesk',sans-serif}
+.qitem .scen{background:var(--you-bg);border-left:3px solid var(--you);padding:8px 12px;margin-bottom:10px;font-size:13px;font-style:italic;font-family:'Newsreader',serif}
+.opt{display:flex;gap:9px;align-items:flex-start;padding:7px 10px;border:1px solid var(--line);border-radius:9px;margin-bottom:7px;cursor:pointer;font-size:13.5px}
+.opt:hover{border-color:var(--you)}
+.opt input{margin-top:3px}
+.opt.correct-mark{border-color:var(--ok);background:var(--am-bg)}
+.opt.wrong-mark{border-color:var(--err);background:var(--ng-bg)}
+.fb{display:none;margin-top:6px;padding:9px 12px;border-radius:8px;font-size:13px}
+.fb.show{display:block}
+.fb.ok{background:var(--am-bg);color:#155041}
+.fb.no{background:var(--ng-bg);color:#7A2E25}
+.quizbtns{display:flex;gap:10px;margin-top:14px;align-items:center;flex-wrap:wrap}
+.btn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:9px;padding:11px 20px;cursor:pointer;transition:.15s}
+.btn-primary{background:var(--you);color:#fff}.btn-primary:hover{filter:brightness(.94)}
+.btn-ghost{background:transparent;color:var(--ink-soft);border:1px solid var(--line-strong)}
+.score{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px}
+.score.pass{color:var(--ok)}.score.fail{color:var(--err)}
+.remed{display:none;background:var(--ng-bg);border:1px solid var(--ng);border-radius:9px;padding:12px 14px;margin-top:12px;font-size:13.5px}
+.remed.show{display:block}
+.remed b{color:#7A2E25;font-family:'Space Grotesk',sans-serif}
+.pass-box{display:none;background:var(--am-bg);border:1px solid var(--am);border-radius:9px;padding:12px 14px;margin-top:12px;font-size:13.5px}
+.pass-box.show{display:block}
+.pass-box b{color:#155041;font-family:'Space Grotesk',sans-serif}
+
+.sig{margin-top:40px;padding-top:20px;border-top:1px solid var(--line-strong);font-family:'Newsreader',serif;font-style:italic;color:var(--ink-soft);font-size:14.5px}
+.sig b{font-style:normal;font-family:'Space Grotesk',sans-serif;color:var(--ink)}
+
+.gap-item{border-top:1px solid var(--line);padding:11px 0;font-size:13.5px}
+.gap-item:first-child{border-top:none}
+.gap-item .tag{font-family:'Space Mono',monospace;font-size:10px;background:var(--rj-bg);color:#9A5E10;padding:2px 8px;border-radius:20px;margin-right:8px}
+
+.obs{border-top:1px solid var(--line);padding:14px 0}
+.obs:first-child{border-top:none}
+.obs h4{font-family:'Space Grotesk',sans-serif;font-size:14.5px;color:var(--you)}
+.obs p{font-size:13.5px;margin-top:5px}
+
+@media(max-width:760px){.opgrid{grid-template-columns:1fr}.flow{flex-direction:column}.flowarrow{transform:rotate(90deg)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Onboarding · Fechador de Contratos · NGAM · LAAM · LARJ</div>
+    <h1>Do zero à autonomia: sua trilha como fechador</h1>
+    <p>Este não é um manual para ler e esquecer. É o percurso que você vai seguir nos primeiros 30 dias — ferramenta por ferramenta, atendimento por atendimento — até operar sozinho, com método e ética, defendendo os direitos dos nossos clientes.</p>
+  </div>
+</header>
+
+<nav class="tabs"><div class="tabs-inner" role="tablist">
+  <button class="tab" role="tab" aria-selected="true" data-tab="m0">0 · Boas-vindas</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="m1">1 · Operação</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="m2">2 · Ferramentas</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="m3">3 · Nicochat</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="m4">4 · NocoDB</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="m5">5 · Contratos</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="m6">6 · Atendimento</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="m7">7 · Jornada</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="m8">8 · Comissão</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="m9">9 · Alta perf.</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="m10">10 · Biblioteca</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="tl">Linha do tempo</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="repl">Guia de replicação</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="gaps">Lacunas</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="obs">Observações</button>
+</div></nav>
+
+<!-- MÓDULO 0 -->
+<section class="panel active" id="m0"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Módulo 0</div>
+    <h2>Boas-vindas e mentalidade de alta performance</h2>
+    <div class="modtime">⏱ ~1h30, no seu primeiro dia</div>
+  </div>
+  <div class="objetivo"><b>Ao final deste módulo você será capaz de:</b> descrever o que se espera de um fechador de alta performance aqui e reconhecer, nos seus primeiros 30 dias, se está no caminho certo.</div>
+  <div class="porque">Por que isso importa: você está entrando num time que já fatura acima de R$ 400 milhões acumulados nas três operações. O padrão não é "vender bem" — é vender bem <i>e</i> proteger o cliente e o escritório ao mesmo tempo.</div>
+
+  <div class="block">
+    <h3>O que é um fechador de alta performance aqui</h3>
+    <p>Alta performance, para nós, não é volume de contratos assinados a qualquer preço. É a combinação de três coisas ao mesmo tempo: <b>converter</b> quem tem uma causa real, <b>proteger</b> o cliente de expectativas falsas, e <b>garantir</b> que o que você fechou vire protocolo — porque comissão nasce no fechamento, mas só se confirma no protocolo.</p>
+    <p>Você não é "mero fechador de contratos". Cada atendimento seu é uma oportunidade de identificar um mar de irregularidades que o próprio cliente não sabe que tem — e a responsabilidade de não empurrar nada que não seja real.</p>
+  </div>
+
+  <div class="block">
+    <h3>Como é o sucesso nos primeiros 30 dias</h3>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div class="b"><h4>Dias 1–2</h4><p>Todos os acessos liberados (Discord, e-mail corporativo, Nicochat, NocoDB, gerador de contratos, Workspace) e o checklist de Dia 1 do Módulo 2 fechado.</p></div></div>
+      <div class="step"><div class="n">2</div><div class="b"><h4>Dias 3–10</h4><p>Domínio das plataformas (Nicochat, NocoDB, gerador de contratos) com as provas formais aprovadas, e prática guiada de atendimento ao lado de alguém experiente.</p></div></div>
+      <div class="step"><div class="n">3</div><div class="b"><h4>Dias 11–15</h4><p>Primeiros atendimentos sozinho, com supervisão próxima. Método do Módulo 6 aplicado do início ao fim, do pré-atendimento ao pós-fechamento.</p></div></div>
+      <div class="step"><div class="n">4</div><div class="b"><h4>Dias 16–30</h4><p>Autonomia real: fechamentos consistentes, planilha de comissão em dia, follow-up ativo, primeiros livros da trilha do Módulo 10 iniciados.</p></div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>A postura: mar de oportunidades, responsabilidade ética</h3>
+    <p>Você vai ouvir isso muitas vezes: cada cliente que chega até você é um <b>mar de oportunidades</b> — quase sempre tem mais de uma irregularidade para resolver, não só a que o trouxe até nós. E ao mesmo tempo, cada cliente é uma pessoa que está confiando numa causa que pode mudar a vida financeira dela. As duas coisas são verdadeiras ao mesmo tempo, e segurar as duas é o que separa um fechador júnior de um fechador de alta performance.</p>
+    <div class="exemplo"><b>Vale lembrar:</b> nenhuma meta, nenhuma comissão e nenhuma pressão de fechamento justifica prometer resultado garantido a um cliente. Isso não é só uma regra de compliance — é o que protege a credibilidade do escritório e a sua própria carreira aqui.</div>
+  </div>
+
+  <div class="check">
+    <h4>Verificação rápida</h4>
+    <ol>
+      <li>Em uma frase, o que diferencia "vender a qualquer custo" de "orientar com ética"?</li>
+      <li>Cite duas das quatro fases dos seus primeiros 30 dias.</li>
+      <li>Por que a comissão depende do protocolo e não só do fechamento?</li>
+    </ol>
+  </div>
+
+  <div class="recap">
+    <h4>Não pode esquecer</h4>
+    <ol>
+      <li>Alta performance = converter + proteger + garantir o protocolo, os três juntos.</li>
+      <li>Você nunca promete resultado garantido — em nenhuma circunstância.</li>
+      <li>Os primeiros 30 dias têm um formato: acessos → domínio de ferramenta → prática guiada → autonomia.</li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- MÓDULO 1 -->
+<section class="panel" id="m1"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Módulo 1 <span class="badge core" style="margin-left:8px">núcleo padrão</span></div>
+    <h2>A operação e quem somos</h2>
+    <div class="modtime">⏱ ~1h</div>
+  </div>
+  <div class="objetivo"><b>Ao final deste módulo você será capaz de:</b> explicar o que fazemos, em qual das três operações você está e usar corretamente os cinco conceitos que organizam o dia a dia comercial daqui.</div>
+  <div class="porque">Por que isso importa: você vai repetir esses conceitos em toda reunião de resultado. Quem não domina o vocabulário não consegue ler o próprio desempenho.</div>
+
+  <div class="block">
+    <h3>Quem somos</h3>
+    <p>Somos escritórios de <b>Direito do Consumidor</b>. Defendemos clientes que sofreram cobranças indevidas, tarifas abusivas, descontos não autorizados, negativação irregular e outras violações — sempre com excelência técnica e dedicação ao caso, nunca prometendo o que não podemos garantir.</p>
+    <p>Hoje operamos três frentes:</p>
+    <div class="opgrid">
+      <div class="opcard ng"><div class="opname">NGAM</div><dl><dt>Perfil</dt><dd>Operação consolidada, alto volume.</dd></dl></div>
+      <div class="opcard am"><div class="opname">LAAM</div><dl><dt>Perfil</dt><dd>Operação consolidada, alto volume, ritmo de alta performance.</dd></dl></div>
+      <div class="opcard rj"><div class="opname">LARJ</div><dl><dt>Perfil</dt><dd>Operação mais nova, ainda em estruturação de processo <span class="confirmar">A CONFIRMAR: estágio atual</span></dd></dl></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Missão e valores</h3>
+    <ul>
+      <li><b>Excelência</b> — o cliente sente, do primeiro contato ao protocolo, que o caso dele foi tratado com rigor técnico.</li>
+      <li><b>Dedicação</b> — follow-up até o fim, pendência resolvida, documento conferido.</li>
+      <li><b>Ética</b> — orientamos, não empurramos. Nunca prometemos resultado garantido.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>Os cinco conceitos do seu dia a dia</h3>
+    <ul>
+      <li><b>Captação multicanal</b> — os leads chegam por mais de um canal (tráfego pago, indicação, base ativa, entre outros <span class="confirmar">A CONFIRMAR: canais oficiais por operação</span>). Você atende o que chega, de onde chegar.</li>
+      <li><b>Qualificação</b> — antes de vender qualquer coisa, você confirma se a pessoa realmente tem uma causa. É aqui que entra a consulta ao jusbr do Módulo 6.</li>
+      <li><b>Follow-up</b> — cliente que não fechou na primeira conversa não é cliente perdido. É follow-up agendado.</li>
+      <li><b>Taxa de conversão</b> — quantos atendimentos viram contrato assinado. É o termômetro da sua qualificação e da sua condução.</li>
+      <li><b>Ticket médio</b> — o valor médio por ação fechada. Sobe quando você enxerga o "mar de oportunidades" do Módulo 6, não quando você força uma venda.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>A ética inegociável</h3>
+    <p>Orientar não é convencer a qualquer custo. É mostrar ao cliente, com honestidade, os fatos do caso dele — as irregularidades encontradas, os riscos, os benefícios possíveis — e deixar que ele decida com informação completa. Prometer "causa ganha" ou "dinheiro garantido" é o único erro que não tem segunda chance aqui.</p>
+  </div>
+
+  <div class="check">
+    <h4>Verificação rápida</h4>
+    <ol>
+      <li>Quais são as três operações e o que cada uma representa hoje?</li>
+      <li>Diferencie "qualificação" de "taxa de conversão" com suas palavras.</li>
+      <li>Dê um exemplo de frase que um fechador NUNCA deve dizer a um cliente.</li>
+    </ol>
+  </div>
+
+  <div class="recap">
+    <h4>Não pode esquecer</h4>
+    <ol>
+      <li>NGAM, LAAM e LARJ são a mesma missão, em três operações diferentes.</li>
+      <li>Os cinco conceitos (captação, qualificação, follow-up, conversão, ticket médio) formam a métrica do seu trabalho.</li>
+      <li>Ética não é opcional: orientar, nunca prometer resultado garantido.</li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- MÓDULO 2 -->
+<section class="panel" id="m2"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Módulo 2 <span class="badge config" style="margin-left:8px">configurável por operação</span></div>
+    <h2>Ferramentas e acessos — do Dia 1 em diante</h2>
+    <div class="modtime">⏱ ~2 a 4h, distribuído entre Dia 1 e Dia 2 (depende da liberação da gerência e do tech)</div>
+  </div>
+  <div class="objetivo"><b>Ao final deste módulo você será capaz de:</b> percorrer sozinho a sequência real de liberação de acessos e abrir corretamente um TKT para o tech quando algo travar.</div>
+  <div class="porque">Por que isso importa: sem acesso, você não atende. Cada ferramenta libera a próxima — entender a ordem evita que você fique um dia inteiro parado esperando algo que dependia de um passo anterior seu.</div>
+
+  <div class="block">
+    <h3>A sequência real de liberação</h3>
+    <div class="flow">
+      <div class="flowstep">1. Discord (cadastro pessoal)</div>
+      <div class="flowarrow">→</div>
+      <div class="flowstep">2. E-mail corporativo</div>
+      <div class="flowarrow">→</div>
+      <div class="flowstep">3. Nicochat / NocoDB / Gerador / Servidor</div>
+      <div class="flowarrow">→</div>
+      <div class="flowstep">4. Workspace (Gemini, Agenda, NotebookLM)</div>
+    </div>
+    <p style="margin-top:12px">Cada passo depende do anterior. Não adianta pedir Workspace no Dia 1 se o e-mail corporativo ainda não foi liberado — o e-mail é o que abre a porta para tudo depois dele.</p>
+  </div>
+
+  <div class="block">
+    <h3>Passo a passo</h3>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div class="b"><h4>Discord</h4><p>Cadastre-se com seu <b>e-mail pessoal</b> (o corporativo ainda não existe nesse ponto). Envie seu usuário para quem está te recebendo, para ser incluído nos grupos da sua operação. É por aqui que você vai se comunicar internamente e abrir TKT para o tech.</p></div></div>
+      <div class="step"><div class="n">2</div><div class="b"><h4>E-mail corporativo</h4><p>Solicite à gerência. Esse e-mail é a chave-mestra: é ele que libera todas as demais ferramentas. Sem ele, nada do passo 3 acontece.</p></div></div>
+      <div class="step"><div class="n">3</div><div class="b"><h4>Acessos liberados pelo gestor</h4><p>Com o e-mail corporativo ativo, o gestor libera: <b>Nicochat</b>, <b>NocoDB</b>, o <b>gerador de contratos</b> e o <b>acesso ao servidor</b>.</p></div></div>
+      <div class="step"><div class="n">4</div><div class="b"><h4>Workspace</h4><p>Com o e-mail corporativo já funcionando, abra um TKT no Discord pedindo inclusão no Workspace. É isso que libera Gemini, Google Agenda, NotebookLM e demais ferramentas do pacote.</p></div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Como abrir um TKT para o tech</h3>
+    <p>O Discord é o canal oficial para três coisas: comunicação interna do time, abertura de TKT para o tech quando algo trava, e solicitação de inclusão ou exclusão de acessos. Ao abrir um TKT, informe sempre:</p>
+    <ul>
+      <li>O que você estava tentando fazer</li>
+      <li>O que aconteceu (mensagem de erro, tela travada, acesso negado)</li>
+      <li>Se envolve um cliente específico, o <b>Id da Action</b> dele (você vai usar isso de novo no Módulo 5)</li>
+    </ul>
+    <div class="exemplo"><b>Exemplo real:</b> "Não consigo acessar o NocoDB, aparece 'acesso negado'. Meu e-mail corporativo é [nome]@[domínio]. Comecei hoje na operação LAAM." — um TKT assim resolve rápido porque já tem tudo que o tech precisa saber.</div>
+  </div>
+
+  <div class="check">
+    <h4 style="margin-top:0">Checklist de Dia 1</h4>
+    <ol>
+      <li>Cadastrei o Discord com e-mail pessoal e enviei meu usuário para inclusão nos grupos.</li>
+      <li>Solicitei o e-mail corporativo à gerência.</li>
+      <li>Assim que o e-mail chegou, confirmei com o gestor a liberação de Nicochat, NocoDB, gerador de contratos e servidor.</li>
+      <li>Abri o TKT de inclusão no Workspace.</li>
+    </ol>
+  </div>
+
+  <div class="block">
+    <h3 style="display:flex;align-items:center;gap:8px"><span class="badge config" style="margin:0">configurável</span> Grupos e canais por operação</h3>
+    <div class="opgrid">
+      <div class="opcard ng"><div class="opname">NGAM</div><dl><dt>Grupo Discord</dt><dd class="confirmar">A CONFIRMAR</dd><dt>Contato tech</dt><dd class="confirmar">A CONFIRMAR</dd></dl></div>
+      <div class="opcard am"><div class="opname">LAAM</div><dl><dt>Grupo Discord</dt><dd class="confirmar">A CONFIRMAR</dd><dt>Contato tech</dt><dd class="confirmar">A CONFIRMAR</dd></dl></div>
+      <div class="opcard rj"><div class="opname">LARJ</div><dl><dt>Grupo Discord</dt><dd class="confirmar">A CONFIRMAR</dd><dt>Contato tech</dt><dd class="confirmar">A CONFIRMAR</dd></dl></div>
+    </div>
+  </div>
+
+  <div class="recap">
+    <h4>Não pode esquecer</h4>
+    <ol>
+      <li>A ordem é Discord → e-mail corporativo → Nicochat/NocoDB/gerador/servidor → Workspace. Nunca pule etapa.</li>
+      <li>O e-mail corporativo é a chave que libera tudo depois dele.</li>
+      <li>TKT completo (o quê, o que aconteceu, Id da Action se houver) resolve mais rápido.</li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- MÓDULO 3 -->
+<section class="panel" id="m3"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Módulo 3 <span class="badge config" style="margin-left:8px">configurável por operação</span></div>
+    <h2>Nicochat — atendimento ao cliente</h2>
+    <div class="modtime">⏱ ~1 dia, incluindo prática guiada e prova</div>
+  </div>
+  <div class="objetivo"><b>Ao final deste módulo você será capaz de:</b> conduzir um atendimento completo dentro do Nicochat e explicar por que ele funciona sobre a API Oficial.</div>
+  <div class="porque">Por que isso importa: é dentro do Nicochat que praticamente todo o seu atendimento acontece. Se você não domina a ferramenta, o método do Módulo 6 não sai do papel.</div>
+
+  <div class="block">
+    <h3>O que é</h3>
+    <p>O Nicochat é a plataforma onde você conversa com os clientes, via <b>API Oficial</b> (o canal homologado de mensagens — o que garante estabilidade e conformidade da comunicação), e onde você controla todos os seus atendimentos: quem está esperando resposta, quem está em follow-up, quem já fechou.</p>
+  </div>
+
+  <div class="block">
+    <h3>Treinamento prático da plataforma</h3>
+    <p><span class="confirmar">A CONFIRMAR: telas, fluxos de atendimento, filas e etiquetas reais do Nicochat</span> — este bloco deve ser preenchido com as capturas de tela e o passo a passo oficial da ferramenta, seguindo o padrão demonstração → prática guiada → prática autônoma:</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div class="b"><h4>Demonstração</h4><p>Alguém experiente conduz um atendimento inteiro na sua frente, narrando cada clique. <span class="confirmar">A CONFIRMAR: roteiro de demonstração</span></p></div></div>
+      <div class="step"><div class="n">2</div><div class="b"><h4>Prática guiada</h4><p>Você conduz um atendimento com essa pessoa ao lado, revisando cada passo antes de confirmar.</p></div></div>
+      <div class="step"><div class="n">3</div><div class="b"><h4>Prática autônoma</h4><p>Você conduz sozinho, com revisão posterior do que foi feito.</p></div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3 style="display:flex;align-items:center;gap:8px"><span class="badge config" style="margin:0">configurável</span> Particularidades por operação</h3>
+    <div class="opgrid">
+      <div class="opcard ng"><div class="opname">NGAM</div><dl><dt>Filas/etiquetas</dt><dd class="confirmar">A CONFIRMAR</dd></dl></div>
+      <div class="opcard am"><div class="opname">LAAM</div><dl><dt>Filas/etiquetas</dt><dd class="confirmar">A CONFIRMAR</dd></dl></div>
+      <div class="opcard rj"><div class="opname">LARJ</div><dl><dt>Filas/etiquetas</dt><dd class="confirmar">A CONFIRMAR</dd></dl></div>
+    </div>
+  </div>
+
+  <div class="check">
+    <h4>Verificação rápida</h4>
+    <ol>
+      <li>O que é a "API Oficial" e por que o Nicochat funciona sobre ela?</li>
+      <li>Cite as três etapas de uma prática de ferramenta bem-feita.</li>
+    </ol>
+  </div>
+
+  <div class="recap">
+    <h4>Não pode esquecer</h4>
+    <ol>
+      <li>Nicochat é onde vive todo o seu atendimento — dominar a ferramenta é pré-requisito do método.</li>
+      <li>Demonstração → prática guiada → prática autônoma, sempre nessa ordem.</li>
+      <li>Dúvida na ferramenta é TKT no Discord, não tentativa e erro sozinho.</li>
+    </ol>
+  </div>
+
+  <div class="quiz" id="quiz-nicochat">
+    <div class="qhead"><h3>Prova — Nicochat</h3><span class="cutoff">Nota de corte: 70%</span></div>
+    <p style="font-size:13px;color:var(--ink-soft);margin-bottom:6px">4 questões de múltipla escolha + 1 cenário. Corrija ao final para ver o resultado e o comentário de cada questão.</p>
+  </div>
+</div></section>
+
+<!-- MÓDULO 4 -->
+<section class="panel" id="m4"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Módulo 4 <span class="badge config" style="margin-left:8px">configurável por operação</span></div>
+    <h2>NocoDB (CRM) e controle de comissão</h2>
+    <div class="modtime">⏱ ~1 dia</div>
+  </div>
+  <div class="objetivo"><b>Ao final deste módulo você será capaz de:</b> localizar seus atendimentos e fechamentos no NocoDB e executar a rotina de double check que garante sua comissão sem erro.</div>
+  <div class="porque">Por que isso importa: é aqui que a sua comissão vira número confirmado. Um erro de preenchimento não corrigido a tempo é dinheiro que você não recebe — ou recebe errado.</div>
+
+  <div class="block">
+    <h3>O que é</h3>
+    <p>O NocoDB é o CRM onde você vê a lista dos seus atendimentos e dos clientes fechados — numa visão simplificada, pensada para o fechador acompanhar o próprio resultado sem precisar navegar em telas de gestão.</p>
+  </div>
+
+  <div class="block">
+    <h3>A rotina de double check (diária + semanal)</h3>
+    <div class="steps">
+      <div class="step"><div class="n">D</div><div class="b"><h4>Diariamente</h4><p>Cliente assinou o contrato → você <b>adiciona as ações e o cliente na planilha de comissão</b> no mesmo dia. Não acumule para o fim da semana — é assim que se perde registro.</p></div></div>
+      <div class="step"><div class="n">S</div><div class="b"><h4>Semanalmente</h4><p>Você confere se o número de ações da sua planilha bate com o que está no NocoDB. Se não bater, é sinal de erro de preenchimento ou de fechamento não sincronizado — resolva antes que vire divergência de comissão.</p></div></div>
+    </div>
+    <div class="exemplo"><b>Por que essa dupla checagem existe:</b> ela é a garantia, dos dois lados, de que não haverá erro no comissionamento. Você protege o seu próprio pagamento fazendo esse hábito todo dia, não só no fim do mês.</div>
+  </div>
+
+  <div class="block">
+    <h3 style="display:flex;align-items:center;gap:8px"><span class="badge config" style="margin:0">configurável</span> Planilha de comissão por operação</h3>
+    <p>Cada operação tem sua própria planilha em branco. Baixe/acesse a correspondente à sua operação e mantenha o preenchimento diário.</p>
+    <div class="opgrid">
+      <div class="opcard ng"><div class="opname">NGAM</div><dl><dt>Planilha</dt><dd class="confirmar">A CONFIRMAR: link/arquivo</dd></dl></div>
+      <div class="opcard am"><div class="opname">LAAM</div><dl><dt>Planilha</dt><dd class="confirmar">A CONFIRMAR: link/arquivo</dd></dl></div>
+      <div class="opcard rj"><div class="opname">LARJ</div><dl><dt>Planilha</dt><dd class="confirmar">A CONFIRMAR: link/arquivo</dd></dl></div>
+    </div>
+  </div>
+
+  <div class="check">
+    <h4>Verificação rápida</h4>
+    <ol>
+      <li>O que você faz no mesmo dia em que um cliente assina?</li>
+      <li>Qual é o objetivo da conferência semanal entre planilha e NocoDB?</li>
+    </ol>
+  </div>
+
+  <div class="recap">
+    <h4>Não pode esquecer</h4>
+    <ol>
+      <li>Preenchimento da planilha é diário, no dia da assinatura — não no fim de semana.</li>
+      <li>Conferência com o NocoDB é semanal, e ela existe para evitar erro de comissão.</li>
+      <li>Cada operação tem a própria planilha — não misture modelos entre NGAM, LAAM e LARJ.</li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- MÓDULO 5 -->
+<section class="panel" id="m5"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Módulo 5 <span class="badge config" style="margin-left:8px">configurável por operação</span></div>
+    <h2>Gerador de contratos</h2>
+    <div class="modtime">⏱ ~0,5 dia</div>
+  </div>
+  <div class="objetivo"><b>Ao final deste módulo você será capaz de:</b> preencher o gerador de contratos sem erro e resolver os dois problemas mais comuns sem travar o fechamento.</div>
+  <div class="porque">Por que isso importa: um contrato mal preenchido ou uma pendência não reportada a tempo atrasa o protocolo — e é o protocolo que garante sua comissão.</div>
+
+  <div class="block">
+    <h3>Como preencher corretamente</h3>
+    <p><span class="confirmar">A CONFIRMAR: campo a campo do gerador de contratos (nome, CPF, matéria, valor da causa, dados bancários, demais campos obrigatórios) e capturas de tela do fluxo real</span> — a orientação central, independente da tela, é: confira cada dado do cliente contra o documento antes de gerar, porque erro de digitação no contrato é o motivo mais comum de retrabalho e de atraso no protocolo.</p>
+  </div>
+
+  <div class="block">
+    <h3>Resolução de problemas (FAQ)</h3>
+    <div class="faq">
+      <div class="q">Gerei o contrato e o cliente não recebeu o link. O que faço?</div>
+      <div class="a">Abra um TKT ao tech e envie o <b>Id da Action</b> do cliente para verificação do erro. Não gere um segundo contrato antes disso — pode duplicar o registro.</div>
+    </div>
+    <div class="faq">
+      <div class="q">O cliente assinou mas eu não recebi a confirmação. O que faço?</div>
+      <div class="a">Abra um TKT ao tech informando que não recebeu a confirmação de assinatura e peça para verificar se o cliente já consta como fechado no CRM (NocoDB). Muitas vezes o fechamento já está registrado e só a notificação falhou.</div>
+    </div>
+  </div>
+
+  <div class="check">
+    <h4>Verificação rápida</h4>
+    <ol>
+      <li>O cliente diz que não recebeu o link do contrato. Qual é o seu primeiro passo?</li>
+      <li>Por que você não deve gerar um segundo contrato antes de abrir o TKT?</li>
+    </ol>
+  </div>
+
+  <div class="recap">
+    <h4>Não pode esquecer</h4>
+    <ol>
+      <li>Confira cada dado contra o documento do cliente antes de gerar o contrato.</li>
+      <li>Link não recebido → TKT com Id da Action, nunca duplicar contrato por conta própria.</li>
+      <li>Confirmação de assinatura não chegou → TKT pedindo checagem no CRM antes de assumir que algo deu errado.</li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- MÓDULO 6 -->
+<section class="panel" id="m6"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Módulo 6 <span class="badge core" style="margin-left:8px">núcleo padrão</span></div>
+    <h2>Atendimento ao cliente — o núcleo da função</h2>
+    <div class="modtime">⏱ ~4 a 5 dias, com prática guiada intensiva</div>
+  </div>
+  <div class="objetivo"><b>Ao final deste módulo você será capaz de:</b> conduzir um atendimento completo, do pré-atendimento ao pós-fechamento, aplicando o método em sete passos e enxergando o "mar de oportunidades" em cada caso.</div>
+  <div class="porque">Por que isso importa: este é o módulo que mais impacta sua conversão, seu ticket médio e a experiência do cliente. Tudo o que vier antes existe para sustentar este módulo.</div>
+
+  <div class="block">
+    <h3>Pré-atendimento: a consulta ao jusbr</h3>
+    <p>Antes de avançar com qualquer matéria, consulte o <b>jusbr</b> para ver se o cliente já tem uma ação em andamento sobre aquele mesmo assunto. Se já tiver, explique com transparência por que você não pode fechar aquela ação específica de novo — e use o momento para investigar se ele tem outras matérias abertas para atendimento.</p>
+    <div class="exemplo"><b>Exemplo real:</b> cliente já tem ação em curso sobre a mesma tarifa bancária. Você explica isso a ele com clareza, sem deixar a conversa esfriar, e pergunta sobre outras situações (INSS, telefonia, negativação) — o atendimento continua, só muda de matéria.</div>
+  </div>
+
+  <div class="block">
+    <h3>Uso inteligente de scripts</h3>
+    <p>O script existe para dar agilidade e te orientar na estrutura da conversa — ele não substitui um atendimento humano de qualidade. Se o cliente já contou parte da história dele, você personaliza a conversa a partir do que ele já relatou. Nada de repetir uma pergunta que ele já respondeu só porque "é o próximo passo do script".</p>
+  </div>
+
+  <div class="block">
+    <h3>O método, passo a passo</h3>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div class="b"><h4>Entender a dor do cliente</h4><p>Escute antes de falar. O que trouxe ele até você, na fala dele mesmo.</p></div></div>
+      <div class="step"><div class="n">2</div><div class="b"><h4>Identificar as irregularidades</h4><p>Olhe o caso com olhar técnico: o que, de fato, foi feito de errado com esse cliente.</p></div></div>
+      <div class="step"><div class="n">3</div><div class="b"><h4>Mostrar os benefícios de fechar a ação</h4><p>Explique o que a ação pode trazer para ele — de forma honesta.</p></div></div>
+      <div class="step"><div class="n">4</div><div class="b"><h4>Ser honesto</h4><p>Nunca prometa que a causa está 100% ganha. Esse é o limite que não se negocia.</p></div></div>
+      <div class="step"><div class="n">5</div><div class="b"><h4>Gerar desejo a partir do valor da indenização</h4><p>Uma vez que o cliente entende a irregularidade, o valor possível de indenização é o que transforma interesse em decisão.</p></div></div>
+      <div class="step"><div class="n">6</div><div class="b"><h4>Solicitar a documentação completa</h4><p>Documentação incompleta hoje é pendência amanhã — e pendência atrasa o protocolo (Módulo 7).</p></div></div>
+      <div class="step"><div class="n">7</div><div class="b"><h4>Enviar o contrato</h4><p>Só depois de todos os passos anteriores — nunca como atalho para "garantir" o fechamento antes da hora.</p></div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Aproveitar todas as ações possíveis — o mar de oportunidades</h3>
+    <p>Um mesmo cliente quase sempre carrega mais de uma causa. Enxergar isso é o que separa um ticket médio comum de um ticket médio de alta performance.</p>
+    <div class="exemplo"><b>Caso real:</b> o cliente chega por causa de tarifas bancárias. Ao olhar o extrato que ele enviou, você percebe que ele recebe pelo INSS — abre-se a possibilidade de RMC/RCC (cartão consignado) ou refinanciamento indevido. O comprovante de residência que ele mandou é uma fatura de celular — abre-se a possibilidade de serviços adicionados sem autorização. Uma conversa, três frentes possíveis. Pergunte sempre um pouco além do motivo inicial.</div>
+  </div>
+
+  <div class="block">
+    <h3>Pós-fechamento</h3>
+    <p>Depois que o cliente assina, confira se todos os documentos dele subiram corretamente para o Drive. Documento que não sobe é pendência que aparece depois — e quem resolve pendência é você (Módulo 7).</p>
+  </div>
+
+  <div class="block">
+    <h3>Rubricas e documentação necessária para fechar a ação</h3>
+    <p><span class="confirmar">A CONFIRMAR: lista oficial e completa de documentos exigidos por tipo de matéria, e as rubricas/assinaturas obrigatórias em cada peça</span>. Como referência de trabalho até a confirmação, o padrão mínimo costuma envolver: documento de identidade, CPF, comprovante de residência, comprovante ou extrato relativo à matéria (ex.: extrato bancário, fatura, carta de negativação) e o contrato assinado com todas as rubricas nas páginas indicadas.</p>
+  </div>
+
+  <div class="check">
+    <h4>Verificação rápida</h4>
+    <ol>
+      <li>Cite os sete passos do método, na ordem.</li>
+      <li>No caso do cliente das tarifas bancárias, quais duas outras matérias podem ser identificadas e a partir de qual documento cada uma?</li>
+      <li>O que você confere no pós-fechamento e por que isso evita problema mais adiante?</li>
+    </ol>
+  </div>
+
+  <div class="recap">
+    <h4>Não pode esquecer</h4>
+    <ol>
+      <li>Consulte o jusbr antes de tudo — nunca feche uma ação duplicada.</li>
+      <li>Os sete passos existem numa ordem porque cada um sustenta o seguinte; nunca pule para "enviar o contrato" antes de gerar desejo com honestidade.</li>
+      <li>Todo cliente é um mar de oportunidades — pergunte além do motivo que trouxe ele até você.</li>
+    </ol>
+  </div>
+
+  <div class="quiz" id="quiz-rubricas">
+    <div class="qhead"><h3>Prova — Rubricas e documentações</h3><span class="cutoff">Nota de corte: 70%</span></div>
+    <p style="font-size:13px;color:var(--ink-soft);margin-bottom:6px">4 questões de múltipla escolha + 1 cenário. Corrija ao final para ver o resultado e o comentário de cada questão.</p>
+  </div>
+</div></section>
+
+<!-- MÓDULO 7 -->
+<section class="panel" id="m7"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Módulo 7 <span class="badge core" style="margin-left:8px">núcleo padrão</span></div>
+    <h2>A jornada do cliente</h2>
+    <div class="modtime">⏱ ~1 dia</div>
+  </div>
+  <div class="objetivo"><b>Ao final deste módulo você será capaz de:</b> descrever o caminho completo do cliente até o protocolo e explicar por que sanar pendências é parte do seu trabalho, não um extra.</div>
+  <div class="porque">Por que isso importa: fechar contrato sem o processo chegar ao protocolo não gera comissão de verdade. A sua parte não termina na assinatura.</div>
+
+  <div class="block">
+    <h3>O fluxo completo</h3>
+    <div class="flow">
+      <div class="flowstep">Funil</div><div class="flowarrow">→</div>
+      <div class="flowstep">Distribuição ao fechador</div><div class="flowarrow">→</div>
+      <div class="flowstep">Assinatura do contrato</div><div class="flowarrow">→</div>
+      <div class="flowstep">Triagem</div>
+    </div>
+    <div class="flow" style="margin-top:8px">
+      <div class="flowstep">Organização de documentos</div><div class="flowarrow">→</div>
+      <div class="flowstep warn">Pendências (se houver)</div><div class="flowarrow">→</div>
+      <div class="flowstep">Peticionamento</div><div class="flowarrow">→</div>
+      <div class="flowstep">Protocolo</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>O seu papel nas pendências</h3>
+    <p>Quando surge uma pendência — documento faltando, dado divergente, assinatura incompleta — ela precisa ser sanada por <b>você</b>, o fechador que trouxe o cliente. Ninguém mais tem o relacionamento e o contexto que você tem com aquele cliente.</p>
+    <div class="exemplo"><b>Por que isso é inegociável:</b> de nada adianta fechar dez contratos num mês se metade fica parada em pendência. A comissão depende diretamente dos valores protocolados — não dos valores assinados. Fechar é a metade do trabalho; destravar a pendência é a outra metade.</div>
+  </div>
+
+  <div class="check">
+    <h4>Verificação rápida</h4>
+    <ol>
+      <li>Coloque em ordem: protocolo, triagem, assinatura, pendências, funil, peticionamento, organização de documentos, distribuição ao fechador.</li>
+      <li>Por que a comissão está ligada ao protocolo e não à assinatura do contrato?</li>
+    </ol>
+  </div>
+
+  <div class="recap">
+    <h4>Não pode esquecer</h4>
+    <ol>
+      <li>O caminho é: funil → distribuição → assinatura → triagem → organização de documentos → (pendências) → peticionamento → protocolo.</li>
+      <li>Pendência é trabalho seu, não de outra área.</li>
+      <li>Comissão nasce no protocolo, não na assinatura.</li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- MÓDULO 8 -->
+<section class="panel" id="m8"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Módulo 8 <span class="badge config" style="margin-left:8px">configurável por operação</span></div>
+    <h2>Comissionamento</h2>
+    <div class="modtime">⏱ ~1 dia</div>
+  </div>
+  <div class="objetivo"><b>Ao final deste módulo você será capaz de:</b> calcular sua comissão a partir do fator multiplicador da sua operação e preencher a planilha corretamente.</div>
+  <div class="porque">Por que isso importa: é o motivo prático de tudo o que você faz — e entender a conta evita divergência na hora de receber.</div>
+
+  <div class="block">
+    <h3>Como funciona (lógica geral)</h3>
+    <p>O comissionamento aqui opera por <b>fator multiplicador</b>: o valor protocolado por você é multiplicado por um fator específico da sua operação para chegar ao valor da sua comissão. Esse fator, as faixas e metas variam entre LA (LAAM/LARJ) e NG (NGAM) — <span class="confirmar">A CONFIRMAR: percentuais, faixas e regras exatas de cada operação, extraídos da planilha oficial de comissionamento</span>.</p>
+  </div>
+
+  <div class="block">
+    <h3 style="display:flex;align-items:center;gap:8px"><span class="badge config" style="margin:0">configurável</span> Regras por operação</h3>
+    <div class="opgrid">
+      <div class="opcard ng"><div class="opname">NGAM</div><dl><dt>Fator multiplicador</dt><dd class="confirmar">A CONFIRMAR</dd><dt>Metas/faixas</dt><dd class="confirmar">A CONFIRMAR</dd></dl></div>
+      <div class="opcard am"><div class="opname">LAAM</div><dl><dt>Fator multiplicador</dt><dd class="confirmar">A CONFIRMAR</dd><dt>Metas/faixas</dt><dd class="confirmar">A CONFIRMAR</dd></dl></div>
+      <div class="opcard rj"><div class="opname">LARJ</div><dl><dt>Fator multiplicador</dt><dd class="confirmar">A CONFIRMAR</dd><dt>Metas/faixas</dt><dd class="confirmar">A CONFIRMAR</dd></dl></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Preenchimento da planilha</h3>
+    <p>Retome o hábito do Módulo 4: toda ação fechada entra na planilha no mesmo dia, com os campos exigidos pelo modelo da sua operação. <span class="confirmar">A CONFIRMAR: campos obrigatórios exatos de cada planilha de comissão</span>.</p>
+  </div>
+
+  <div class="check">
+    <h4>Verificação rápida</h4>
+    <ol>
+      <li>O que é o "fator multiplicador" no comissionamento?</li>
+      <li>Por que as regras de LA e de NG podem ser diferentes uma da outra?</li>
+    </ol>
+  </div>
+
+  <div class="recap">
+    <h4>Não pode esquecer</h4>
+    <ol>
+      <li>Comissão = valor protocolado × fator multiplicador da sua operação.</li>
+      <li>As regras variam por operação — não aplique a regra de uma operação em outra.</li>
+      <li>Planilha em dia é o que garante que você recebe certo.</li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- MÓDULO 9 -->
+<section class="panel" id="m9"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Módulo 9 <span class="badge core" style="margin-left:8px">núcleo padrão</span></div>
+    <h2>Alta performance e autogestão de leads</h2>
+    <div class="modtime">⏱ contínuo, a partir da 2ª semana</div>
+  </div>
+  <div class="objetivo"><b>Ao final deste módulo você será capaz de:</b> manter ritmo de atendimento mesmo quando os leads novos estão fracos, usando a base existente como fonte ativa de trabalho.</div>
+  <div class="porque">Por que isso importa: fechador de alta performance não espera o lead perfeito chegar — ele cria movimento com o que já tem disponível.</div>
+
+  <div class="block">
+    <h3>Quando os leads estão fracos ou o fechamento não anda</h3>
+    <ul>
+      <li><b>Pesquisar na base</b> — reveja atendimentos antigos que não fecharam e reabra a conversa com um gancho novo.</li>
+      <li><b>Trabalhar clientes que já são do escritório</b> — um cliente que já fechou uma ação com a gente é candidato natural para o "mar de oportunidades" do Módulo 6 em outra matéria.</li>
+      <li><b>Fazer follow-up</b> — o follow-up não é uma tarefa de exceção quando falta lead novo, é rotina permanente do fechador.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>Mentalidade padrão, não exceção</h3>
+    <p>Alta performance não é o que você faz quando está inspirado ou quando os leads estão bons. É o padrão mínimo esperado todos os dias — inclusive, principalmente, nos dias em que a captação está fraca.</p>
+  </div>
+
+  <div class="check">
+    <h4>Verificação rápida</h4>
+    <ol>
+      <li>Cite as três rotinas de autogestão de leads quando o fechamento não anda.</li>
+      <li>Por que "trabalhar clientes que já são do escritório" se conecta ao Módulo 6?</li>
+    </ol>
+  </div>
+
+  <div class="recap">
+    <h4>Não pode esquecer</h4>
+    <ol>
+      <li>Base, clientes existentes e follow-up são suas três alavancas quando falta lead novo.</li>
+      <li>Alta performance é rotina, não pico ocasional.</li>
+      <li>O "mar de oportunidades" vale também para quem já é cliente do escritório.</li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- MÓDULO 10 -->
+<section class="panel" id="m10"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Módulo 10 <span class="badge core" style="margin-left:8px">núcleo padrão</span></div>
+    <h2>Biblioteca do fechador</h2>
+    <div class="modtime">⏱ contínuo ao longo do primeiro mês e além — não é bloqueio de certificação</div>
+  </div>
+  <div class="objetivo"><b>Ao final deste módulo você será capaz de:</b> reconhecer, em cada situação real de atendimento, qual obra da trilha te dá ferramenta prática para lidar com ela melhor.</div>
+  <div class="porque">Por que isso importa: o método do Módulo 6 é o mínimo. Esta trilha é o que separa quem cumpre o método de quem constrói carreira de alta performance aqui.</div>
+
+  <div class="block">
+    <p>Leia na ordem sugerida. Não é pré-requisito para atender — é o que constrói, ao longo do tempo, o fechador que vira referência no time.</p>
+    <div class="lib">
+      <div class="libitem"><div class="num">1</div><div><div class="t">Alcançando Excelência em Vendas: SPIN Selling</div><div class="au">Neil Rackham</div><div class="nota">Venda consultiva por perguntas — é a base técnica do "entender a dor do cliente" do Módulo 6.</div></div></div>
+      <div class="libitem"><div class="num">2</div><div><div class="t">As Armas da Persuasão</div><div class="au">Robert Cialdini</div><div class="nota">Os gatilhos de influência e como usá-los com ética — sem empurrar.</div></div></div>
+      <div class="libitem"><div class="num">3</div><div><div class="t">Negocie Como Se Sua Vida Dependesse Disso</div><div class="au">Chris Voss</div><div class="nota">Escuta ativa e negociação — personalizar o atendimento em vez de recitar script.</div></div></div>
+      <div class="libitem"><div class="num">4</div><div><div class="t">A Venda Desafiadora (The Challenger Sale)</div><div class="au">Matthew Dixon e Brent Adamson</div><div class="nota">Ensinar e reformular a perspectiva do cliente para gerar valor e desejo.</div></div></div>
+      <div class="libitem"><div class="num">5</div><div><div class="t">Prospecção Fanática (Fanatical Prospecting)</div><div class="au">Jeb Blount</div><div class="nota">Trabalhar a base, o follow-up e a autogestão de leads do Módulo 9.</div></div></div>
+      <div class="libitem"><div class="num">6</div><div><div class="t">Receita Previsível (Predictable Revenue)</div><div class="au">Aaron Ross</div><div class="nota">Processo de vendas replicável e previsível — a lógica que sustenta a padronização entre operações.</div></div></div>
+      <div class="libitem"><div class="num">7</div><div><div class="t">A Bíblia de Vendas</div><div class="au">Jeffrey Gitomer</div><div class="nota">Fundamentos e técnicas de fechamento.</div></div></div>
+      <div class="libitem"><div class="num">8</div><div><div class="t">Vender é Humano (To Sell Is Human)</div><div class="au">Daniel Pink</div><div class="nota">Venda ética e moderna — reforça o princípio de orientar, não vender a qualquer custo.</div></div></div>
+      <div class="libitem"><div class="num">9</div><div><div class="t">Mindset: A Nova Psicologia do Sucesso</div><div class="au">Carol Dweck</div><div class="nota">Mentalidade de crescimento como base da alta performance.</div></div></div>
+      <div class="libitem"><div class="num">10</div><div><div class="t">Os 7 Hábitos das Pessoas Altamente Eficazes</div><div class="au">Stephen Covey</div><div class="nota">Autogestão, prioridades e produtividade na rotina do fechador.</div></div></div>
+    </div>
+  </div>
+
+  <div class="recap">
+    <h4>Não pode esquecer</h4>
+    <ol>
+      <li>A trilha é desenvolvimento contínuo, não pré-requisito de certificação.</li>
+      <li>Cada livro resolve uma dificuldade concreta que você já viveu nos módulos anteriores.</li>
+      <li>Ler na ordem ajuda porque os livros seguintes constroem sobre os anteriores.</li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- LINHA DO TEMPO -->
+<section class="panel" id="tl"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Linha do tempo</div>
+    <h2>Duração estimada do onboarding</h2>
+  </div>
+  <div class="block">
+    <p>Números de referência — calibre com a realidade de cada operação (volume de leads, disponibilidade do tech, agenda do gestor).</p>
+    <table class="tl">
+      <tr><th>Fase</th><th>Módulos</th><th>Duração estimada</th></tr>
+      <tr><td>1 — Ambientação e ferramentas</td><td>0 a 2</td><td>~2 dias (Dia 1 depende da gerência e do tech para liberar acessos)</td></tr>
+      <tr><td>2 — Domínio das plataformas</td><td>3 a 5 (Nicochat, NocoDB, gerador)</td><td>~3 a 4 dias, incluindo as provas</td></tr>
+      <tr><td>3 — Atendimento e fechamento</td><td>6 (+ rubricas e prova)</td><td>~4 a 5 dias — núcleo, com prática guiada</td></tr>
+      <tr><td>4 — Jornada do cliente e comissionamento</td><td>7 e 8</td><td>~2 dias</td></tr>
+      <tr><td>5 — Alta performance e biblioteca</td><td>9 e 10</td><td>contínuo ao longo do primeiro mês</td></tr>
+    </table>
+    <p style="margin-top:14px"><b>Núcleo de treinamento guiado:</b> cerca de 2 semanas (10 dias úteis).<br><b>Rampa até performance plena:</b> integrado ao plano de ramp de 30 dias — o fechador já opera enquanto consolida os módulos e a leitura da biblioteca.</p>
+  </div>
+</div></section>
+
+<!-- GUIA DE REPLICAÇÃO -->
+<section class="panel" id="repl"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Gancho mestre</div>
+    <h2>Guia de replicação — abrindo uma nova operação</h2>
+  </div>
+  <div class="block">
+    <h3>O que é núcleo (não muda) e o que é camada configurável (se preenche)</h3>
+    <p>Módulos <b>0, 1, 6, 7, 9 e 10</b> são núcleo padronizado: método de atendimento, ética, fluxo da jornada, alta performance e biblioteca são idênticos em qualquer operação — não reescreva, só reaplique.</p>
+    <p>Módulos <b>2, 3, 4, 5 e 8</b> têm camada configurável: ferramentas, planilhas, percentuais de comissão, filas/etiquetas e grupos de acesso mudam por operação.</p>
+  </div>
+  <div class="block">
+    <h3>Checklist para instanciar numa operação nova</h3>
+    <ol>
+      <li>Nome da operação e cor de identidade visual (siga o padrão ng/am/rj já usado no ecossistema).</li>
+      <li>Grupo de Discord e contato do tech da nova operação.</li>
+      <li>Planilha de comissão em branco específica.</li>
+      <li>Modelo de comissionamento (fator multiplicador, faixas, metas).</li>
+      <li>Scripts oficiais de atendimento, se houver variação de matéria por operação.</li>
+      <li>Telas e fluxos específicos do Nicochat/NocoDB/gerador de contratos, se houver diferença de configuração.</li>
+      <li>Nome da gestora/gestor responsável pela operação, para o relatório e a supervisão do onboarding.</li>
+    </ol>
+  </div>
+  <div class="block">
+    <h3>Mapa dos campos configuráveis</h3>
+    <table class="tl">
+      <tr><th>Campo</th><th>Onde aparece</th></tr>
+      <tr><td>Grupo Discord / contato tech</td><td>Módulo 2</td></tr>
+      <tr><td>Filas/etiquetas do Nicochat</td><td>Módulo 3</td></tr>
+      <tr><td>Planilha de comissão</td><td>Módulos 4 e 8</td></tr>
+      <tr><td>Campos do gerador de contratos</td><td>Módulo 5</td></tr>
+      <tr><td>Fator multiplicador e metas</td><td>Módulo 8</td></tr>
+    </table>
+  </div>
+  <div class="block">
+    <p>O método de atendimento do Módulo 6 e o padrão das provas são o ativo replicável central: garantem que um cliente atendido em qualquer operação tenha a mesma experiência e o mesmo nível de qualidade, não importa qual camada configurável está por trás.</p>
+  </div>
+</div></section>
+
+<!-- LACUNAS -->
+<section class="panel" id="gaps"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Relatório final</div>
+    <h2>Relatório de lacunas</h2>
+  </div>
+  <div class="block">
+    <p style="margin-bottom:10px">Este material foi gerado sem acesso aos materiais-base da pasta <code>Onboarding</code> (o caminho local informado não é acessível a partir deste ambiente de execução). Os pontos abaixo precisam ser complementados pela gestão antes que o onboarding seja usado em treinamento real — cada um está marcado como <span class="confirmar">A CONFIRMAR</span> no ponto correspondente do material.</p>
+    <div class="gap-item"><span class="tag">Módulo 2</span>Nomes exatos dos grupos de Discord por operação e contato do tech responsável.</div>
+    <div class="gap-item"><span class="tag">Módulo 3</span>Capturas de tela, fluxos de atendimento, filas e etiquetas reais do Nicochat, além de um roteiro de demonstração para a prática guiada.</div>
+    <div class="gap-item"><span class="tag">Módulo 4</span>Planilha de comissão em branco de cada operação (NGAM, LAAM, LARJ) e estrutura de colunas do NocoDB visível ao fechador.</div>
+    <div class="gap-item"><span class="tag">Módulo 5</span>Campos exatos do gerador de contratos e capturas de tela do fluxo de preenchimento.</div>
+    <div class="gap-item"><span class="tag">Módulo 6</span>Lista oficial e completa de documentos e rubricas exigidos por tipo de matéria/ação, e scripts oficiais de atendimento (se existirem, por operação).</div>
+    <div class="gap-item"><span class="tag">Módulo 8</span>Percentuais e faixas exatas do fator multiplicador de comissão para NGAM, LAAM e LARJ, e os campos obrigatórios de cada planilha.</div>
+    <div class="gap-item"><span class="tag">Geral</span>Confirmação do estágio atual da operação LARJ (o painel de gestão já existente indica que está "em estruturação", medida por processo e não por volume — vale confirmar se isso já mudou).</div>
+    <div class="gap-item"><span class="tag">Geral</span>Validação, por alguém da operação, de que a sequência de acessos do Módulo 2 (Discord → e-mail → Nicochat/NocoDB/gerador/servidor → Workspace) está atualizada.</div>
+  </div>
+  <div class="sig">Assinado,<br><b>Maria Lúcia Grana</b> — Gestão Comercial</div>
+</div></section>
+
+<!-- OBSERVAÇÕES -->
+<section class="panel" id="obs"><div class="wrap">
+  <div class="modhead">
+    <div class="modno">Relatório final</div>
+    <h2>Observações do designer instrucional</h2>
+  </div>
+  <div class="block">
+    <div class="obs">
+      <h4>A prova do Módulo 5 (Gerador de contratos) ficou sem prova formal</h4>
+      <p>O prompt-mestre só pede provas formais para Nicochat e Rubricas/documentações. Mas o Módulo 5 tem dois erros operacionais concretos (link não recebido, confirmação não recebida) que são exatamente o tipo de conteúdo que se perde sem avaliação. Sugiro pelo menos uma verificação de cenário com nota, não só a verificação rápida informal.</p>
+    </div>
+    <div class="obs">
+      <h4>O jusbr do Módulo 6 poderia entrar já no Módulo 1</h4>
+      <p>A ética inegociável ("nunca prometer resultado garantido") e a consulta ao jusbr ("não fechar ação duplicada") nascem do mesmo princípio: não enganar o cliente, mesmo sem intenção. Colocar a existência do jusbr já no Módulo 1, como princípio, e deixar o "como usar" no Módulo 6, reforça a ideia mais cedo.</p>
+    </div>
+    <div class="obs">
+      <h4>Risco pedagógico: Módulo 8 (Comissionamento) fica quase todo em [A CONFIRMAR]</h4>
+      <p>Sem os percentuais reais, o módulo de comissão — provavelmente o mais aguardado pelo fechador novato — vira teoria abstrata. Recomendo que a gestão priorize essa lacuna especificamente antes das demais: é o módulo com maior custo de ficar incompleto.</p>
+    </div>
+    <div class="obs">
+      <h4>Considerar uma prática guiada real antes da autonomia do Dia 30</h4>
+      <p>O Módulo 0 promete "primeiros atendimentos sozinho" a partir do dia 11, mas o material não define quem valida essa transição (o supervisor direto? a gestora da operação?). Vale nomear um responsável explícito por aprovar a passagem de "prática guiada" para "autonomia" em cada operação.</p>
+    </div>
+    <div class="obs">
+      <h4>LARJ pode não caber 1:1 no mesmo onboarding, por enquanto</h4>
+      <p>Os dados já existentes no ecossistema de gestão mostram LARJ como operação em estruturação, com um time pequeno e ainda sem meta de volume — diferente de NGAM e LAAM. Vale confirmar se, hoje, já existe a figura de "fechador de contratos" na LARJ nos mesmos moldes, ou se o onboarding precisa de uma variação enquanto a operação amadurece.</p>
+    </div>
+  </div>
+  <div class="sig">Assinado,<br><b>Maria Lúcia Grana</b> — Gestão Comercial</div>
+</div></section>
+
+<script>
+const tabs=document.querySelectorAll('.tab'),panels=document.querySelectorAll('.panel');
+tabs.forEach(t=>t.addEventListener('click',()=>{tabs.forEach(x=>x.setAttribute('aria-selected',x===t));panels.forEach(p=>p.classList.toggle('active',p.id===t.dataset.tab));window.scrollTo({top:0,behavior:'smooth'});}));
+
+function renderQuiz(containerId, quiz){
+  const el=document.getElementById(containerId);
+  const body=document.createElement('div');
+  quiz.questions.forEach((q,qi)=>{
+    const qdiv=document.createElement('div');qdiv.className='qitem';
+    let html='<div class="qtext">'+(qi+1)+'. '+q.text+'</div>';
+    if(q.scenario) html+='<div class="scen">'+q.scenario+'</div>';
+    q.options.forEach((o,oi)=>{
+      html+='<label class="opt" data-qi="'+qi+'" data-oi="'+oi+'"><input type="radio" name="q'+containerId+qi+'" value="'+oi+'">'+o.text+'</label>';
+    });
+    html+='<div class="fb" data-qi="'+qi+'"></div>';
+    qdiv.innerHTML=html;
+    body.appendChild(qdiv);
+  });
+  const btnrow=document.createElement('div');btnrow.className='quizbtns';
+  btnrow.innerHTML='<button class="btn btn-primary" data-act="check">Corrigir</button><span class="score" data-role="score"></span>';
+  body.appendChild(btnrow);
+  const remed=document.createElement('div');remed.className='remed';remed.innerHTML='<b>Abaixo da nota de corte.</b> Reestude o módulo acima com atenção aos pontos que você errou e refaça a prova antes de seguir em frente.';
+  body.appendChild(remed);
+  const passbox=document.createElement('div');passbox.className='pass-box';passbox.innerHTML='<b>Aprovado.</b> Pode seguir para o próximo módulo.';
+  body.appendChild(passbox);
+  el.appendChild(body);
+
+  btnrow.querySelector('button').addEventListener('click',()=>{
+    let correctCount=0;
+    quiz.questions.forEach((q,qi)=>{
+      const checked=body.querySelector('input[name="q'+containerId+qi+'"]:checked');
+      const fb=body.querySelector('.fb[data-qi="'+qi+'"]');
+      const opts=body.querySelectorAll('.opt[data-qi="'+qi+'"]');
+      opts.forEach(o=>o.classList.remove('correct-mark','wrong-mark'));
+      if(!checked){
+        fb.className='fb no show';fb.textContent='Você não respondeu esta questão.';
+        return;
+      }
+      const oi=parseInt(checked.value,10);
+      const opt=q.options[oi];
+      const chosenLabel=body.querySelector('.opt[data-qi="'+qi+'"][data-oi="'+oi+'"]');
+      if(opt.correct){
+        correctCount++;
+        chosenLabel.classList.add('correct-mark');
+        fb.className='fb ok show';fb.textContent='Correto. '+opt.feedback;
+      }else{
+        chosenLabel.classList.add('wrong-mark');
+        const correctOpt=q.options.find(o=>o.correct);
+        const correctLabel=body.querySelector('.opt[data-qi="'+qi+'"][data-oi="'+q.options.indexOf(correctOpt)+'"]');
+        if(correctLabel) correctLabel.classList.add('correct-mark');
+        fb.className='fb no show';fb.textContent='Não é o ideal. '+opt.feedback;
+      }
+    });
+    const pct=Math.round(correctCount/quiz.questions.length*100);
+    const scoreEl=body.querySelector('[data-role="score"]');
+    scoreEl.textContent=correctCount+'/'+quiz.questions.length+' ('+pct+'%)';
+    scoreEl.className='score '+(pct>=70?'pass':'fail');
+    remed.classList.toggle('show',pct<70);
+    passbox.classList.toggle('show',pct>=70);
+  });
+}
+
+renderQuiz('quiz-nicochat',{
+  questions:[
+    {text:'Por que o Nicochat opera sobre a API Oficial?',options:[
+      {text:'Porque é a única forma gratuita de enviar mensagem.',correct:false,feedback:'A escolha não é sobre custo, é sobre estabilidade e conformidade do canal de comunicação.'},
+      {text:'Porque garante estabilidade e conformidade da comunicação com o cliente.',correct:true,feedback:'Exato: é o canal homologado, o que evita bloqueios e mantém o atendimento confiável.'},
+      {text:'Porque permite atender mais de um cliente ao mesmo tempo sem limite.',correct:false,feedback:'Isso não é o motivo da escolha da API Oficial — é uma questão de organização da fila, não de canal.'}
+    ]},
+    {text:'O que você controla dentro do Nicochat?',options:[
+      {text:'Só as conversas já fechadas.',correct:false,feedback:'Você controla todos os seus atendimentos, não só os fechados.'},
+      {text:'Todos os seus atendimentos: quem espera resposta, quem está em follow-up, quem já fechou.',correct:true,feedback:'Isso mesmo — é a sua central de controle do dia a dia comercial.'},
+      {text:'Apenas os atendimentos da sua operação, sem visão de follow-up.',correct:false,feedback:'O follow-up também é controlado por lá, não fica de fora.'}
+    ]},
+    {text:'Qual é a ordem correta de uma prática de ferramenta bem-feita?',options:[
+      {text:'Prática autônoma, depois demonstração, depois prática guiada.',correct:false,feedback:'A ordem inverte o processo — você precisa ver antes de fazer sozinho.'},
+      {text:'Demonstração, prática guiada, prática autônoma.',correct:true,feedback:'Correto — é a sequência que sustenta um aprendizado seguro na ferramenta.'},
+      {text:'Só prática guiada é necessária, o resto é opcional.',correct:false,feedback:'As três etapas têm função própria; pular uma reduz a solidez do aprendizado.'}
+    ]},
+    {text:'Se você não sabe usar uma função do Nicochat no meio de um atendimento, o que fazer?',options:[
+      {text:'Tentar sozinho até descobrir, mesmo com o cliente esperando.',correct:false,feedback:'Isso arrisca a experiência do cliente. Existe canal certo para dúvida de ferramenta.'},
+      {text:'Abrir TKT no Discord.',correct:true,feedback:'Correto — dúvida de ferramenta é assunto de TKT, não de tentativa isolada.'},
+      {text:'Encerrar o atendimento e reagendar para outro dia.',correct:false,feedback:'Não é necessário perder o atendimento; o TKT resolve sem precisar reagendar tudo.'}
+    ]}
+  ]
+});
+</script>
+
+<script>
+renderQuiz('quiz-rubricas',{
+  questions:[
+    {text:'Qual é o passo que vem imediatamente antes de "enviar o contrato"?',options:[
+      {text:'Entender a dor do cliente.',correct:false,feedback:'Esse é o primeiro passo do método, não o penúltimo.'},
+      {text:'Solicitar a documentação completa.',correct:true,feedback:'Correto — documentação completa vem antes do envio do contrato, para evitar pendência depois.'},
+      {text:'Mostrar os benefícios de fechar a ação.',correct:false,feedback:'Esse passo vem antes de gerar desejo e solicitar documentação, não logo antes do contrato.'}
+    ]},
+    {text:'Um cliente pergunta se a causa dele está "100% ganha". O que você responde?',options:[
+      {text:'Confirma que sim, para não perder o fechamento.',correct:false,feedback:'Isso viola o princípio ético inegociável do escritório — nunca prometa resultado garantido.'},
+      {text:'É honesto: explica os benefícios possíveis sem garantir o resultado.',correct:true,feedback:'Correto — honestidade sobre o resultado é a regra que não se negocia aqui.'},
+      {text:'Muda de assunto para não comprometer o fechamento.',correct:false,feedback:'Evitar a pergunta também prejudica a confiança; o certo é responder com honestidade.'}
+    ]},
+    {text:'No pós-fechamento, o que você confere?',options:[
+      {text:'Se o cliente pagou algum valor adiantado.',correct:false,feedback:'Não há cobrança adiantada nesse ponto do processo; o que se confere é a documentação.'},
+      {text:'Se todos os documentos do cliente subiram para o Drive.',correct:true,feedback:'Exato — é essa checagem que evita pendência não detectada mais adiante na jornada.'},
+      {text:'Se o cliente já indicou outro cliente.',correct:false,feedback:'Indicação não faz parte da checagem de pós-fechamento descrita no método.'}
+    ]},
+    {text:'Antes de identificar irregularidades num caso, o que vem primeiro no método?',options:[
+      {text:'Entender a dor do cliente.',correct:true,feedback:'Correto — é o primeiro passo: escutar antes de analisar tecnicamente o caso.'},
+      {text:'Gerar desejo a partir do valor da indenização.',correct:false,feedback:'Esse passo vem bem depois, após identificar irregularidades e mostrar benefícios.'},
+      {text:'Solicitar a documentação completa.',correct:false,feedback:'A documentação vem perto do fim do método, não no início.'}
+    ]},
+    {text:'Cenário: cliente chega para reclamar de tarifas bancárias. No extrato enviado, você percebe que ele recebe pelo INSS, e o comprovante de residência é uma fatura de celular. O que você faz?',
+     scenario:'Você já entendeu a dor do cliente sobre as tarifas e vai seguir o atendimento normalmente sobre esse único assunto.',
+     options:[
+      {text:'Segue só com a matéria de tarifas bancárias, para não alongar o atendimento.',correct:false,feedback:'Isso deixa oportunidades reais na mesa. O documento em mãos já indica outras frentes possíveis.'},
+      {text:'Investiga também possível RMC/RCC ou refinanciamento indevido (pelo INSS) e serviços adicionados sem autorização (pela fatura de celular).',correct:true,feedback:'Correto — é exatamente o "mar de oportunidades": um documento revela mais de uma causa possível.'},
+      {text:'Pergunta ao cliente se ele quer fechar mais alguma coisa, de forma genérica, sem citar o que viu nos documentos.',correct:false,feedback:'Pergunta genérica desperdiça a informação concreta que já está nos documentos enviados — vale ser específico.'}
+    ]}
+  ]
+});
+</script>
+
+</body>
+</html>
