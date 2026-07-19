@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expansão Comercial · Modelo de Transição e Franquia RA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Newsreader:ital,opt@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2430;--ink-soft:#414B59;--paper:#FBFAF7;--surface:#fff;
+    --line:#E6E1D6;--line-strong:#D6CFC0;
+    --ng:#B0463A;--ng-bg:#F6E7E3;--am:#1F7A6B;--am-bg:#E9F2EF;
+    --rj:#C0791A;--rj-bg:#F7EFDF;--you:#3A4A78;--you-bg:#E8EBF4;
+    --gold:#B98B12;--gold-bg:#F6EFDD;
+    --radius:16px;--shadow:0 1px 2px rgba(27,36,48,.04),0 10px 30px rgba(27,36,48,.07);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow:hidden}
+
+  /* ---------- deck shell ---------- */
+  .deck{position:fixed;inset:0}
+  .progress{position:fixed;top:0;left:0;right:0;height:3px;background:transparent;z-index:40}
+  .progress>i{display:block;height:100%;width:0;background:var(--you);transition:width .35s ease}
+
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;
+    padding:18px 26px;pointer-events:none}
+  .brand{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+  .brand b{color:var(--you);font-weight:700}
+  .counter{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--ink-soft)}
+  .counter b{color:var(--ink);font-weight:700}
+
+  /* ---------- slides ---------- */
+  .slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    padding:84px 48px 78px;opacity:0;visibility:hidden;transition:opacity .4s ease}
+  .slide.is-active{opacity:1;visibility:visible}
+  .inner{max-width:960px;width:100%}
+  .slide.is-active .inner>*{animation:rise .5s ease both}
+  .slide.is-active .inner>*:nth-child(2){animation-delay:.05s}
+  .slide.is-active .inner>*:nth-child(3){animation-delay:.10s}
+  .slide.is-active .inner>*:nth-child(4){animation-delay:.15s}
+  .slide.is-active .inner>*:nth-child(5){animation-delay:.20s}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  .eyebrow{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--you);margin-bottom:20px}
+  .slide h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,4.6vw,46px);line-height:1.08;letter-spacing:-.02em;margin-bottom:18px}
+  .lead{font-size:clamp(16px,2vw,19px);color:var(--ink-soft);max-width:64ch;margin-bottom:26px}
+  .body{font-size:clamp(15px,1.7vw,17px);color:var(--ink);max-width:62ch}
+  .body p+p{margin-top:14px}
+  .body .soft{color:var(--ink-soft)}
+  .serif{font-family:'Newsreader',serif;font-size:clamp(20px,3vw,28px);line-height:1.35;letter-spacing:-.01em}
+
+  .pull{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,2.3vw,22px);line-height:1.32;
+    border-left:4px solid var(--you);padding:6px 0 6px 20px;margin-top:28px;max-width:60ch}
+
+  .kicker{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-top:26px;margin-bottom:10px}
+
+  /* ---------- cover ---------- */
+  .cover .eyebrow{margin-bottom:26px}
+  .cover h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(38px,7vw,72px);line-height:1.02;letter-spacing:-.03em}
+  .cover .subtitle{font-family:'Newsreader',serif;font-size:clamp(18px,2.6vw,24px);color:var(--ink-soft);max-width:56ch;margin-top:22px;line-height:1.4}
+  .cover .sig{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:44px;padding-top:22px;border-top:1px solid var(--line-strong)}
+  .cover .sig .who{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px}
+  .cover .sig .ops{font-family:'Space Mono',monospace;font-size:12px;color:var(--ink-soft);letter-spacing:.05em}
+
+  /* ---------- big quote ---------- */
+  .bigq{font-family:'Newsreader',serif;font-style:italic;font-size:clamp(26px,4.5vw,42px);line-height:1.25;letter-spacing:-.01em;color:var(--ink);max-width:20ch}
+  .qcap{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--ink-soft);margin-top:20px;text-transform:uppercase}
+
+  /* ---------- flow diagram ---------- */
+  .flow{display:grid;grid-template-columns:1fr;gap:16px;margin:8px 0 4px}
+  @media(min-width:760px){.flow{grid-template-columns:1fr 1fr}}
+  .flowcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  .flowcard .tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
+  .node{display:inline-flex;align-items:center;gap:7px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;
+    background:var(--you-bg);color:var(--you);border-radius:9px;padding:7px 13px;margin:3px 4px 3px 0}
+  .node.you{background:var(--ink);color:#fff}
+  .chain{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+  .arw{color:var(--line-strong);font-weight:700;margin:0 2px}
+  .flowcard .note{font-size:13px;color:var(--ink-soft);margin-top:12px}
+
+  /* ---------- two cases ---------- */
+  .cases{display:grid;grid-template-columns:1fr;gap:18px}
+  @media(min-width:760px){.cases{grid-template-columns:1fr 1fr}}
+  .case{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .case::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
+  .case.am::before{background:var(--am)}.case.ng::before{background:var(--ng)}
+  .case .nm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px}
+  .case .st{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+  .case.am .st{color:var(--am)}.case.ng .st{color:var(--ng)}
+  .case p{font-size:14.5px;color:var(--ink-soft);margin-top:14px}
+
+  /* ---------- steps / questions ---------- */
+  .qlist{list-style:none;margin:6px 0}
+  .qlist li{font-family:'Newsreader',serif;font-size:clamp(18px,2.4vw,24px);line-height:1.4;color:var(--ink);
+    padding:11px 0 11px 26px;position:relative;border-top:1px solid var(--line)}
+  .qlist li:first-child{border-top:none}
+  .qlist li::before{content:"›";position:absolute;left:0;color:var(--you);font-family:'Space Grotesk',sans-serif;font-weight:700}
+
+  .phase{display:grid;grid-template-columns:1fr;gap:14px;margin:4px 0}
+  @media(min-width:720px){.phase{grid-template-columns:1fr 1fr}}
+  .pcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+  .pcard .wk{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--you);margin-bottom:8px}
+  .pcard h4{font-family:'Space Grotesk',sans-serif;font-size:16px;margin-bottom:6px}
+  .pcard p{font-size:13.5px;color:var(--ink-soft)}
+
+  .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}
+  @media(min-width:720px){.kpis{grid-template-columns:repeat(4,1fr)}}
+  .kpi{background:var(--you-bg);border:1px solid #cfd6ea;border-radius:12px;padding:14px}
+  .kpi .n{font-family:'Space Mono',monospace;font-size:11px;color:var(--you);font-weight:700}
+  .kpi .t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;margin-top:6px;line-height:1.25}
+
+  /* ---------- SCI ---------- */
+  .sci{display:grid;grid-template-columns:1fr;gap:0;margin:6px 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+  .sci .row{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:16px 20px;border-top:1px solid var(--line);align-items:baseline}
+  .sci .row:first-child{border-top:none}
+  .sci .lb{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--you)}
+  .sci .tx{font-family:'Newsreader',serif;font-size:clamp(15px,1.9vw,18px);color:var(--ink)}
+  @media(max-width:560px){.sci .row{grid-template-columns:1fr;gap:4px}}
+
+  /* ---------- soul / shell ---------- */
+  .split{display:grid;grid-template-columns:1fr;gap:18px}
+  @media(min-width:760px){.split{grid-template-columns:1fr 1fr}}
+  .col{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .col.fixed{border-top:5px solid var(--you)}
+  .col.flex{border-top:5px solid var(--gold)}
+  .col .h{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;display:flex;align-items:baseline;gap:10px}
+  .col .h span{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:400}
+  .col ul{list-style:none;margin-top:12px}
+  .col li{font-size:14.5px;padding:8px 0;border-top:1px solid var(--line)}
+  .col li:first-child{border-top:none}
+
+  /* ---------- path ---------- */
+  .path{list-style:none;counter-reset:step;margin-top:8px}
+  .path li{display:grid;grid-template-columns:52px 1fr;gap:18px;align-items:start;padding:16px 0;border-top:1px solid var(--line)}
+  .path li:first-child{border-top:none}
+  .path li .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;color:var(--you);line-height:1}
+  .path li .txt{font-size:15.5px}
+  .path li .txt b{font-family:'Space Grotesk',sans-serif;font-size:16px}
+  .path li .txt span{display:block;color:var(--ink-soft);font-size:14px;margin-top:3px}
+
+  /* ---------- link chip ---------- */
+  .linkchip{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-family:'Space Mono',monospace;font-size:13px;
+    background:var(--you-bg);color:var(--you);border:1px solid #cfd6ea;border-radius:30px;padding:9px 16px;text-decoration:none}
+  .linkchip:hover{filter:brightness(.97)}
+
+  .mac{font-family:'Newsreader',serif;font-size:clamp(22px,3.4vw,32px);line-height:1.32;color:var(--ink);max-width:26ch}
+  .macsub{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(16px,2vw,20px);margin-top:22px;color:var(--you)}
+
+  /* ---------- controls ---------- */
+  .controls{position:fixed;bottom:18px;right:24px;z-index:30;display:flex;gap:8px}
+  .nbtn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;width:44px;height:44px;border:1px solid var(--line-strong);
+    background:var(--surface);color:var(--ink);border-radius:11px;cursor:pointer;box-shadow:var(--shadow);transition:.15s;display:grid;place-items:center}
+  .nbtn:hover{border-color:var(--you);color:var(--you)}
+  .nbtn:disabled{opacity:.35;cursor:default}
+  .hint{position:fixed;bottom:26px;left:24px;z-index:30;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--ink-soft);opacity:.8}
+  .zone{position:fixed;top:0;bottom:0;width:16%;z-index:10;cursor:pointer;background:transparent}
+  .zone.left{left:0}.zone.right{right:0}
+
+  /* ---------- print / pdf ---------- */
+  @media print{
+    body{overflow:visible}
+    .topbar,.controls,.hint,.progress,.zone{display:none!important}
+    .deck{position:static}
+    .slide{position:relative;inset:auto;opacity:1!important;visibility:visible!important;page-break-after:always;
+      min-height:100vh;padding:60px;border-bottom:1px solid var(--line)}
+    .slide .inner>*{animation:none!important}
+  }
+  @media(max-width:640px){.slide{padding:74px 24px 84px}}
+</style>
+</head>
+<body>
+
+<div class="progress"><i id="prog"></i></div>
+<div class="topbar">
+  <div class="brand"><b>RA</b> Tecnologia · Expansão Comercial</div>
+  <div class="counter"><b id="cnum">01</b> / <span id="ctot">15</span></div>
+</div>
+
+<div class="zone left"  id="zprev"></div>
+<div class="zone right" id="znext"></div>
+
+<div class="deck" id="deck">
+
+  <!-- 1 · CAPA -->
+  <section class="slide cover is-active">
+    <div class="inner">
+      <div class="eyebrow">Reunião de Heads · Projeto de expansão comercial</div>
+      <h1>Abrir 10 operações<br>em 12 meses</h1>
+      <p class="subtitle">O modelo de transição e o padrão de franquia RA. Como escalar a operação sem transformar a gestora no gargalo.</p>
+      <div class="sig">
+        <span class="who">Maria Lúcia · Gestão Comercial</span>
+        <span class="ops">LA AM · LA RJ · NG ADV</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · A PERGUNTA -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">O desafio</div>
+      <p class="bigq">"Como abriríamos 10 operações novas em um ano, e como faríamos essa transição?"</p>
+      <p class="qcap">A pergunta da última reunião de heads</p>
+      <div class="body" style="margin-top:28px">
+        <p>A ambição não é o problema. A restrição é atenção.</p>
+        <p class="soft">Hoje eu acompanho de perto três operações e os times de comercial e pré-protocolo. Não existe uma versão minha que acompanhe treze operações do mesmo jeito.</p>
+      </div>
+      <p class="pull">A primeira pergunta não é "onde abrimos". É "como eu deixo de ser necessária no dia a dia".</p>
+    </div>
+  </section>
+
+  <!-- 3 · A TESE -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">A tese</div>
+      <h2>Primeiro replico liderança.<br>Depois replico o modelo.</h2>
+      <div class="flow">
+        <div class="flowcard">
+          <div class="tag">Hoje · teto na minha agenda</div>
+          <div class="chain">
+            <span class="node you">Eu</span><span class="arw">→</span>
+            <span class="node">LA AM</span><span class="node">LA RJ</span><span class="node">NG</span>
+          </div>
+          <p class="note">Acompanhamento direto. Cresce até onde meu dia alcança.</p>
+        </div>
+        <div class="flowcard">
+          <div class="tag">Depois · teto no método</div>
+          <div class="chain">
+            <span class="node you">Eu</span><span class="arw">→</span>
+            <span class="node">Líderes</span><span class="arw">→</span>
+            <span class="node">Times</span>
+          </div>
+          <p class="note">Eu acompanho indicadores, metas e desenvolvimento. E desenho as novas operações.</p>
+        </div>
+      </div>
+      <p class="pull">Quando eu formo quem executa, o teto sai da minha agenda.</p>
+    </div>
+  </section>
+
+  <!-- 4 · FASE 1 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">Fase 1 · 6 a 7 meses</div>
+      <h2>Formar líderes para as operações que já existem</h2>
+      <div class="body">
+        <p>Antes de abrir qualquer porta nova, treino líderes para LA AM, LA RJ e NG. Eles respondem a mim. Eu passo de execução direta para acompanhamento de indicadores, metas e desenvolvimento das equipes.</p>
+        <p class="soft">É isso que libera minha cabeça para o trabalho que ninguém mais faz: desenhar o modelo das novas operações.</p>
+      </div>
+      <p class="pull">Não abro dez portas antes de saber quem segura as três que já tenho.</p>
+    </div>
+  </section>
+
+  <!-- 5 · ONBOARDING / BASE -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">A base · padronização</div>
+      <h2>Todo mundo treinado do mesmo jeito</h2>
+      <div class="body">
+        <p>Formar líder não adianta se cada operação treina do seu jeito. Por isso a base é o onboarding de novos fechadores: um manual que padroniza o treinamento e vira o primeiro material de apoio dos novos gestores.</p>
+        <p class="soft">É o mesmo princípio que sustenta a franquia mais à frente. O método não muda de operação para operação.</p>
+      </div>
+      <p class="serif" style="border-left:4px solid var(--gold);padding-left:22px;max-width:50ch;margin-top:24px">"Se você quer ensinar às pessoas uma nova forma de pensar, não tente ensiná-las. Dê a elas uma ferramenta cujo uso leva a novas formas de pensar."</p>
+      <p class="qcap">Verne Harnish · Scaling Up &nbsp;—&nbsp; o onboarding, os KPIs e o SCI são essas ferramentas</p>
+      <a class="linkchip" href="https://cmaluhg.github.io/onboarding/" target="_blank" rel="noopener">↗ cmaluhg.github.io/onboarding</a>
+    </div>
+  </section>
+
+  <!-- 6 · DOIS CASOS -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">Transição na prática</div>
+      <h2>Duas operações, dois estágios</h2>
+      <div class="cases">
+        <div class="case am">
+          <div class="nm">LA AM</div>
+          <div class="st">Em andamento</div>
+          <p>Já tenho o assessor, o Luam, em formação para o cargo. Aqui eu mostro o método rodando.</p>
+        </div>
+        <div class="case ng">
+          <div class="nm">NG</div>
+          <div class="st">Do zero</div>
+          <p>Ainda preciso criar esse momento de transição e escolher quem vai liderar.</p>
+        </div>
+      </div>
+      <p class="pull">O papel desta apresentação é ilustrar como a transição acontece. É o método, não a burocracia.</p>
+    </div>
+  </section>
+
+  <!-- 7 · LAAM P1 -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">LA AM · Passo 1</div>
+      <h2>Transferir o modelo mental</h2>
+      <p class="lead">Tirar a inteligência que está na minha cabeça e colocar na dele. Isso muda quando eu mudo a forma de responder. Quando o Luam traz um problema da Taissa, da Maria ou do Jobson, eu paro de dar a resposta pronta.</p>
+      <p class="kicker">A técnica do "E o que você acha?"</p>
+      <ul class="qlist">
+        <li>"Se eu não estivesse aqui hoje, qual decisão você tomaria?"</li>
+        <li>"Quais riscos você vê nessa sua decisão?"</li>
+        <li>"Como isso impacta a nossa meta do mês?"</li>
+      </ul>
+      <p class="pull">Se a decisão dele for 80% parecida com a minha, deixo executar. Ele precisa ganhar cicatriz e confiança.</p>
+    </div>
+  </section>
+
+  <!-- 8 · LAAM P2 KPIs -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">LA AM · Passo 2</div>
+      <h2>Formação em indicadores</h2>
+      <div class="phase">
+        <div class="pcard">
+          <div class="wk">Semanas 1 a 4</div>
+          <h4>Eu piloto, ele narra</h4>
+          <p>Ele lê os números em voz alta e diz o que vê. Eu ensino a causa-raiz: a conversão caiu porque chegou menos lead ou porque a resposta demorou?</p>
+        </div>
+        <div class="pcard">
+          <div class="wk">Semanas 5 a 8</div>
+          <h4>Ele pilota e propõe</h4>
+          <p>Antes da reunião, ele me manda o que deu certo, onde está o gargalo do time e o plano de ação dos próximos 5 dias.</p>
+        </div>
+      </div>
+      <p class="kicker">Os 4 KPIs que ele domina de cor</p>
+      <div class="kpis">
+        <div class="kpi"><div class="n">01</div><div class="t">Conversão por atendente</div></div>
+        <div class="kpi"><div class="n">02</div><div class="t">Tempo de primeira resposta</div></div>
+        <div class="kpi"><div class="n">03</div><div class="t">Motivos de perda / pendência</div></div>
+        <div class="kpi"><div class="n">04</div><div class="t">Projeção de meta</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · LAAM P3 SCI -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">LA AM · Passo 3</div>
+      <h2>Feedback com método</h2>
+      <p class="lead">Um gestor se faz no 1:1. O Luam precisa corrigir sem desmotivar e cobrar sem virar amigo demais. O modelo SCI dá a ele a estrutura.</p>
+      <div class="sci">
+        <div class="row"><div class="lb">Situação</div><div class="tx">"Jobson, ontem no atendimento do cliente X..."</div></div>
+        <div class="row"><div class="lb">Comportamento</div><div class="tx">"...você enviou o protocolo sem revisar o documento de identificação..."</div></div>
+        <div class="row"><div class="lb">Impacto</div><div class="tx">"...isso atrasou a esteira de peticionamento e quase perdemos o prazo. Como garantimos que não se repita?"</div></div>
+      </div>
+      <p class="pull">Inversão de shadowing: ele conduz os 1:1, eu assisto em silêncio e depois dou feedback sobre a condução.</p>
+    </div>
+  </section>
+
+  <!-- 10 · LAAM P4 DESMAME -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">LA AM · Passo 4</div>
+      <h2>O desmame oficial</h2>
+      <p class="lead">Com 6 meses de prazo, marco uma data de formatura. Por exemplo, daqui a 60 dias. Nesse dia, faço o anúncio oficial para a Taissa, a Maria e o Jobson.</p>
+      <p class="serif" style="border-left:4px solid var(--am);padding-left:22px;max-width:52ch">"A partir de segunda-feira, o Luam é o Gestor Comercial oficial do LA AM. Aprovações, folgas e alinhamento de meta se resolvem com ele."</p>
+      <p class="pull">Dar título e responsabilidade em público passa a minha autoridade e corta o cordão. Minha cabeça fica livre para LA RJ e NG.</p>
+    </div>
+  </section>
+
+  <!-- 11 · NG DO ZERO -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">NG · do zero</div>
+      <h2>Criar o momento de transição</h2>
+      <p class="lead">Mesmo método, ponto de partida diferente: no NG ainda não tenho o líder escolhido. Então entra um passo anterior.</p>
+      <div class="flowcard" style="max-width:60ch">
+        <div class="tag">Passo 0 · escolher</div>
+        <p class="body">Quem no time já puxa resultado, é referência para os colegas, sabe treinar quem está do lado e aguenta cobrar sem se perder na cobrança.</p>
+      </div>
+      <div class="chain" style="margin-top:22px;gap:6px">
+        <span class="node">Modelo mental</span><span class="arw">→</span>
+        <span class="node">Indicadores</span><span class="arw">→</span>
+        <span class="node">Feedback SCI</span><span class="arw">→</span>
+        <span class="node">Desmame</span>
+      </div>
+      <p class="pull">A diferença do LA AM é só o começo. O caminho é o mesmo.</p>
+    </div>
+  </section>
+
+  <!-- 12 · FRANQUIA · McDonald's -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">O modelo de franquia</div>
+      <p class="mac">Toda unidade vende o mesmo produto, com o mesmo padrão e a mesma experiência. Ajusta o detalhe do país, nunca a alma.</p>
+      <p class="macsub">A alma é padronizada. A casca é adaptável.</p>
+      <div class="body soft" style="margin-top:22px">
+        <p>No nosso modelo, o franqueado muda quem executa e onde. Nunca muda o quê, nem o padrão de qualidade.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · PADRÃO RA · alma x casca -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">Padrão RA</div>
+      <h2>Podemos mudar a área do Direito. O padrão continua sendo RA.</h2>
+      <div class="split">
+        <div class="col fixed">
+          <div class="h">A alma <span>fixa</span></div>
+          <ul>
+            <li>Processos</li>
+            <li>Indicadores</li>
+            <li>Onboarding e treinamento</li>
+            <li>Método de gestão</li>
+            <li>Cultura de excelência</li>
+          </ul>
+        </div>
+        <div class="col flex">
+          <div class="h">A casca <span>adaptável</span></div>
+          <ul>
+            <li>A área do Direito atendida</li>
+            <li>A praça / cidade</li>
+            <li>Quem executa</li>
+          </ul>
+        </div>
+      </div>
+      <p class="pull">Abrir um escritório de outra área não dilui a RA. Leva o padrão RA para dentro dela.</p>
+    </div>
+  </section>
+
+  <!-- 14 · O QUE É A RA -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">O que estamos replicando</div>
+      <h2>A RA não é um BackOffice.<br>É um método.</h2>
+      <div class="body">
+        <p>A RA Tecnologia é BackOffice para escritórios jurídicos, mas vai muito além disso. É uma cultura de excelência em processos, capaz de alavancar o faturamento desde que seguida da forma indicada.</p>
+        <p class="soft">É por isso que ela pode ser franqueada. Não vendemos uma marca. Replicamos um jeito de operar que dá resultado.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · PRÓXIMOS PASSOS -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">O caminho</div>
+      <h2>Como isso vira dez operações</h2>
+      <ol class="path">
+        <li><div class="num">01</div><div class="txt"><b>Padronizar</b><span>O onboarding como primeiro material de apoio. É a base já em pé.</span></div></li>
+        <li><div class="num">02</div><div class="txt"><b>Formar líderes</b><span>LA AM, LA RJ e NG, em 6 a 7 meses, respondendo a mim.</span></div></li>
+        <li><div class="num">03</div><div class="txt"><b>Consolidar o padrão de franquia RA</b><span>O que é fixo e o que é adaptável, escrito de forma replicável.</span></div></li>
+        <li><div class="num">04</div><div class="txt"><b>Abrir as novas operações</b><span>Sobre uma base que se sustenta sozinha.</span></div></li>
+      </ol>
+      <p class="pull">Esta apresentação ilustra o "como". A partir daqui, evoluímos juntos o modelo de franquia padrão RA.</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="hint" id="hint">← →&nbsp;&nbsp;navegar&nbsp;&nbsp;·&nbsp;&nbsp;P&nbsp;imprimir/PDF</div>
+<div class="controls">
+  <button class="nbtn" id="prev" aria-label="Anterior">‹</button>
+  <button class="nbtn" id="next" aria-label="Próximo">›</button>
+</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var total=slides.length, i=0;
+  var prog=document.getElementById('prog'), cnum=document.getElementById('cnum');
+  document.getElementById('ctot').textContent=String(total).padStart(2,'0');
+  var prev=document.getElementById('prev'), next=document.getElementById('next');
+
+  function pad(n){return String(n).padStart(2,'0');}
+  function show(n){
+    i=Math.max(0,Math.min(total-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('is-active',k===i);});
+    prog.style.width=((i)/(total-1)*100)+'%';
+    cnum.textContent=pad(i+1);
+    prev.disabled=(i===0); next.disabled=(i===total-1);
+    if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
+  }
+  function go(d){show(i+d);}
+
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(1);}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(-1);}
+    else if(e.key==='Home'){show(0);}
+    else if(e.key==='End'){show(total-1);}
+  });
+  next.addEventListener('click',function(){go(1);});
+  prev.addEventListener('click',function(){go(-1);});
+  document.getElementById('znext').addEventListener('click',function(){go(1);});
+  document.getElementById('zprev').addEventListener('click',function(){go(-1);});
+
+  // swipe (touch)
+  var x0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null)return; var dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>50)go(dx<0?1:-1); x0=null;
+  },{passive:true});
+
+  // fade the hint after a moment
+  setTimeout(function(){var h=document.getElementById('hint'); if(h)h.style.transition='opacity 1s'; if(h)h.style.opacity='0';},4200);
+
+  var start=parseInt((location.hash||'').replace('#',''),10);
+  show(isNaN(start)?0:start-1);
+})();
+</script>
+</body>
+</html>
