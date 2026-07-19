@@ -3,233 +3,262 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Expansão Comercial · Modelo de Transição e Franquia RA</title>
+<title>RA Tecnologia · Expansão Comercial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#1B2430;--ink-soft:#414B59;--paper:#FBFAF7;--surface:#fff;
-    --line:#E6E1D6;--line-strong:#D6CFC0;
-    --ng:#B0463A;--ng-bg:#F6E7E3;--am:#1F7A6B;--am-bg:#E9F2EF;
-    --rj:#C0791A;--rj-bg:#F7EFDF;--you:#3A4A78;--you-bg:#E8EBF4;
-    --gold:#B98B12;--gold-bg:#F6EFDD;
-    --radius:16px;--shadow:0 1px 2px rgba(27,36,48,.04),0 10px 30px rgba(27,36,48,.07);
+    --navy:#0E1D33;--navy-2:#15294A;--navy-3:#20385C;
+    --orange:#EC6A1E;--orange-2:#F2894A;--orange-bg:rgba(236,106,30,.12);
+    --cream:#F4EFE4;--cream-2:#C6D0DE;--cream-3:#8B99AE;--white:#fff;
+    --line:rgba(244,239,228,.13);--line-2:rgba(244,239,228,.22);
+    --radius:14px;--shadow:0 2px 4px rgba(0,0,0,.2),0 16px 40px rgba(0,0,0,.28);
+    --crit:#EC6A1E;--alto:#F2A65A;--med:#7FA6C9;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
-  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow:hidden}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--navy);color:var(--cream);line-height:1.55;-webkit-font-smoothing:antialiased;overflow:hidden}
+
+  /* ---------- brand mark ---------- */
+  .ramark{color:var(--orange);display:block}
+  .ramark svg{width:100%;height:100%;display:block}
 
   /* ---------- deck shell ---------- */
-  .deck{position:fixed;inset:0}
-  .progress{position:fixed;top:0;left:0;right:0;height:3px;background:transparent;z-index:40}
-  .progress>i{display:block;height:100%;width:0;background:var(--you);transition:width .35s ease}
+  .deck{position:fixed;inset:0;background:
+    radial-gradient(120% 100% at 85% 0%, #14284A 0%, var(--navy) 55%);}
+  .watermark{position:fixed;right:-60px;bottom:-70px;width:min(46vw,520px);height:min(46vw,520px);
+    color:var(--orange);opacity:.05;pointer-events:none;z-index:0}
+  .progress{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.06);z-index:40}
+  .progress>i{display:block;height:100%;width:0;background:var(--orange);transition:width .35s ease}
 
   .topbar{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;
-    padding:18px 26px;pointer-events:none}
-  .brand{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
-  .brand b{color:var(--you);font-weight:700}
-  .counter{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--ink-soft)}
-  .counter b{color:var(--ink);font-weight:700}
+    padding:16px 26px;pointer-events:none}
+  .brandline{display:flex;align-items:center;gap:11px}
+  .brandline .ramark{width:30px;height:30px}
+  .brandline .txt{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-3);line-height:1.3}
+  .brandline .txt b{color:var(--cream);font-weight:700}
+  .counter{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--cream-3)}
+  .counter b{color:var(--orange);font-weight:700}
 
   /* ---------- slides ---------- */
   .slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    padding:84px 48px 78px;opacity:0;visibility:hidden;transition:opacity .4s ease}
+    padding:80px 52px 74px;opacity:0;visibility:hidden;transition:opacity .4s ease;z-index:1}
   .slide.is-active{opacity:1;visibility:visible}
-  .inner{max-width:960px;width:100%}
-  .slide.is-active .inner>*{animation:rise .5s ease both}
+  .inner{max-width:1000px;width:100%;position:relative;z-index:2}
+  .slide.is-active .inner>*{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}
   .slide.is-active .inner>*:nth-child(2){animation-delay:.05s}
   .slide.is-active .inner>*:nth-child(3){animation-delay:.10s}
   .slide.is-active .inner>*:nth-child(4){animation-delay:.15s}
   .slide.is-active .inner>*:nth-child(5){animation-delay:.20s}
-  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .slide.is-active .inner>*:nth-child(6){animation-delay:.24s}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-  .eyebrow{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--you);margin-bottom:20px}
-  .slide h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,4.6vw,46px);line-height:1.08;letter-spacing:-.02em;margin-bottom:18px}
-  .lead{font-size:clamp(16px,2vw,19px);color:var(--ink-soft);max-width:64ch;margin-bottom:26px}
-  .body{font-size:clamp(15px,1.7vw,17px);color:var(--ink);max-width:62ch}
-  .body p+p{margin-top:14px}
-  .body .soft{color:var(--ink-soft)}
-  .serif{font-family:'Newsreader',serif;font-size:clamp(20px,3vw,28px);line-height:1.35;letter-spacing:-.01em}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:'Space Mono',monospace;font-size:11.5px;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:18px}
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--orange)}
+  h2.t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(27px,4.4vw,44px);line-height:1.08;letter-spacing:-.02em;color:var(--cream);margin-bottom:16px}
+  h2.t em{font-style:normal;color:var(--orange)}
+  .lead{font-size:clamp(15px,1.9vw,18px);color:var(--cream-2);max-width:66ch;margin-bottom:22px}
+  .body{font-size:clamp(14.5px,1.6vw,16.5px);color:var(--cream-2);max-width:64ch}
+  .body p+p{margin-top:12px}
 
-  .pull{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(17px,2.3vw,22px);line-height:1.32;
-    border-left:4px solid var(--you);padding:6px 0 6px 20px;margin-top:28px;max-width:60ch}
+  /* node-dot list */
+  .dots{list-style:none;margin:2px 0;max-width:66ch}
+  .dots li{position:relative;padding:9px 0 9px 26px;font-size:15px;color:var(--cream-2);border-top:1px solid var(--line)}
+  .dots li:first-child{border-top:none}
+  .dots li::before{content:"";position:absolute;left:2px;top:17px;width:8px;height:8px;border-radius:50%;
+    background:var(--orange);box-shadow:0 0 0 3px var(--orange-bg)}
+  .dots li b{color:var(--cream);font-family:'Space Grotesk',sans-serif;font-weight:600}
 
-  .kicker{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-top:26px;margin-bottom:10px}
+  .pull{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(16px,2.1vw,21px);line-height:1.34;
+    color:var(--cream);border-left:3px solid var(--orange);padding:4px 0 4px 20px;margin-top:26px;max-width:60ch}
+  .kicker{font-family:'Space Mono',monospace;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--orange);margin:24px 0 12px}
+
+  .aside{margin-top:20px;background:var(--navy-2);border:1px solid var(--line);border-left:3px solid var(--orange);
+    border-radius:10px;padding:14px 18px;max-width:64ch}
+  .aside .q{font-family:'Space Grotesk',sans-serif;font-size:15.5px;color:var(--cream);line-height:1.4}
+  .aside .c{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-3);margin-top:8px}
 
   /* ---------- cover ---------- */
-  .cover .eyebrow{margin-bottom:26px}
-  .cover h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(38px,7vw,72px);line-height:1.02;letter-spacing:-.03em}
-  .cover .subtitle{font-family:'Newsreader',serif;font-size:clamp(18px,2.6vw,24px);color:var(--ink-soft);max-width:56ch;margin-top:22px;line-height:1.4}
-  .cover .sig{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:44px;padding-top:22px;border-top:1px solid var(--line-strong)}
-  .cover .sig .who{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px}
-  .cover .sig .ops{font-family:'Space Mono',monospace;font-size:12px;color:var(--ink-soft);letter-spacing:.05em}
+  .cover{align-items:center}
+  .cover .ramark.big{width:78px;height:78px;margin-bottom:26px}
+  .cover .eyebrow{margin-bottom:22px}
+  .cover h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(36px,7vw,74px);line-height:1.0;letter-spacing:-.03em;color:var(--cream)}
+  .cover h1 em{font-style:normal;color:var(--orange)}
+  .cover .rule{width:64px;height:4px;background:var(--orange);border-radius:4px;margin:26px 0 22px}
+  .cover .subtitle{font-size:clamp(16px,2.3vw,21px);color:var(--cream-2);max-width:52ch;line-height:1.45}
+  .cover .sig{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;margin-top:40px;padding-top:20px;border-top:1px solid var(--line)}
+  .cover .sig .who{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--cream)}
+  .cover .sig .ops{font-family:'Space Mono',monospace;font-size:11.5px;color:var(--cream-3);letter-spacing:.08em}
 
-  /* ---------- big quote ---------- */
-  .bigq{font-family:'Newsreader',serif;font-style:italic;font-size:clamp(26px,4.5vw,42px);line-height:1.25;letter-spacing:-.01em;color:var(--ink);max-width:20ch}
-  .qcap{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--ink-soft);margin-top:20px;text-transform:uppercase}
+  /* ---------- big statement ---------- */
+  .stmt{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:clamp(23px,3.7vw,38px);line-height:1.22;letter-spacing:-.015em;color:var(--cream);max-width:22ch}
+  .stmt em{font-style:normal;color:var(--orange)}
 
-  /* ---------- flow diagram ---------- */
-  .flow{display:grid;grid-template-columns:1fr;gap:16px;margin:8px 0 4px}
+  /* ---------- hoje/depois ---------- */
+  .flow{display:grid;grid-template-columns:1fr;gap:14px;margin:4px 0}
   @media(min-width:760px){.flow{grid-template-columns:1fr 1fr}}
-  .flowcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
-  .flowcard .tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
-  .node{display:inline-flex;align-items:center;gap:7px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;
-    background:var(--you-bg);color:var(--you);border-radius:9px;padding:7px 13px;margin:3px 4px 3px 0}
-  .node.you{background:var(--ink);color:#fff}
-  .chain{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
-  .arw{color:var(--line-strong);font-weight:700;margin:0 2px}
-  .flowcard .note{font-size:13px;color:var(--ink-soft);margin-top:12px}
+  .fc{background:var(--navy-2);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+  .fc .tag{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-3);margin-bottom:12px}
+  .chain{display:flex;align-items:center;flex-wrap:wrap;gap:5px}
+  .node{display:inline-flex;align-items:center;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;
+    background:var(--orange-bg);color:var(--orange-2);border:1px solid rgba(236,106,30,.3);border-radius:8px;padding:6px 12px}
+  .node.solid{background:var(--orange);color:var(--navy);border-color:var(--orange)}
+  .arw{color:var(--cream-3);font-weight:700}
+  .fc .note{font-size:12.5px;color:var(--cream-3);margin-top:11px}
 
-  /* ---------- two cases ---------- */
-  .cases{display:grid;grid-template-columns:1fr;gap:18px}
-  @media(min-width:760px){.cases{grid-template-columns:1fr 1fr}}
-  .case{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-  .case::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
-  .case.am::before{background:var(--am)}.case.ng::before{background:var(--ng)}
-  .case .nm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px}
-  .case .st{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
-  .case.am .st{color:var(--am)}.case.ng .st{color:var(--ng)}
-  .case p{font-size:14.5px;color:var(--ink-soft);margin-top:14px}
+  /* ---------- 4 passos ---------- */
+  .steps{display:grid;grid-template-columns:1fr;gap:10px}
+  @media(min-width:720px){.steps{grid-template-columns:repeat(4,1fr)}}
+  .step{background:var(--navy-2);border:1px solid var(--line);border-top:3px solid var(--orange);border-radius:12px;padding:16px 15px;box-shadow:var(--shadow)}
+  .step .sn{font-family:'Space Mono',monospace;font-size:11px;color:var(--orange);font-weight:700}
+  .step h4{font-family:'Space Grotesk',sans-serif;font-size:14.5px;margin:6px 0 5px;color:var(--cream);line-height:1.15}
+  .step p{font-size:12px;color:var(--cream-3);line-height:1.35}
+  .tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .otag{display:inline-flex;align-items:baseline;gap:8px;font-size:13px;color:var(--cream-2);background:var(--navy-2);border:1px solid var(--line);border-radius:30px;padding:8px 16px}
+  .otag b{font-family:'Space Grotesk',sans-serif;color:var(--cream)}
+  .otag .d{width:8px;height:8px;border-radius:50%;background:var(--orange);align-self:center}
+  .otag.ng .d{background:var(--med)}
 
-  /* ---------- steps / questions ---------- */
-  .qlist{list-style:none;margin:6px 0}
-  .qlist li{font-family:'Newsreader',serif;font-size:clamp(18px,2.4vw,24px);line-height:1.4;color:var(--ink);
-    padding:11px 0 11px 26px;position:relative;border-top:1px solid var(--line)}
-  .qlist li:first-child{border-top:none}
-  .qlist li::before{content:"›";position:absolute;left:0;color:var(--you);font-family:'Space Grotesk',sans-serif;font-weight:700}
-
-  .phase{display:grid;grid-template-columns:1fr;gap:14px;margin:4px 0}
-  @media(min-width:720px){.phase{grid-template-columns:1fr 1fr}}
-  .pcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
-  .pcard .wk{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--you);margin-bottom:8px}
-  .pcard h4{font-family:'Space Grotesk',sans-serif;font-size:16px;margin-bottom:6px}
-  .pcard p{font-size:13.5px;color:var(--ink-soft)}
-
-  .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}
-  @media(min-width:720px){.kpis{grid-template-columns:repeat(4,1fr)}}
-  .kpi{background:var(--you-bg);border:1px solid #cfd6ea;border-radius:12px;padding:14px}
-  .kpi .n{font-family:'Space Mono',monospace;font-size:11px;color:var(--you);font-weight:700}
-  .kpi .t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;margin-top:6px;line-height:1.25}
-
-  /* ---------- SCI ---------- */
-  .sci{display:grid;grid-template-columns:1fr;gap:0;margin:6px 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-  .sci .row{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:16px 20px;border-top:1px solid var(--line);align-items:baseline}
-  .sci .row:first-child{border-top:none}
-  .sci .lb{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--you)}
-  .sci .tx{font-family:'Newsreader',serif;font-size:clamp(15px,1.9vw,18px);color:var(--ink)}
-  @media(max-width:560px){.sci .row{grid-template-columns:1fr;gap:4px}}
-
-  /* ---------- soul / shell ---------- */
-  .split{display:grid;grid-template-columns:1fr;gap:18px}
-  @media(min-width:760px){.split{grid-template-columns:1fr 1fr}}
-  .col{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
-  .col.fixed{border-top:5px solid var(--you)}
-  .col.flex{border-top:5px solid var(--gold)}
-  .col .h{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;display:flex;align-items:baseline;gap:10px}
-  .col .h span{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:400}
-  .col ul{list-style:none;margin-top:12px}
-  .col li{font-size:14.5px;padding:8px 0;border-top:1px solid var(--line)}
+  /* ---------- alma x casca ---------- */
+  .split{display:grid;grid-template-columns:1fr;gap:16px;margin-top:20px}
+  @media(min-width:720px){.split{grid-template-columns:1fr 1fr}}
+  .col{background:var(--navy-2);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  .col.fixed{border-top:4px solid var(--orange)}
+  .col.flex{border-top:4px solid var(--med)}
+  .col .h{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--cream);display:flex;align-items:baseline;gap:9px}
+  .col .h span{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-3);font-weight:400}
+  .col ul{list-style:none;margin-top:10px}
+  .col li{font-size:14px;color:var(--cream-2);padding:8px 0;border-top:1px solid var(--line)}
   .col li:first-child{border-top:none}
 
+  /* ---------- 3 pilares ---------- */
+  .pillars{display:grid;grid-template-columns:1fr;gap:13px;margin-top:4px}
+  @media(min-width:720px){.pillars{grid-template-columns:repeat(3,1fr)}}
+  .pill{background:var(--navy-2);border:1px solid var(--line);border-top:3px solid var(--orange);border-radius:12px;padding:19px;box-shadow:var(--shadow)}
+  .pill .pn{font-family:'Space Mono',monospace;font-size:11px;color:var(--orange);font-weight:700;letter-spacing:.1em}
+  .pill h4{font-family:'Space Grotesk',sans-serif;font-size:16px;margin:9px 0 6px;color:var(--cream);line-height:1.18}
+  .pill p{font-size:12.5px;color:var(--cream-3);line-height:1.4}
+
+  /* ---------- esteira ---------- */
+  .esteira{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0}
+  .fase{flex:1 1 128px;min-width:120px;background:var(--navy-2);border:1px solid var(--line);border-radius:11px;padding:12px 13px;box-shadow:var(--shadow)}
+  .fase.auto{background:rgba(236,106,30,.08);border-color:rgba(236,106,30,.28)}
+  .fase .fn{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--orange);font-weight:700}
+  .fase h4{font-family:'Space Grotesk',sans-serif;font-size:13px;margin:5px 0 3px;color:var(--cream);line-height:1.14}
+  .fase p{font-size:11px;color:var(--cream-3);line-height:1.3}
+  .fkey{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--cream-3);margin-top:11px;letter-spacing:.04em}
+  .fkey b{color:var(--orange)}
+
+  /* ---------- funil / stats ---------- */
+  .funnel{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .fstep{flex:1 1 120px;background:var(--navy-2);border:1px solid var(--line);border-radius:11px;padding:14px 15px}
+  .fstep.hl{background:var(--orange);border-color:var(--orange)}
+  .fstep .v{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(18px,2.3vw,23px);color:var(--cream)}
+  .fstep.hl .v{color:var(--navy)}
+  .fstep .k{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-3);margin-top:5px;line-height:1.3}
+  .fstep.hl .k{color:#5a2e10}
+
+  /* ---------- células ---------- */
+  .cells{display:grid;grid-template-columns:1fr;gap:12px;margin-top:4px}
+  @media(min-width:680px){.cells{grid-template-columns:1fr 1fr}}
+  .cell{background:var(--navy-2);border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:11px;padding:16px 18px;box-shadow:var(--shadow)}
+  .cell.c-am{border-left-color:var(--orange-2)}.cell.c-rj{border-left-color:var(--alto)}.cell.c-ai{border-left-color:var(--med)}
+  .cell h4{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--cream)}
+  .cell .rl{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-3);margin:3px 0 7px}
+  .cell p{font-size:12px;color:var(--cream-3);line-height:1.38}
+
+  /* ---------- sizing + matriz ---------- */
+  .szhead{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--cream);display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:6px}
+  .szhead span{font-family:'Space Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--cream-3);font-weight:400}
+  .szrow{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line);font-size:13px;color:var(--cream-3)}
+  .szrow b{font-family:'Space Grotesk',sans-serif;color:var(--cream);font-weight:600;text-align:right}
+  .col.big{border-top:4px solid var(--orange)}.col.small{border-top:4px solid var(--med)}
+  .matrix{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .mt{flex:1 1 90px;text-align:center;background:var(--navy-2);border:1px solid var(--line);border-radius:10px;padding:12px 8px}
+  .mt .a{font-family:'Space Mono',monospace;font-size:10px;color:var(--cream-3);letter-spacing:.05em}
+  .mt .m{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--orange);margin-top:3px}
+  .fnote{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--cream-3);margin-top:12px;letter-spacing:.03em;line-height:1.5}
+  .fnote b{color:var(--cream)}
+
+  /* ---------- melhorias ---------- */
+  .imps{list-style:none;counter-reset:imp;margin-top:4px}
+  .imp{display:grid;grid-template-columns:34px 1fr auto;gap:14px;align-items:baseline;padding:12px 0;border-top:1px solid var(--line)}
+  .imp:first-child{border-top:none}
+  .imp .in{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--orange);line-height:1}
+  .imp .it{font-size:14px;color:var(--cream-2)}
+  .imp .it b{font-family:'Space Grotesk',sans-serif;color:var(--cream);font-weight:600}
+  .sev{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:20px;white-space:nowrap;align-self:center}
+  .sev.crit{background:var(--orange);color:var(--navy)}
+  .sev.alto{background:transparent;color:var(--alto);border:1px solid var(--alto)}
+  .sev.med{background:transparent;color:var(--med);border:1px solid var(--med)}
+
   /* ---------- path ---------- */
-  .path{list-style:none;counter-reset:step;margin-top:8px}
-  .path li{display:grid;grid-template-columns:52px 1fr;gap:18px;align-items:start;padding:16px 0;border-top:1px solid var(--line)}
+  .path{list-style:none;margin-top:4px}
+  .path li{display:grid;grid-template-columns:46px 1fr;gap:16px;align-items:start;padding:13px 0;border-top:1px solid var(--line)}
   .path li:first-child{border-top:none}
-  .path li .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;color:var(--you);line-height:1}
-  .path li .txt{font-size:15.5px}
-  .path li .txt b{font-family:'Space Grotesk',sans-serif;font-size:16px}
-  .path li .txt span{display:block;color:var(--ink-soft);font-size:14px;margin-top:3px}
-
-  /* ---------- link chip ---------- */
-  .linkchip{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-family:'Space Mono',monospace;font-size:13px;
-    background:var(--you-bg);color:var(--you);border:1px solid #cfd6ea;border-radius:30px;padding:9px 16px;text-decoration:none}
-  .linkchip:hover{filter:brightness(.97)}
-
-  .mac{font-family:'Newsreader',serif;font-size:clamp(22px,3.4vw,32px);line-height:1.32;color:var(--ink);max-width:26ch}
-  .macsub{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(16px,2vw,20px);margin-top:22px;color:var(--you)}
+  .path li .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:23px;color:var(--orange);line-height:1}
+  .path li .txt{font-size:14.5px;color:var(--cream-2)}
+  .path li .txt b{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--cream)}
+  .path li .txt span{display:block;color:var(--cream-3);font-size:13px;margin-top:2px}
+  .direc{margin-top:18px;background:var(--navy-2);border:1px solid var(--line);border-radius:11px;padding:14px 18px}
+  .direc .dh{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:9px}
+  .direc .dg{display:grid;grid-template-columns:1fr;gap:6px}
+  @media(min-width:680px){.direc .dg{grid-template-columns:1fr 1fr}}
+  .direc .di{font-size:12.5px;color:var(--cream-2)}.direc .di b{font-family:'Space Grotesk',sans-serif;color:var(--cream)}
 
   /* ---------- controls ---------- */
   .controls{position:fixed;bottom:18px;right:24px;z-index:30;display:flex;gap:8px}
-  .nbtn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;width:44px;height:44px;border:1px solid var(--line-strong);
-    background:var(--surface);color:var(--ink);border-radius:11px;cursor:pointer;box-shadow:var(--shadow);transition:.15s;display:grid;place-items:center}
-  .nbtn:hover{border-color:var(--you);color:var(--you)}
-  .nbtn:disabled{opacity:.35;cursor:default}
-  .hint{position:fixed;bottom:26px;left:24px;z-index:30;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--ink-soft);opacity:.8}
-  .zone{position:fixed;top:0;bottom:0;width:16%;z-index:10;cursor:pointer;background:transparent}
+  .nbtn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;width:44px;height:44px;border:1px solid var(--line-2);
+    background:var(--navy-2);color:var(--cream);border-radius:11px;cursor:pointer;box-shadow:var(--shadow);transition:.15s;display:grid;place-items:center}
+  .nbtn:hover{border-color:var(--orange);color:var(--orange)}
+  .nbtn:disabled{opacity:.3;cursor:default}
+  .hint{position:fixed;bottom:27px;left:24px;z-index:30;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--cream-3)}
+  .zone{position:fixed;top:0;bottom:0;width:15%;z-index:10;cursor:pointer}
   .zone.left{left:0}.zone.right{right:0}
 
-  /* ---------- 3 pilares ---------- */
-  .pillars{display:grid;grid-template-columns:1fr;gap:14px;margin-top:6px}
-  @media(min-width:720px){.pillars{grid-template-columns:repeat(3,1fr)}}
-  .pill{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--you);border-radius:12px;padding:20px;box-shadow:var(--shadow)}
-  .pill .pn{font-family:'Space Mono',monospace;font-size:11px;color:var(--you);font-weight:700;letter-spacing:.1em}
-  .pill h4{font-family:'Space Grotesk',sans-serif;font-size:16px;margin:8px 0 6px;line-height:1.18}
-  .pill p{font-size:13px;color:var(--ink-soft);line-height:1.4}
-
-  /* ---------- esteira 7 fases ---------- */
-  .esteira{display:flex;flex-wrap:wrap;gap:9px;margin:4px 0}
-  .fase{flex:1 1 158px;min-width:146px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 14px;box-shadow:var(--shadow)}
-  .fase.auto{background:var(--you-bg);border-color:#cfd6ea}
-  .fase .fn{font-family:'Space Mono',monospace;font-size:11px;color:var(--you);font-weight:700}
-  .fase h4{font-family:'Space Grotesk',sans-serif;font-size:13.5px;margin:5px 0 4px;line-height:1.16}
-  .fase p{font-size:11.5px;color:var(--ink-soft);line-height:1.32}
-  .fkey{font-family:'Space Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:12px}
-  .fkey b{color:var(--you)}
-
-  /* ---------- funil / unit economics ---------- */
-  .funnel{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-  .fstep{flex:1 1 130px;background:var(--ink);color:#fff;border-radius:12px;padding:15px 16px}
-  .fstep.hl{background:var(--am)}
-  .fstep .v{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,2.4vw,24px)}
-  .fstep .k{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#9FB0AC;margin-top:5px;line-height:1.3}
-  .fstep.hl .k{color:#CFE7E1}
-
-  /* ---------- 4 células ---------- */
-  .cells{display:grid;grid-template-columns:1fr;gap:13px;margin-top:4px}
-  @media(min-width:680px){.cells{grid-template-columns:1fr 1fr}}
-  .cell{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--you);border-radius:12px;padding:17px 19px;box-shadow:var(--shadow)}
-  .cell.c-am{border-left-color:var(--am)}.cell.c-rj{border-left-color:var(--rj)}.cell.c-ai{border-left-color:var(--ai)}
-  .cell h4{font-family:'Space Grotesk',sans-serif;font-size:15.5px}
-  .cell .rl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:3px 0 8px}
-  .cell p{font-size:12.5px;color:var(--ink-soft);line-height:1.4}
-
-  /* ---------- sizing ---------- */
-  .szhead{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:6px}
-  .szhead span{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);font-weight:400}
-  .szrow{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-soft)}
-  .szrow b{font-family:'Space Grotesk',sans-serif;color:var(--ink);font-weight:600;text-align:right}
-  .col.big{border-top:5px solid var(--am)}
-  .col.small{border-top:5px solid var(--rj)}
-
-  /* ---------- diretrizes strip ---------- */
-  .direc{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
-  .direc .dh{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
-  .direc .dg{display:grid;grid-template-columns:1fr;gap:8px}
-  @media(min-width:680px){.direc .dg{grid-template-columns:1fr 1fr}}
-  .direc .di{font-size:13px}.direc .di b{font-family:'Space Grotesk',sans-serif;color:var(--you)}
-
-  /* ---------- print / pdf ---------- */
+  /* ---------- print ---------- */
   @media print{
-    body{overflow:visible}
-    .topbar,.controls,.hint,.progress,.zone{display:none!important}
+    html,body{overflow:visible}
+    body,.deck{background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .topbar,.controls,.hint,.progress,.zone,.watermark{display:none!important}
     .deck{position:static}
-    .slide{position:relative;inset:auto;opacity:1!important;visibility:visible!important;page-break-after:always;
-      min-height:100vh;padding:60px;border-bottom:1px solid var(--line)}
+    .slide{position:relative;inset:auto;opacity:1!important;visibility:visible!important;page-break-after:always;min-height:100vh;padding:56px}
     .slide .inner>*{animation:none!important}
   }
-  @media(max-width:640px){.slide{padding:74px 24px 84px}}
+  @media(max-width:640px){.slide{padding:72px 22px 82px}}
 </style>
 </head>
 <body>
 
+<!-- brand symbol -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ramark" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="4.5"/>
+  <g fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 71 L32 46 L45 46"/>
+    <path d="M32 37 L43 37"/>
+    <path d="M51 71 L51 41 L63 41"/>
+    <path d="M59 31 L59 55"/>
+    <path d="M50 40 L59 31 L68 40"/>
+  </g>
+  <g fill="currentColor">
+    <circle cx="30" cy="71" r="5"/><circle cx="30" cy="37" r="5"/>
+    <circle cx="51" cy="71" r="5"/><circle cx="65" cy="41" r="4.5"/>
+  </g>
+</symbol></svg>
+
+<div class="watermark"><svg><use href="#ramark"/></svg></div>
 <div class="progress"><i id="prog"></i></div>
 <div class="topbar">
-  <div class="brand"><b>RA</b> Tecnologia · Expansão Comercial</div>
-  <div class="counter"><b id="cnum">01</b> / <span id="ctot">15</span></div>
+  <div class="brandline">
+    <span class="ramark"><svg><use href="#ramark"/></svg></span>
+    <span class="txt"><b>RA Tecnologia</b><br>Expansão Comercial</span>
+  </div>
+  <div class="counter"><b id="cnum">01</b> / <span id="ctot">11</span></div>
 </div>
 
-<div class="zone left"  id="zprev"></div>
+<div class="zone left" id="zprev"></div>
 <div class="zone right" id="znext"></div>
 
 <div class="deck" id="deck">
@@ -237,9 +266,11 @@
   <!-- 1 · CAPA -->
   <section class="slide cover is-active">
     <div class="inner">
-      <div class="eyebrow">Reunião de Heads · Projeto de expansão comercial</div>
-      <h1>Abrir 10 operações<br>em 12 meses</h1>
-      <p class="subtitle">O modelo de transição e o padrão de franquia RA. Como escalar a operação sem transformar a gestora no gargalo.</p>
+      <span class="ramark big"><svg><use href="#ramark"/></svg></span>
+      <div class="eyebrow">Expansão Comercial · Reunião de Heads</div>
+      <h1>Abrir <em>10 operações</em><br>em 12 meses</h1>
+      <div class="rule"></div>
+      <p class="subtitle">Do meu momento de transição ao padrão de franquia RA. Primeiro replicar liderança. Depois, replicar o modelo.</p>
       <div class="sig">
         <span class="who">Maria Lúcia · Gestão Comercial</span>
         <span class="ops">LA AM · LA RJ · NG ADV</span>
@@ -247,348 +278,195 @@
     </div>
   </section>
 
-  <!-- 2 · A PERGUNTA -->
+  <!-- 2 · DESAFIO + TESE -->
   <section class="slide">
     <div class="inner">
       <div class="eyebrow">O desafio</div>
-      <p class="bigq">"Como abriríamos 10 operações novas em um ano, e como faríamos essa transição?"</p>
-      <p class="qcap">A pergunta da última reunião de heads</p>
-      <div class="body" style="margin-top:28px">
-        <p>A ambição não é o problema. A restrição é atenção.</p>
-        <p class="soft">Hoje eu acompanho de perto três operações e os times de comercial e pré-protocolo. Não existe uma versão minha que acompanhe treze operações do mesmo jeito.</p>
+      <p class="stmt">Como abrir <em>dez operações</em> em um ano sem que a gestora vire o gargalo?</p>
+      <div class="body" style="margin-top:20px">
+        <p>Hoje eu lidero cinco pessoas diretamente. Não existe versão minha que acompanhe treze operações do mesmo jeito. A resposta não é trabalhar mais. É mudar o meu papel.</p>
       </div>
-      <p class="pull">A primeira pergunta não é "onde abrimos". É "como eu deixo de ser necessária no dia a dia".</p>
+      <div class="flow" style="margin-top:20px">
+        <div class="fc"><div class="tag">Hoje · teto na minha agenda</div>
+          <div class="chain"><span class="node solid">Eu</span><span class="arw">→</span><span class="node">5 pessoas diretas</span></div>
+          <div class="note">Acompanhamento direto. Cresce até onde meu dia alcança.</div></div>
+        <div class="fc"><div class="tag">Depois · teto no método</div>
+          <div class="chain"><span class="node solid">Eu</span><span class="arw">→</span><span class="node">Líderes</span><span class="arw">→</span><span class="node">Times</span></div>
+          <div class="note">Cuido de indicadores, metas e do desenho das novas operações.</div></div>
+      </div>
     </div>
   </section>
 
-  <!-- 3 · A TESE -->
-  <section class="slide">
-    <div class="inner">
-      <div class="eyebrow">A tese</div>
-      <h2>Primeiro replico liderança.<br>Depois replico o modelo.</h2>
-      <div class="flow">
-        <div class="flowcard">
-          <div class="tag">Hoje · teto na minha agenda</div>
-          <div class="chain">
-            <span class="node you">Eu</span><span class="arw">→</span>
-            <span class="node">LA AM</span><span class="node">LA RJ</span><span class="node">NG</span>
-          </div>
-          <p class="note">Acompanhamento direto. Cresce até onde meu dia alcança.</p>
-        </div>
-        <div class="flowcard">
-          <div class="tag">Depois · teto no método</div>
-          <div class="chain">
-            <span class="node you">Eu</span><span class="arw">→</span>
-            <span class="node">Líderes</span><span class="arw">→</span>
-            <span class="node">Times</span>
-          </div>
-          <p class="note">Eu acompanho indicadores, metas e desenvolvimento. E desenho as novas operações.</p>
-        </div>
-      </div>
-      <p class="pull">Quando eu formo quem executa, o teto sai da minha agenda.</p>
-    </div>
-  </section>
-
-  <!-- 4 · FASE 1 -->
+  <!-- 3 · FASE 1 + BASE -->
   <section class="slide">
     <div class="inner">
       <div class="eyebrow">Fase 1 · 6 a 7 meses</div>
-      <h2>Formar líderes para as operações que já existem</h2>
-      <div class="body">
-        <p>Antes de abrir qualquer porta nova, treino líderes para LA AM, LA RJ e NG. Eles respondem a mim. Eu passo de execução direta para acompanhamento de indicadores, metas e desenvolvimento das equipes.</p>
-        <p class="soft">É isso que libera minha cabeça para o trabalho que ninguém mais faz: desenhar o modelo das novas operações.</p>
+      <h2 class="t">Formar líderes antes de abrir portas</h2>
+      <ul class="dots">
+        <li>Treino líderes para <b>LA AM, LA RJ e NG</b>. Eles respondem a mim.</li>
+        <li>Eu saio da execução direta e passo a cuidar de <b>indicadores, metas e desenvolvimento</b>.</li>
+        <li>É isso que libera minha cabeça para <b>desenhar as novas operações</b>.</li>
+      </ul>
+      <div class="aside">
+        <div class="q">A base de tudo é o onboarding: padroniza o treino e é o primeiro material de apoio dos novos gestores.</div>
+        <div class="c">"Dê uma ferramenta cujo uso leva a uma nova forma de pensar." · Verne Harnish, Scaling Up</div>
       </div>
       <p class="pull">Não abro dez portas antes de saber quem segura as três que já tenho.</p>
     </div>
   </section>
 
-  <!-- 5 · ONBOARDING / BASE -->
+  <!-- 4 · MÉTODO DE TRANSIÇÃO -->
   <section class="slide">
     <div class="inner">
-      <div class="eyebrow">A base · padronização</div>
-      <h2>Todo mundo treinado do mesmo jeito</h2>
-      <div class="body">
-        <p>Formar líder não adianta se cada operação treina do seu jeito. Por isso a base é o onboarding de novos fechadores: um manual que padroniza o treinamento e vira o primeiro material de apoio dos novos gestores.</p>
-        <p class="soft">É o mesmo princípio que sustenta a franquia mais à frente. O método não muda de operação para operação.</p>
+      <div class="eyebrow">A transição na prática</div>
+      <h2 class="t">O mesmo método, em quatro passos</h2>
+      <div class="steps">
+        <div class="step"><div class="sn">01</div><h4>Modelo mental</h4><p>"E o que você acha?" no lugar da resposta pronta.</p></div>
+        <div class="step"><div class="sn">02</div><h4>Indicadores</h4><p>Ritual semanal e 4 KPIs dominados de cor.</p></div>
+        <div class="step"><div class="sn">03</div><h4>Feedback SCI</h4><p>Situação · Comportamento · Impacto, com shadowing invertido.</p></div>
+        <div class="step"><div class="sn">04</div><h4>Desmame</h4><p>Data de formatura e anúncio público da autoridade.</p></div>
       </div>
-      <p class="serif" style="border-left:4px solid var(--gold);padding-left:22px;max-width:50ch;margin-top:24px">"Se você quer ensinar às pessoas uma nova forma de pensar, não tente ensiná-las. Dê a elas uma ferramenta cujo uso leva a novas formas de pensar."</p>
-      <p class="qcap">Verne Harnish · Scaling Up &nbsp;—&nbsp; o onboarding, os KPIs e o SCI são essas ferramentas</p>
-      <a class="linkchip" href="https://cmaluhg.github.io/onboarding/" target="_blank" rel="noopener">↗ cmaluhg.github.io/onboarding</a>
+      <div class="tags">
+        <span class="otag"><span class="d"></span><b>LA AM</b> · em curso — Luam já em formação</span>
+        <span class="otag ng"><span class="d"></span><b>NG</b> · do zero — escolher o líder primeiro</span>
+      </div>
+      <p class="pull">Formado o líder, o modelo deixa de depender de mim. E aí ele pode ser replicado.</p>
     </div>
   </section>
 
-  <!-- 6 · DOIS CASOS -->
-  <section class="slide">
-    <div class="inner">
-      <div class="eyebrow">Transição na prática</div>
-      <h2>Duas operações, dois estágios</h2>
-      <div class="cases">
-        <div class="case am">
-          <div class="nm">LA AM</div>
-          <div class="st">Em andamento</div>
-          <p>Já tenho o assessor, o Luam, em formação para o cargo. Aqui eu mostro o método rodando.</p>
-        </div>
-        <div class="case ng">
-          <div class="nm">NG</div>
-          <div class="st">Do zero</div>
-          <p>Ainda preciso criar esse momento de transição e escolher quem vai liderar.</p>
-        </div>
-      </div>
-      <p class="pull">O papel desta apresentação é ilustrar como a transição acontece. É o método, não a burocracia.</p>
-    </div>
-  </section>
-
-  <!-- 7 · LAAM P1 -->
-  <section class="slide">
-    <div class="inner">
-      <div class="eyebrow">LA AM · Passo 1</div>
-      <h2>Transferir o modelo mental</h2>
-      <p class="lead">Tirar a inteligência que está na minha cabeça e colocar na dele. Isso muda quando eu mudo a forma de responder. Quando o Luam traz um problema da Taissa, da Maria ou do Jobson, eu paro de dar a resposta pronta.</p>
-      <p class="kicker">A técnica do "E o que você acha?"</p>
-      <ul class="qlist">
-        <li>"Se eu não estivesse aqui hoje, qual decisão você tomaria?"</li>
-        <li>"Quais riscos você vê nessa sua decisão?"</li>
-        <li>"Como isso impacta a nossa meta do mês?"</li>
-      </ul>
-      <p class="pull">Se a decisão dele for 80% parecida com a minha, deixo executar. Ele precisa ganhar cicatriz e confiança.</p>
-    </div>
-  </section>
-
-  <!-- 8 · LAAM P2 KPIs -->
-  <section class="slide">
-    <div class="inner">
-      <div class="eyebrow">LA AM · Passo 2</div>
-      <h2>Formação em indicadores</h2>
-      <div class="phase">
-        <div class="pcard">
-          <div class="wk">Semanas 1 a 4</div>
-          <h4>Eu piloto, ele narra</h4>
-          <p>Ele lê os números em voz alta e diz o que vê. Eu ensino a causa-raiz: a conversão caiu porque chegou menos lead ou porque a resposta demorou?</p>
-        </div>
-        <div class="pcard">
-          <div class="wk">Semanas 5 a 8</div>
-          <h4>Ele pilota e propõe</h4>
-          <p>Antes da reunião, ele me manda o que deu certo, onde está o gargalo do time e o plano de ação dos próximos 5 dias.</p>
-        </div>
-      </div>
-      <p class="kicker">Os 4 KPIs que ele domina de cor</p>
-      <div class="kpis">
-        <div class="kpi"><div class="n">01</div><div class="t">Conversão por atendente</div></div>
-        <div class="kpi"><div class="n">02</div><div class="t">Tempo de primeira resposta</div></div>
-        <div class="kpi"><div class="n">03</div><div class="t">Motivos de perda / pendência</div></div>
-        <div class="kpi"><div class="n">04</div><div class="t">Projeção de meta</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 9 · LAAM P3 SCI -->
-  <section class="slide">
-    <div class="inner">
-      <div class="eyebrow">LA AM · Passo 3</div>
-      <h2>Feedback com método</h2>
-      <p class="lead">Um gestor se faz no 1:1. O Luam precisa corrigir sem desmotivar e cobrar sem virar amigo demais. O modelo SCI dá a ele a estrutura.</p>
-      <div class="sci">
-        <div class="row"><div class="lb">Situação</div><div class="tx">"Jobson, ontem no atendimento do cliente X..."</div></div>
-        <div class="row"><div class="lb">Comportamento</div><div class="tx">"...você enviou o protocolo sem revisar o documento de identificação..."</div></div>
-        <div class="row"><div class="lb">Impacto</div><div class="tx">"...isso atrasou a esteira de peticionamento e quase perdemos o prazo. Como garantimos que não se repita?"</div></div>
-      </div>
-      <p class="pull">Inversão de shadowing: ele conduz os 1:1, eu assisto em silêncio e depois dou feedback sobre a condução.</p>
-    </div>
-  </section>
-
-  <!-- 10 · LAAM P4 DESMAME -->
-  <section class="slide">
-    <div class="inner">
-      <div class="eyebrow">LA AM · Passo 4</div>
-      <h2>O desmame oficial</h2>
-      <p class="lead">Com 6 meses de prazo, marco uma data de formatura. Por exemplo, daqui a 60 dias. Nesse dia, faço o anúncio oficial para a Taissa, a Maria e o Jobson.</p>
-      <p class="serif" style="border-left:4px solid var(--am);padding-left:22px;max-width:52ch">"A partir de segunda-feira, o Luam é o Gestor Comercial oficial do LA AM. Aprovações, folgas e alinhamento de meta se resolvem com ele."</p>
-      <p class="pull">Dar título e responsabilidade em público passa a minha autoridade e corta o cordão. Minha cabeça fica livre para LA RJ e NG.</p>
-    </div>
-  </section>
-
-  <!-- 11 · NG DO ZERO -->
-  <section class="slide">
-    <div class="inner">
-      <div class="eyebrow">NG · do zero</div>
-      <h2>Criar o momento de transição</h2>
-      <p class="lead">Mesmo método, ponto de partida diferente: no NG ainda não tenho o líder escolhido. Então entra um passo anterior.</p>
-      <div class="flowcard" style="max-width:60ch">
-        <div class="tag">Passo 0 · escolher</div>
-        <p class="body">Quem no time já puxa resultado, é referência para os colegas, sabe treinar quem está do lado e aguenta cobrar sem se perder na cobrança.</p>
-      </div>
-      <div class="chain" style="margin-top:22px;gap:6px">
-        <span class="node">Modelo mental</span><span class="arw">→</span>
-        <span class="node">Indicadores</span><span class="arw">→</span>
-        <span class="node">Feedback SCI</span><span class="arw">→</span>
-        <span class="node">Desmame</span>
-      </div>
-      <p class="pull">A diferença do LA AM é só o começo. O caminho é o mesmo.</p>
-    </div>
-  </section>
-
-  <!-- 12 · FRANQUIA · princípio + alma x casca -->
+  <!-- 5 · FRANQUIA · PRINCÍPIO -->
   <section class="slide">
     <div class="inner">
       <div class="eyebrow">O modelo de franquia</div>
-      <p class="mac">Toda unidade vende o mesmo produto, com o mesmo padrão e a mesma experiência. Ajusta o detalhe do país, nunca a alma.</p>
-      <p class="body soft" style="margin-top:16px;max-width:60ch">É a diferença entre trabalho artesanal e esteira de produção. O artesanal depende da pessoa. A esteira depende do padrão. O franqueado muda o que executa e onde, nunca o quê nem o padrão de qualidade.</p>
-      <div class="split" style="margin-top:22px">
-        <div class="col fixed">
-          <div class="h">A alma <span>não muda</span></div>
-          <ul>
-            <li>O método RA: processos e scripts</li>
-            <li>Onboarding e indicadores</li>
-            <li>Cultura de excelência</li>
-          </ul>
-        </div>
-        <div class="col flex">
-          <div class="h">A casca <span>adapta</span></div>
-          <ul>
-            <li>A área do Direito atendida</li>
-            <li>A praça / cidade</li>
-            <li>Quem executa</li>
-          </ul>
-        </div>
+      <p class="stmt">A RA não é um backoffice. É um <em>método</em>. E método se replica.</p>
+      <div class="body" style="margin-top:18px;max-width:62ch">
+        <p>Como no McDonald's: toda unidade entrega o mesmo padrão e a mesma experiência, ajustando só o detalhe local. É a troca do trabalho artesanal, que depende da pessoa, pela esteira de produção, que depende do padrão.</p>
+      </div>
+      <div class="split">
+        <div class="col fixed"><div class="h">A alma <span>não muda</span></div>
+          <ul><li>O método RA: processos e scripts</li><li>Onboarding e indicadores</li><li>Cultura de excelência</li></ul></div>
+        <div class="col flex"><div class="h">A casca <span>adapta</span></div>
+          <ul><li>A área do Direito atendida</li><li>A praça / cidade</li><li>Quem executa</li></ul></div>
       </div>
     </div>
   </section>
 
-  <!-- 13 · OS 3 PILARES -->
+  <!-- 6 · 3 PILARES -->
   <section class="slide">
     <div class="inner">
       <div class="eyebrow">Padrão RA · a alma</div>
-      <h2>Três pilares sustentam a escala</h2>
+      <h2 class="t">Três pilares sustentam a escala</h2>
       <div class="pillars">
-        <div class="pill">
-          <div class="pn">01</div><h4>Padronização absoluta</h4>
-          <p>Scripts validados, onboarding estruturado e checklists rígidos. Qualidade técnica idêntica em qualquer unidade.</p>
-        </div>
-        <div class="pill">
-          <div class="pn">02</div><h4>Setorização por volume</h4>
-          <p>Comercial converte, Backoffice organiza e sana pendências, Jurídico peticiona e protocola. Cada célula escala sozinha.</p>
-        </div>
-        <div class="pill">
-          <div class="pn">03</div><h4>Gestão orientada a dados</h4>
-          <p>Conversão, aproveitamento por cliente e metas mensais, trimestrais e anuais. O número manda, não o achismo.</p>
-        </div>
+        <div class="pill"><div class="pn">01</div><h4>Padronização absoluta</h4><p>Scripts validados, onboarding estruturado e checklists rígidos. Qualidade idêntica em qualquer unidade.</p></div>
+        <div class="pill"><div class="pn">02</div><h4>Setorização por volume</h4><p>Comercial converte, Backoffice organiza e sana, Jurídico peticiona e protocola. Cada célula escala sozinha.</p></div>
+        <div class="pill"><div class="pn">03</div><h4>Gestão por dados</h4><p>Conversão, aproveitamento e metas mensais, trimestrais e anuais. O número manda, não o achismo.</p></div>
       </div>
       <p class="pull">É o padrão que viaja para a nova praça. Não a minha presença.</p>
     </div>
   </section>
 
-  <!-- 14 · A ESTEIRA DE 7 FASES -->
+  <!-- 7 · ESTEIRA 7 FASES -->
   <section class="slide">
     <div class="inner">
       <div class="eyebrow">O produto que se replica</div>
-      <h2>A esteira de 7 fases</h2>
+      <h2 class="t">A esteira de 7 fases</h2>
       <div class="esteira">
-        <div class="fase"><div class="fn">01</div><h4>Marketing &amp; Tráfego</h4><p>Anúncios segmentados geram leads.</p></div>
-        <div class="fase auto"><div class="fn">02 · auto</div><h4>Triagem</h4><p>Duplicidade, qualificação e distribuição.</p></div>
-        <div class="fase"><div class="fn">03</div><h4>Comercial &amp; fechamento</h4><p>Script, objeções e assinatura digital.</p></div>
-        <div class="fase auto"><div class="fn">04 · auto</div><h4>Transição p/ backoffice</h4><p>Abre o dossiê e pede os documentos.</p></div>
-        <div class="fase"><div class="fn">05</div><h4>OrgDoc &amp; pendências</h4><p>Audita o checklist e cobra o que falta.</p></div>
-        <div class="fase auto"><div class="fn">06 · auto</div><h4>Pré-jurídica</h4><p>Libera a pasta perfeita para confecção.</p></div>
-        <div class="fase"><div class="fn">07</div><h4>Confecção &amp; protocolo</h4><p>Peça, revisão e distribuição no tribunal.</p></div>
+        <div class="fase"><div class="fn">01</div><h4>Marketing &amp; Tráfego</h4><p>Anúncios geram leads.</p></div>
+        <div class="fase auto"><div class="fn">02 · auto</div><h4>Triagem</h4><p>Qualifica e distribui.</p></div>
+        <div class="fase"><div class="fn">03</div><h4>Comercial</h4><p>Script e assinatura digital.</p></div>
+        <div class="fase auto"><div class="fn">04 · auto</div><h4>Backoffice</h4><p>Abre dossiê e pede docs.</p></div>
+        <div class="fase"><div class="fn">05</div><h4>OrgDoc</h4><p>Audita e cobra pendências.</p></div>
+        <div class="fase auto"><div class="fn">06 · auto</div><h4>Pré-jurídica</h4><p>Libera para confecção.</p></div>
+        <div class="fase"><div class="fn">07</div><h4>Protocolo</h4><p>Peça, revisão e tribunal.</p></div>
       </div>
-      <div class="fkey">Automação nos pontos de transição entre setores <b>·</b> controle no NocoDB</div>
-      <p class="kicker">O que uma cadeira comercial entrega por mês</p>
+      <div class="fkey">Automação nos pontos de transição <b>·</b> controle no NocoDB</div>
+      <div class="kicker">O que uma cadeira comercial entrega por mês</div>
       <div class="funnel">
         <div class="fstep"><div class="v">326</div><div class="k">leads recebidos</div></div>
-        <div class="fstep"><div class="v">60</div><div class="k">clientes · 18,4% conversão</div></div>
-        <div class="fstep"><div class="v">203</div><div class="k">protocolos · 3,39 por cliente</div></div>
+        <div class="fstep"><div class="v">60</div><div class="k">clientes · 18,4%</div></div>
+        <div class="fstep"><div class="v">203</div><div class="k">protocolos · 3,39/cliente</div></div>
         <div class="fstep hl"><div class="v">R$ 4 mi</div><div class="k">valor protocolado</div></div>
       </div>
     </div>
   </section>
 
-  <!-- 15 · AS 4 CÉLULAS -->
+  <!-- 8 · 4 CÉLULAS -->
   <section class="slide">
     <div class="inner">
       <div class="eyebrow">A estrutura que não depende de mim</div>
-      <h2>Quatro células, papéis por SLA</h2>
+      <h2 class="t">Quatro células, papéis por SLA</h2>
       <div class="cells">
-        <div class="cell"><h4>Gerência operacional</h4><div class="rl">Liderança tática</div><p>Coordena a esteira, monitora os SLAs entre setores, distribui os leads e garante as metas.</p></div>
-        <div class="cell c-am"><h4>Comercial</h4><div class="rl">Atendimento e conversão</div><p>Recebe o lead, aplica o script, contorna a objeção, fecha o contrato e pede a documentação.</p></div>
-        <div class="cell c-rj"><h4>Pré-protocolo · OrgDoc</h4><div class="rl">Filtro de qualidade</div><p>Audita o checklist e cobra pendências. Só libera pasta perfeita para o jurídico.</p></div>
-        <div class="cell c-ai"><h4>Jurídico</h4><div class="rl">Peticionamento e protocolo</div><p>Peça automática com revisão, redação artesanal dos casos complexos e distribuição no tribunal.</p></div>
+        <div class="cell"><h4>Gerência operacional</h4><div class="rl">Liderança tática</div><p>Coordena a esteira, monitora SLAs, distribui leads e garante as metas.</p></div>
+        <div class="cell c-am"><h4>Comercial</h4><div class="rl">Atendimento e conversão</div><p>Recebe o lead, aplica o script, contorna objeção, fecha e pede documentos.</p></div>
+        <div class="cell c-rj"><h4>Pré-protocolo · OrgDoc</h4><div class="rl">Filtro de qualidade</div><p>Audita o checklist e cobra pendências. Só libera pasta perfeita.</p></div>
+        <div class="cell c-ai"><h4>Jurídico</h4><div class="rl">Peticionamento e protocolo</div><p>Peça automática com revisão, redação artesanal e distribuição no tribunal.</p></div>
       </div>
       <p class="pull">Papel definido por prazo de entrega, não por pessoa. A operação roda sem depender de uma figura só. Inclusive sem depender de mim.</p>
     </div>
   </section>
 
-  <!-- 16 · UNIDADE DE REPLICAÇÃO -->
+  <!-- 9 · UNIDADE DE REPLICAÇÃO + MATRIZ -->
   <section class="slide">
     <div class="inner">
       <div class="eyebrow">A unidade de replicação</div>
-      <h2>Toda operação tem forma antes de abrir a porta</h2>
-      <div class="split">
-        <div class="col small">
-          <div class="szhead">Pequena <span>enxuta</span></div>
-          <div class="szrow">Atendentes comerciais <b>mín. 2</b></div>
+      <h2 class="t">Toda operação tem forma antes de abrir</h2>
+      <div class="split" style="margin-top:4px">
+        <div class="col small"><div class="szhead">Enxuta <span>mín. 2 atendentes</span></div>
           <div class="szrow">Time total <b>7 pessoas</b></div>
           <div class="szrow">Captação <b>652 leads/mês</b></div>
-          <div class="szrow">Protocolado <b>R$ 8 mi/mês</b></div>
-          <div class="szrow">Backoffice <b>multifunção</b></div>
-        </div>
-        <div class="col big">
-          <div class="szhead">Grande <span>escalada</span></div>
-          <div class="szrow">Atendentes comerciais <b>3 ou mais</b></div>
+          <div class="szrow">Protocolado <b>R$ 8 mi/mês</b></div></div>
+        <div class="col big"><div class="szhead">Escalada <span>3+ atendentes</span></div>
           <div class="szrow">Time total <b>10 pessoas</b></div>
           <div class="szrow">Captação <b>978 leads/mês</b></div>
-          <div class="szrow">Protocolado <b>R$ 12 mi/mês</b></div>
-          <div class="szrow">Backoffice <b>setorização estrita</b></div>
-        </div>
+          <div class="szrow">Protocolado <b>R$ 12 mi/mês</b></div></div>
       </div>
-      <p class="pull">É assim que "dez operações" deixa de ser abstração. Cada uma tem equipe, capacidade e meta definidas antes do primeiro dia.</p>
+      <div class="kicker">Matriz de metas ancorada no nº de atendentes</div>
+      <div class="matrix">
+        <div class="mt"><div class="a">2 atend.</div><div class="m">R$ 8M</div></div>
+        <div class="mt"><div class="a">3 atend.</div><div class="m">R$ 12M</div></div>
+        <div class="mt"><div class="a">4 atend.</div><div class="m">R$ 16M</div></div>
+        <div class="mt"><div class="a">5 atend.</div><div class="m">R$ 20M</div></div>
+        <div class="mt"><div class="a">6 atend.</div><div class="m">R$ 24M</div></div>
+      </div>
+      <div class="fnote"><b>R$ 4M por atendente maduro × nº de atendentes</b>, com ramp-up nos 12 primeiros meses. A meta vira consequência da capacidade, não um rótulo solto.</div>
     </div>
   </section>
 
-  <!-- 17 · O TAMANHO DO JOGO -->
+  <!-- 10 · BLINDAR O PROTÓTIPO -->
   <section class="slide">
     <div class="inner">
-      <div class="eyebrow">O tamanho do jogo · por unidade</div>
-      <h2>O padrão tem um teto conhecido</h2>
-      <p class="lead">Na meta Base, uma unidade madura protocola quase R$ 191 milhões por ano. A 1% de retorno líquido na maturação, é da ordem de R$ 1,9 milhão de lucro anual por operação.</p>
-      <div class="funnel">
-        <div class="fstep"><div class="v">R$ 190,9 mi</div><div class="k">protocolado / ano · meta Base</div></div>
-        <div class="fstep hl"><div class="v">~R$ 1,9 mi</div><div class="k">lucro / ano · 1% na maturação</div></div>
-        <div class="fstep"><div class="v">~12 meses</div><div class="k">ciclo de maturação no Judiciário</div></div>
-      </div>
-      <p class="pull">Esse é o retorno de uma operação. A expansão multiplica esse número por cada unidade aberta no padrão.</p>
+      <div class="eyebrow">De protótipo a franquia</div>
+      <h2 class="t">O que blindar antes de vender o modelo</h2>
+      <p class="body" style="max-width:64ch;margin-bottom:16px">A unidade AM já provou a esteira. Para virar franquia de verdade, seis ajustes, do mais crítico ao operacional.</p>
+      <ol class="imps">
+        <li class="imp"><span class="in">1</span><span class="it"><b>Metas por nº de atendentes</b> — ancoradas na capacidade real, não em rótulos emocionais.</span><span class="sev crit">Crítico</span></li>
+        <li class="imp"><span class="in">2</span><span class="it"><b>Receita real</b> — honorário contratado (certo) + êxito (probabilístico). Não "1% do valor da causa".</span><span class="sev crit">Crítico</span></li>
+        <li class="imp"><span class="in">3</span><span class="it"><b>Formatação legal</b> — COF (Lei 13.966) e validação ética da OAB: franquia ou licenciamento.</span><span class="sev crit">Crítico</span></li>
+        <li class="imp"><span class="in">4</span><span class="it"><b>Unit economics e capital de giro</b> — CAC, ponto de equilíbrio e fluxo de caixa de 24 meses.</span><span class="sev alto">Alto</span></li>
+        <li class="imp"><span class="in">5</span><span class="it"><b>Dicionário de KPIs</b> — cada métrica com denominador, mais indicadores de qualidade.</span><span class="sev alto">Alto</span></li>
+        <li class="imp"><span class="in">6</span><span class="it"><b>SLAs com regra de churn</b> — pendência não sanada em 4 dias: aviso e cancelamento.</span><span class="sev med">Médio</span></li>
+      </ol>
     </div>
   </section>
 
-  <!-- 18 · O QUE É A RA -->
-  <section class="slide">
-    <div class="inner">
-      <div class="eyebrow">O que estamos replicando</div>
-      <h2>A RA não é um BackOffice.<br>É um método.</h2>
-      <div class="body">
-        <p>A RA Tecnologia é BackOffice para escritórios jurídicos, mas vai muito além disso. É uma cultura de excelência em processos, capaz de alavancar o faturamento desde que seguida da forma indicada.</p>
-        <p class="soft">É por isso que ela pode ser franqueada. Não vendemos uma marca. Replicamos um jeito de operar que dá resultado.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 18 · PRÓXIMOS PASSOS -->
+  <!-- 11 · PRÓXIMOS PASSOS -->
   <section class="slide">
     <div class="inner">
       <div class="eyebrow">O caminho</div>
-      <h2>Como isso vira dez operações</h2>
+      <h2 class="t">Como isso vira dez operações</h2>
       <ol class="path">
-        <li><div class="num">01</div><div class="txt"><b>Padronizar</b><span>O onboarding como primeiro material de apoio. É a base já em pé.</span></div></li>
-        <li><div class="num">02</div><div class="txt"><b>Formar líderes</b><span>LA AM, LA RJ e NG, em 6 a 7 meses, respondendo a mim.</span></div></li>
-        <li><div class="num">03</div><div class="txt"><b>Consolidar o padrão de franquia RA</b><span>A esteira, as células e a unidade de replicação, prontas para copiar.</span></div></li>
-        <li><div class="num">04</div><div class="txt"><b>Abrir as novas operações</b><span>Cada uma sobre uma base que se sustenta sozinha.</span></div></li>
+        <li><div class="num">01</div><div class="txt"><b>Padronizar</b><span>O onboarding como base. Primeiro material já em pé.</span></div></li>
+        <li><div class="num">02</div><div class="txt"><b>Formar líderes</b><span>LA AM, LA RJ e NG em 6 a 7 meses, respondendo a mim.</span></div></li>
+        <li><div class="num">03</div><div class="txt"><b>Blindar o padrão</b><span>As seis melhorias e a formatação legal (COF/OAB).</span></div></li>
+        <li><div class="num">04</div><div class="txt"><b>Abrir as unidades</b><span>Cada uma sobre uma base que se sustenta sozinha.</span></div></li>
       </ol>
       <div class="direc">
         <div class="dh">Cada unidade abre sob 4 diretrizes</div>
         <div class="dg">
-          <div class="di"><b>1.</b> Onboarding completo antes de assumir a função</div>
+          <div class="di"><b>1.</b> Onboarding completo antes de assumir função</div>
           <div class="di"><b>2.</b> Scripts executados à risca</div>
           <div class="di"><b>3.</b> Checklists alinhados ao judiciário local</div>
-          <div class="di"><b>4.</b> SLAs: lead ≤ 15 min · OrgDoc ≤ 24 h · peça ≤ 48 h</div>
+          <div class="di"><b>4.</b> SLAs: lead 15min · OrgDoc 24h · pendência 4d · peça 48h</div>
         </div>
       </div>
     </div>
@@ -596,7 +474,7 @@
 
 </div>
 
-<div class="hint" id="hint">← →&nbsp;&nbsp;navegar&nbsp;&nbsp;·&nbsp;&nbsp;P&nbsp;imprimir/PDF</div>
+<div class="hint" id="hint">← →&nbsp;&nbsp;navegar&nbsp;&nbsp;·&nbsp;&nbsp;P&nbsp;PDF</div>
 <div class="controls">
   <button class="nbtn" id="prev" aria-label="Anterior">‹</button>
   <button class="nbtn" id="next" aria-label="Próximo">›</button>
@@ -605,44 +483,37 @@
 <script>
 (function(){
   var slides=[].slice.call(document.querySelectorAll('.slide'));
-  var total=slides.length, i=0;
-  var prog=document.getElementById('prog'), cnum=document.getElementById('cnum');
+  var total=slides.length,i=0;
+  var prog=document.getElementById('prog'),cnum=document.getElementById('cnum');
   document.getElementById('ctot').textContent=String(total).padStart(2,'0');
-  var prev=document.getElementById('prev'), next=document.getElementById('next');
-
+  var prev=document.getElementById('prev'),next=document.getElementById('next');
   function pad(n){return String(n).padStart(2,'0');}
   function show(n){
     i=Math.max(0,Math.min(total-1,n));
     slides.forEach(function(s,k){s.classList.toggle('is-active',k===i);});
-    prog.style.width=((i)/(total-1)*100)+'%';
+    prog.style.width=(i/(total-1)*100)+'%';
     cnum.textContent=pad(i+1);
-    prev.disabled=(i===0); next.disabled=(i===total-1);
-    if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
+    prev.disabled=(i===0);next.disabled=(i===total-1);
+    if(location.hash!=='#'+(i+1))history.replaceState(null,'','#'+(i+1));
   }
   function go(d){show(i+d);}
-
   document.addEventListener('keydown',function(e){
     if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(1);}
     else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(-1);}
-    else if(e.key==='Home'){show(0);}
-    else if(e.key==='End'){show(total-1);}
+    else if(e.key==='Home'){show(0);}else if(e.key==='End'){show(total-1);}
   });
   next.addEventListener('click',function(){go(1);});
   prev.addEventListener('click',function(){go(-1);});
   document.getElementById('znext').addEventListener('click',function(){go(1);});
   document.getElementById('zprev').addEventListener('click',function(){go(-1);});
-
-  // swipe (touch)
+  window.addEventListener('hashchange',function(){
+    var n=parseInt((location.hash||'').replace('#',''),10);
+    if(!isNaN(n)&&n-1!==i)show(n-1);
+  });
   var x0=null;
   document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
-  document.addEventListener('touchend',function(e){
-    if(x0===null)return; var dx=e.changedTouches[0].clientX-x0;
-    if(Math.abs(dx)>50)go(dx<0?1:-1); x0=null;
-  },{passive:true});
-
-  // fade the hint after a moment
-  setTimeout(function(){var h=document.getElementById('hint'); if(h)h.style.transition='opacity 1s'; if(h)h.style.opacity='0';},4200);
-
+  document.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)go(dx<0?1:-1);x0=null;},{passive:true});
+  setTimeout(function(){var h=document.getElementById('hint');if(h){h.style.transition='opacity 1s';h.style.opacity='0';}},4200);
   var start=parseInt((location.hash||'').replace('#',''),10);
   show(isNaN(start)?0:start-1);
 })();
