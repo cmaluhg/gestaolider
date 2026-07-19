@@ -6,7 +6,7 @@
 <title>Expansão Comercial · Modelo de Transição e Franquia RA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Newsreader:ital,opt@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#1B2430;--ink-soft:#414B59;--paper:#FBFAF7;--surface:#fff;
@@ -158,6 +158,56 @@
   .hint{position:fixed;bottom:26px;left:24px;z-index:30;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--ink-soft);opacity:.8}
   .zone{position:fixed;top:0;bottom:0;width:16%;z-index:10;cursor:pointer;background:transparent}
   .zone.left{left:0}.zone.right{right:0}
+
+  /* ---------- 3 pilares ---------- */
+  .pillars{display:grid;grid-template-columns:1fr;gap:14px;margin-top:6px}
+  @media(min-width:720px){.pillars{grid-template-columns:repeat(3,1fr)}}
+  .pill{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--you);border-radius:12px;padding:20px;box-shadow:var(--shadow)}
+  .pill .pn{font-family:'Space Mono',monospace;font-size:11px;color:var(--you);font-weight:700;letter-spacing:.1em}
+  .pill h4{font-family:'Space Grotesk',sans-serif;font-size:16px;margin:8px 0 6px;line-height:1.18}
+  .pill p{font-size:13px;color:var(--ink-soft);line-height:1.4}
+
+  /* ---------- esteira 7 fases ---------- */
+  .esteira{display:flex;flex-wrap:wrap;gap:9px;margin:4px 0}
+  .fase{flex:1 1 158px;min-width:146px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 14px;box-shadow:var(--shadow)}
+  .fase.auto{background:var(--you-bg);border-color:#cfd6ea}
+  .fase .fn{font-family:'Space Mono',monospace;font-size:11px;color:var(--you);font-weight:700}
+  .fase h4{font-family:'Space Grotesk',sans-serif;font-size:13.5px;margin:5px 0 4px;line-height:1.16}
+  .fase p{font-size:11.5px;color:var(--ink-soft);line-height:1.32}
+  .fkey{font-family:'Space Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:12px}
+  .fkey b{color:var(--you)}
+
+  /* ---------- funil / unit economics ---------- */
+  .funnel{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .fstep{flex:1 1 130px;background:var(--ink);color:#fff;border-radius:12px;padding:15px 16px}
+  .fstep.hl{background:var(--am)}
+  .fstep .v{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,2.4vw,24px)}
+  .fstep .k{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#9FB0AC;margin-top:5px;line-height:1.3}
+  .fstep.hl .k{color:#CFE7E1}
+
+  /* ---------- 4 células ---------- */
+  .cells{display:grid;grid-template-columns:1fr;gap:13px;margin-top:4px}
+  @media(min-width:680px){.cells{grid-template-columns:1fr 1fr}}
+  .cell{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--you);border-radius:12px;padding:17px 19px;box-shadow:var(--shadow)}
+  .cell.c-am{border-left-color:var(--am)}.cell.c-rj{border-left-color:var(--rj)}.cell.c-ai{border-left-color:var(--ai)}
+  .cell h4{font-family:'Space Grotesk',sans-serif;font-size:15.5px}
+  .cell .rl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:3px 0 8px}
+  .cell p{font-size:12.5px;color:var(--ink-soft);line-height:1.4}
+
+  /* ---------- sizing ---------- */
+  .szhead{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:6px}
+  .szhead span{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);font-weight:400}
+  .szrow{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-soft)}
+  .szrow b{font-family:'Space Grotesk',sans-serif;color:var(--ink);font-weight:600;text-align:right}
+  .col.big{border-top:5px solid var(--am)}
+  .col.small{border-top:5px solid var(--rj)}
+
+  /* ---------- diretrizes strip ---------- */
+  .direc{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+  .direc .dh{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+  .direc .dg{display:grid;grid-template-columns:1fr;gap:8px}
+  @media(min-width:680px){.direc .dg{grid-template-columns:1fr 1fr}}
+  .direc .di{font-size:13px}.direc .di b{font-family:'Space Grotesk',sans-serif;color:var(--you)}
 
   /* ---------- print / pdf ---------- */
   @media print{
@@ -377,36 +427,23 @@
     </div>
   </section>
 
-  <!-- 12 · FRANQUIA · McDonald's -->
+  <!-- 12 · FRANQUIA · princípio + alma x casca -->
   <section class="slide">
     <div class="inner">
       <div class="eyebrow">O modelo de franquia</div>
       <p class="mac">Toda unidade vende o mesmo produto, com o mesmo padrão e a mesma experiência. Ajusta o detalhe do país, nunca a alma.</p>
-      <p class="macsub">A alma é padronizada. A casca é adaptável.</p>
-      <div class="body soft" style="margin-top:22px">
-        <p>No nosso modelo, o franqueado muda quem executa e onde. Nunca muda o quê, nem o padrão de qualidade.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 13 · PADRÃO RA · alma x casca -->
-  <section class="slide">
-    <div class="inner">
-      <div class="eyebrow">Padrão RA</div>
-      <h2>Podemos mudar a área do Direito. O padrão continua sendo RA.</h2>
-      <div class="split">
+      <p class="body soft" style="margin-top:16px;max-width:60ch">É a diferença entre trabalho artesanal e esteira de produção. O artesanal depende da pessoa. A esteira depende do padrão. O franqueado muda o que executa e onde, nunca o quê nem o padrão de qualidade.</p>
+      <div class="split" style="margin-top:22px">
         <div class="col fixed">
-          <div class="h">A alma <span>fixa</span></div>
+          <div class="h">A alma <span>não muda</span></div>
           <ul>
-            <li>Processos</li>
-            <li>Indicadores</li>
-            <li>Onboarding e treinamento</li>
-            <li>Método de gestão</li>
+            <li>O método RA: processos e scripts</li>
+            <li>Onboarding e indicadores</li>
             <li>Cultura de excelência</li>
           </ul>
         </div>
         <div class="col flex">
-          <div class="h">A casca <span>adaptável</span></div>
+          <div class="h">A casca <span>adapta</span></div>
           <ul>
             <li>A área do Direito atendida</li>
             <li>A praça / cidade</li>
@@ -414,11 +451,100 @@
           </ul>
         </div>
       </div>
-      <p class="pull">Abrir um escritório de outra área não dilui a RA. Leva o padrão RA para dentro dela.</p>
     </div>
   </section>
 
-  <!-- 14 · O QUE É A RA -->
+  <!-- 13 · OS 3 PILARES -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">Padrão RA · a alma</div>
+      <h2>Três pilares sustentam a escala</h2>
+      <div class="pillars">
+        <div class="pill">
+          <div class="pn">01</div><h4>Padronização absoluta</h4>
+          <p>Scripts validados, onboarding estruturado e checklists rígidos. Qualidade técnica idêntica em qualquer unidade.</p>
+        </div>
+        <div class="pill">
+          <div class="pn">02</div><h4>Setorização por volume</h4>
+          <p>Comercial converte, Backoffice organiza e sana pendências, Jurídico peticiona e protocola. Cada célula escala sozinha.</p>
+        </div>
+        <div class="pill">
+          <div class="pn">03</div><h4>Gestão orientada a dados</h4>
+          <p>Conversão, aproveitamento por cliente e metas mensais, trimestrais e anuais. O número manda, não o achismo.</p>
+        </div>
+      </div>
+      <p class="pull">É o padrão que viaja para a nova praça. Não a minha presença.</p>
+    </div>
+  </section>
+
+  <!-- 14 · A ESTEIRA DE 7 FASES -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">O produto que se replica</div>
+      <h2>A esteira de 7 fases</h2>
+      <div class="esteira">
+        <div class="fase"><div class="fn">01</div><h4>Marketing &amp; Tráfego</h4><p>Anúncios segmentados geram leads.</p></div>
+        <div class="fase auto"><div class="fn">02 · auto</div><h4>Triagem</h4><p>Duplicidade, qualificação e distribuição.</p></div>
+        <div class="fase"><div class="fn">03</div><h4>Comercial &amp; fechamento</h4><p>Script, objeções e assinatura digital.</p></div>
+        <div class="fase auto"><div class="fn">04 · auto</div><h4>Transição p/ backoffice</h4><p>Abre o dossiê e pede os documentos.</p></div>
+        <div class="fase"><div class="fn">05</div><h4>OrgDoc &amp; pendências</h4><p>Audita o checklist e cobra o que falta.</p></div>
+        <div class="fase auto"><div class="fn">06 · auto</div><h4>Pré-jurídica</h4><p>Libera a pasta perfeita para confecção.</p></div>
+        <div class="fase"><div class="fn">07</div><h4>Confecção &amp; protocolo</h4><p>Peça, revisão e distribuição no tribunal.</p></div>
+      </div>
+      <div class="fkey">Automação nos pontos de transição entre setores <b>·</b> controle no NocoDB</div>
+      <p class="kicker">O que uma cadeira comercial entrega por mês</p>
+      <div class="funnel">
+        <div class="fstep"><div class="v">326</div><div class="k">leads recebidos</div></div>
+        <div class="fstep"><div class="v">60</div><div class="k">clientes · 18,4% conversão</div></div>
+        <div class="fstep"><div class="v">203</div><div class="k">protocolos · 3,39 por cliente</div></div>
+        <div class="fstep hl"><div class="v">R$ 4 mi</div><div class="k">valor protocolado</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · AS 4 CÉLULAS -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">A estrutura que não depende de mim</div>
+      <h2>Quatro células, papéis por SLA</h2>
+      <div class="cells">
+        <div class="cell"><h4>Gerência operacional</h4><div class="rl">Liderança tática</div><p>Coordena a esteira, monitora os SLAs entre setores, distribui os leads e garante as metas.</p></div>
+        <div class="cell c-am"><h4>Comercial</h4><div class="rl">Atendimento e conversão</div><p>Recebe o lead, aplica o script, contorna a objeção, fecha o contrato e pede a documentação.</p></div>
+        <div class="cell c-rj"><h4>Pré-protocolo · OrgDoc</h4><div class="rl">Filtro de qualidade</div><p>Audita o checklist e cobra pendências. Só libera pasta perfeita para o jurídico.</p></div>
+        <div class="cell c-ai"><h4>Jurídico</h4><div class="rl">Peticionamento e protocolo</div><p>Peça automática com revisão, redação artesanal dos casos complexos e distribuição no tribunal.</p></div>
+      </div>
+      <p class="pull">Papel definido por prazo de entrega, não por pessoa. A operação roda sem depender de uma figura só. Inclusive sem depender de mim.</p>
+    </div>
+  </section>
+
+  <!-- 16 · UNIDADE DE REPLICAÇÃO -->
+  <section class="slide">
+    <div class="inner">
+      <div class="eyebrow">A unidade de replicação</div>
+      <h2>Toda operação tem forma antes de abrir a porta</h2>
+      <div class="split">
+        <div class="col small">
+          <div class="szhead">Pequena <span>enxuta</span></div>
+          <div class="szrow">Atendentes comerciais <b>mín. 2</b></div>
+          <div class="szrow">Time total <b>7 pessoas</b></div>
+          <div class="szrow">Captação <b>652 leads/mês</b></div>
+          <div class="szrow">Protocolado <b>R$ 8 mi/mês</b></div>
+          <div class="szrow">Backoffice <b>multifunção</b></div>
+        </div>
+        <div class="col big">
+          <div class="szhead">Grande <span>escalada</span></div>
+          <div class="szrow">Atendentes comerciais <b>3 ou mais</b></div>
+          <div class="szrow">Time total <b>10 pessoas</b></div>
+          <div class="szrow">Captação <b>978 leads/mês</b></div>
+          <div class="szrow">Protocolado <b>R$ 12 mi/mês</b></div>
+          <div class="szrow">Backoffice <b>setorização estrita</b></div>
+        </div>
+      </div>
+      <p class="pull">É assim que "dez operações" deixa de ser abstração. Cada uma tem equipe, capacidade e meta definidas antes do primeiro dia.</p>
+    </div>
+  </section>
+
+  <!-- 17 · O QUE É A RA -->
   <section class="slide">
     <div class="inner">
       <div class="eyebrow">O que estamos replicando</div>
@@ -430,7 +556,7 @@
     </div>
   </section>
 
-  <!-- 15 · PRÓXIMOS PASSOS -->
+  <!-- 18 · PRÓXIMOS PASSOS -->
   <section class="slide">
     <div class="inner">
       <div class="eyebrow">O caminho</div>
@@ -438,10 +564,18 @@
       <ol class="path">
         <li><div class="num">01</div><div class="txt"><b>Padronizar</b><span>O onboarding como primeiro material de apoio. É a base já em pé.</span></div></li>
         <li><div class="num">02</div><div class="txt"><b>Formar líderes</b><span>LA AM, LA RJ e NG, em 6 a 7 meses, respondendo a mim.</span></div></li>
-        <li><div class="num">03</div><div class="txt"><b>Consolidar o padrão de franquia RA</b><span>O que é fixo e o que é adaptável, escrito de forma replicável.</span></div></li>
-        <li><div class="num">04</div><div class="txt"><b>Abrir as novas operações</b><span>Sobre uma base que se sustenta sozinha.</span></div></li>
+        <li><div class="num">03</div><div class="txt"><b>Consolidar o padrão de franquia RA</b><span>A esteira, as células e a unidade de replicação, prontas para copiar.</span></div></li>
+        <li><div class="num">04</div><div class="txt"><b>Abrir as novas operações</b><span>Cada uma sobre uma base que se sustenta sozinha.</span></div></li>
       </ol>
-      <p class="pull">Esta apresentação ilustra o "como". A partir daqui, evoluímos juntos o modelo de franquia padrão RA.</p>
+      <div class="direc">
+        <div class="dh">Cada unidade abre sob 4 diretrizes</div>
+        <div class="dg">
+          <div class="di"><b>1.</b> Onboarding completo antes de assumir a função</div>
+          <div class="di"><b>2.</b> Scripts executados à risca</div>
+          <div class="di"><b>3.</b> Checklists alinhados ao judiciário local</div>
+          <div class="di"><b>4.</b> SLAs: lead ≤ 15 min · OrgDoc ≤ 24 h · peça ≤ 48 h</div>
+        </div>
+      </div>
     </div>
   </section>
 
