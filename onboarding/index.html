@@ -1823,7 +1823,7 @@ const heroTitle=document.getElementById('heroTitle');
 // CONFIG: para receber os resultados no seu Drive automaticamente, cole aqui a URL do
 // seu Web App do Google Apps Script (passo a passo entregue à parte). Em branco, a
 // plataforma usa download do relatório + e-mail como alternativa.
-const RELATORIO_ENDPOINT='';
+const RELATORIO_ENDPOINT='https://script.google.com/macros/s/AKfycbzs-wMnmNcaISHxys1oGC75oitml20oazJJ-GBBRVbhs8T60O5vJjnNita1XSdRtfSkhA/exec';
 const GESTAO_EMAIL='maria.lucia@luisalbertadv.com.br';
 
 try{var _l=document.getElementById('raLogo');if(_l)document.getElementById('gateLogo').src=_l.src;}catch(e){}
@@ -2162,9 +2162,9 @@ function sendResults(){
   const d=reportData();
   if(RELATORIO_ENDPOINT){
     msg('ok','Enviando…');
-    fetch(RELATORIO_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)})
-      .then(()=>{msg('ok','✓ Resultado enviado para a gestão. Você pode continuar o treinamento.');})
-      .catch(()=>{msg('err','Não consegui enviar automaticamente. Baixando o relatório para você anexar por e-mail…');downloadReport();window.location.href=mailtoFallback();});
+    fetch(RELATORIO_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)})
+      .then(()=>{msg('ok','✓ Resultado enviado para a gestão. Você já pode continuar o treinamento.');})
+      .catch(()=>{msg('err','Não consegui enviar automaticamente (verifique sua conexão). Baixando o relatório para você anexar por e-mail…');downloadReport();window.location.href=mailtoFallback();});
   }else{
     downloadReport();
     window.location.href=mailtoFallback();
